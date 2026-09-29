@@ -1,5 +1,6 @@
 import type { CardType, Concept } from './types';
 import { CARD_TYPES } from './types';
+import { shuffle } from './random';
 
 /** How sure the learner was *before* answering. */
 export type Confidence = 1 | 2 | 3; // guessing, fairly sure, certain
@@ -111,11 +112,13 @@ export function dueItems(p: Progress, now = Date.now()): ReviewItem[] {
       if (item.due <= now) out.push({ concept, type, item });
     }
   }
-  out.sort(
+  // Shuffle first so equal-priority items come up in a random order (the sort is stable).
+  const mixed = shuffle(out);
+  mixed.sort(
     (a, b) =>
       b.item.confidentMisses - a.item.confidentMisses || a.item.level - b.item.level || a.item.due - b.item.due,
   );
-  return out.map(({ concept, type }) => ({ concept, type }));
+  return mixed.map(({ concept, type }) => ({ concept, type }));
 }
 
 /** When nothing is due: the weakest learned skills, so there's always something to practise. */

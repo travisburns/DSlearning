@@ -40,7 +40,7 @@ export interface TreeNode {
 export type View =
   | { type: 'memory' }
   | { type: 'array'; base: number; length: number; capacity?: number; title?: string }
-  | { type: 'list'; head: number | null; doubly?: boolean; title?: string }
+  | { type: 'list'; head: number | null; doubly?: boolean; circular?: boolean; title?: string }
   | { type: 'stack'; base: number; capacity: number; top: number; title?: string }
   | { type: 'queue'; base: number; capacity: number; head: number; size: number; title?: string }
   | { type: 'row'; key: string; items: Val[]; labels?: string[]; pointers?: { name: string; index: number }[]; title?: string; dimFrom?: number }

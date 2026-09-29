@@ -101,7 +101,7 @@ function ListNodes({ cells, v, ctx }: { cells: Cell[]; v: Extract<View, { type: 
   const nodes = walkList(cells, v.head, nextOff);
   return (
     <div className="view">
-      <div className="view-title">{v.title ?? (v.doubly ? 'Doubly linked list' : 'Linked list')}</div>
+      <div className="view-title">{v.title ?? (v.circular ? 'Circular linked list' : v.doubly ? 'Doubly linked list' : 'Linked list')}</div>
       <div className="list">
         <span className="list-head">head</span>
         <span className="arrow">{v.doubly ? '⇄' : '→'}</span>
@@ -114,7 +114,7 @@ function ListNodes({ cells, v, ctx }: { cells: Cell[]; v: Extract<View, { type: 
             <span className="arrow">{v.doubly ? '⇄' : '→'}</span>
           </span>
         ))}
-        <span className="nil">∅</span>
+        <span className="nil">{v.circular && nodes.length ? `↺ back to ${cells[nodes[0]].v}` : '∅'}</span>
       </div>
     </div>
   );

@@ -2,8 +2,25 @@ import type { Card, CardType, Concept } from '../engine/types';
 import { pick } from '../engine/random';
 import { bitsConcept, memoryConcept, pointersConcept } from './tier0';
 import { staticArrayConcept } from './staticArray';
+import { dynamicArrayConcept, matrixConcept, stringConcept } from './arraysPlus';
+import { circularLinkedListConcept, doublyLinkedListConcept, linkedListConcept } from './linkedLists';
+import { bitsetConcept } from './bitset';
 
-export const CONCEPTS: Concept[] = [memoryConcept, pointersConcept, bitsConcept, staticArrayConcept];
+export const CONCEPTS: Concept[] = [
+  // Tier 0
+  memoryConcept,
+  pointersConcept,
+  bitsConcept,
+  // Tier 1
+  staticArrayConcept,
+  matrixConcept,
+  dynamicArrayConcept,
+  stringConcept,
+  linkedListConcept,
+  doublyLinkedListConcept,
+  circularLinkedListConcept,
+  bitsetConcept,
+];
 
 const byId = new Map(CONCEPTS.map((c) => [c.id, c]));
 
