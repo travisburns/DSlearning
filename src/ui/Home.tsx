@@ -5,6 +5,7 @@ import { useState } from 'react';
 import { CONCEPTS, getConcept } from '../content';
 import { TIER_INTRO } from '../content/learn';
 import { PathMap } from './PathMap';
+import { loadSolved, solvedCount } from './Practice';
 
 interface Props {
   progress: Progress;
@@ -24,6 +25,7 @@ function loadView(): 'path' | 'list' {
 }
 
 export function Home({ progress, onLearn, onReview, onStats, onHelp, onReset }: Props) {
+  const solved = loadSolved();
   const [view, setView] = useState<'path' | 'list'>(loadView);
   const pickView = (v: 'path' | 'list') => {
     setView(v);
@@ -136,6 +138,11 @@ export function Home({ progress, onLearn, onReview, onStats, onHelp, onReset }: 
                           </div>
                         );
                       })}
+                    </div>
+                  )}
+                  {done && solvedCount(c.id, solved).total > 0 && (
+                    <div className="tile-practice">
+                      C# practice: {solvedCount(c.id, solved).done}/{solvedCount(c.id, solved).total} solved
                     </div>
                   )}
                 </button>

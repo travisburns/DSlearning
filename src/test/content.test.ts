@@ -122,3 +122,29 @@ describe('card generators', () => {
     }
   }
 });
+
+describe('C# practice problems', async () => {
+  const { PRACTICE } = await import('../content/practice');
+  const ids = new Set(CONCEPTS.map((c) => c.id));
+  it('every lesson has a practice entry, and every entry is a real lesson', () => {
+    for (const c of CONCEPTS) expect(PRACTICE[c.id], `${c.id} has no practice entry`).toBeDefined();
+    for (const k of Object.keys(PRACTICE)) expect(ids.has(k), `practice key ${k} is not a lesson`).toBe(true);
+  });
+  it('each entry has problems or says why not, and problems are well formed', () => {
+    for (const [id, set] of Object.entries(PRACTICE)) {
+      expect(set.problems.length > 0 || !!set.none, id).toBe(true);
+      for (const pr of set.problems) {
+        expect(pr.slug).toMatch(/^[a-z0-9]+(-[a-z0-9]+)*$/);
+        expect(pr.n).toBeGreaterThan(0);
+      }
+    }
+  });
+  it('a problem number always has the same slug', () => {
+    const seen = new Map<number, string>();
+    for (const set of Object.values(PRACTICE))
+      for (const pr of set.problems) {
+        if (seen.has(pr.n)) expect(seen.get(pr.n), `#${pr.n}`).toBe(pr.slug);
+        seen.set(pr.n, pr.slug);
+      }
+  });
+});

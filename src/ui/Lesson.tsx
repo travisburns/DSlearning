@@ -9,6 +9,7 @@ import { CardView } from './CardView';
 import { Playground } from './Playground';
 import { StepThrough } from './StepThrough';
 import { Rich } from './Rich';
+import { Practice } from './Practice';
 import { getConcept } from '../content';
 
 /** Lesson checkpoint order. Rebuild is left for reviews: recalling after a delay is the point of it. */
@@ -76,6 +77,11 @@ export function Lesson({ concept, duePrereqs, alreadyPassed, onReviewPrereqs, on
           ← Map
         </button>
         <h1>{concept.title}</h1>
+        {alreadyPassed && stage !== 'done' && (
+          <button type="button" className="btn small" onClick={() => setStage('done')}>
+            C# practice →
+          </button>
+        )}
         <ol className="stepper">
           {stages.map((s) => (
             <li key={s} className={s === stage ? 'on' : stages.indexOf(s) < stages.indexOf(stage) ? 'past' : ''}>
@@ -120,10 +126,11 @@ export function Lesson({ concept, duePrereqs, alreadyPassed, onReviewPrereqs, on
         <section className="panel">
           <h2>Passed. {concept.title} is in your review pool</h2>
           <p>
-            Structures built on it are now unlocked. It isn't <em>mastered</em> yet: that happens when you get every kind of
+            Lessons built on it are now unlocked. It isn't <em>mastered</em> yet: that happens when you get every kind of
             card right, without guessing, on three separate days. Reviews bring it back as fresh problems at growing
             intervals, and a miss later drops it back.
           </p>
+          <Practice concept={concept} />
           <button type="button" className="btn primary" onClick={onExit}>
             Back to the map
           </button>

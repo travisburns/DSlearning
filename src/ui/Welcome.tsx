@@ -76,6 +76,13 @@ export function Welcome({ onStart }: { onStart: () => void }) {
           practice. Doing a short review each day is the whole trick.
         </p>
 
+        <h2>Then write it in C#</h2>
+        <p>
+          Once you pass a lesson, its Done page lists real LeetCode problems that use it. Solve them in C# on LeetCode, which
+          checks your code with its own tests. This app gets you to “I know how to solve it”; those problems get you to
+          “I can write it quickly”.
+        </p>
+
         <button type="button" className="btn primary" onClick={onStart}>
           Go to the map →
         </button>

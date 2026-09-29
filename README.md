@@ -57,6 +57,10 @@ Plus 23 algorithms woven into the same path. Each one unlocks only after the dat
 
 Algorithms use the same lesson steps and card types; their "4 questions" are what it works on, the key idea, why it's fast, and what it costs.
 
+## C# practice
+
+After you pass a lesson, its Done page lists real LeetCode problems that use it (`src/content/practice.ts`), easiest first, with a note where the link to the lesson isn't obvious. You solve them in C# on LeetCode, which checks your code with its own tests. A tick box per problem is your checklist (saved in the browser); it doesn't affect mastery. Lessons with no good graded problem (Bloom filter, B-tree, …) say so instead of padding the list. Passed lessons show a **C# practice →** button to get back there.
+
 ## Run it
 
 ```bash
