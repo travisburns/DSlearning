@@ -1,9 +1,9 @@
 import type { Card, CardType, Concept } from '../engine/types';
 import { pick } from '../engine/random';
-import { memoryConcept } from './memory';
+import { bitsConcept, memoryConcept, pointersConcept } from './tier0';
 import { staticArrayConcept } from './staticArray';
 
-export const CONCEPTS: Concept[] = [memoryConcept, staticArrayConcept];
+export const CONCEPTS: Concept[] = [memoryConcept, pointersConcept, bitsConcept, staticArrayConcept];
 
 const byId = new Map(CONCEPTS.map((c) => [c.id, c]));
 
