@@ -1,6 +1,6 @@
 import type { Progress } from '../engine/mastery';
-import { dueItems, isUnlocked, skillStrength } from '../engine/mastery';
-import { SKILLS, TIERS } from '../engine/types';
+import { dueItems, isMastered, isUnlocked, provenTypes, skillStrength } from '../engine/mastery';
+import { CARD_TYPES, SKILLS, TIERS } from '../engine/types';
 import { CONCEPTS, getConcept } from '../content';
 
 interface Props {
@@ -14,6 +14,7 @@ interface Props {
 export function Home({ progress, onLearn, onReview, onStats, onReset }: Props) {
   const due = dueItems(progress).length;
   const learned = progress.learned.length;
+  const mastered = CONCEPTS.filter((c) => isMastered(progress, c.id)).length;
   const tiers = TIERS.map((name, t) => ({ name, t, concepts: CONCEPTS.filter((c) => c.tier === t) })).filter((x) => x.concepts.length);
 
   return (
@@ -28,7 +29,10 @@ export function Home({ progress, onLearn, onReview, onStats, onReset }: Props) {
         </div>
         <div className="hero-actions">
           <div className="stat">
-            <strong>{learned}</strong>/<span>{CONCEPTS.length}</span> learned
+            <div>
+              <strong>{mastered}</strong>/<span>{CONCEPTS.length}</span> mastered
+            </div>
+            <div className="muted small">{learned} passed</div>
           </div>
           <button type="button" className="btn" onClick={onStats} disabled={progress.log.length === 0}>
             Stats
@@ -57,19 +61,22 @@ export function Home({ progress, onLearn, onReview, onStats, onReset }: Props) {
             {concepts.map((c) => {
               const unlocked = isUnlocked(progress, c);
               const done = progress.learned.includes(c.id);
+              const star = isMastered(progress, c.id);
               const missing = c.prereqs.filter((p) => !progress.learned.includes(p)).map((p) => getConcept(p)?.title ?? p);
               return (
                 <button
                   key={c.id}
                   type="button"
-                  className={`tile ${done ? 'learned' : unlocked ? 'open' : 'locked'}`}
+                  className={`tile ${star ? 'mastered' : done ? 'learned' : unlocked ? 'open' : 'locked'}`}
                   disabled={!unlocked}
                   onClick={() => onLearn(c.id)}
                   title={unlocked ? '' : `Needs: ${missing.join(', ')}`}
                 >
                   <div className="tile-title">
                     {c.title}
-                    <span className="tile-status">{done ? '✓' : unlocked ? 'New' : '🔒'}</span>
+                    <span className="tile-status">
+                      {star ? '★ Mastered' : done ? `✓ ${provenTypes(progress, c.id)}/${CARD_TYPES.length} proven` : unlocked ? 'New' : '🔒'}
+                    </span>
                   </div>
                   <div className="tile-tag">{unlocked ? c.tagline : `Needs: ${missing.join(', ')}`}</div>
                   {done && (

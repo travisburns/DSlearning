@@ -2,6 +2,7 @@ import { useMemo, useState } from 'react';
 import type { Card, Concept } from '../engine/types';
 import type { CardType } from '../engine/types';
 import type { Confidence } from '../engine/mastery';
+import { PASS_SCORE } from '../engine/mastery';
 import { generateCard } from '../content';
 import { CardView } from './CardView';
 import { Playground } from './Playground';
@@ -14,6 +15,10 @@ type Stage = 'hook' | 'lens' | 'play' | 'check' | 'done';
 
 interface Props {
   concept: Concept;
+  /** Review cards due on the structures this one is built from. They must be cleared first. */
+  duePrereqs: number;
+  alreadyPassed: boolean;
+  onReviewPrereqs: () => void;
   onAnswer: (type: Card['type'], correct: boolean, confidence: Confidence) => void;
   onFinish: () => void;
   onExit: () => void;
@@ -26,10 +31,33 @@ const LENS: { key: keyof Concept['lens']; q: string }[] = [
   { key: 'price', q: 'Price: what does keeping the rule cost?' },
 ];
 
-export function Lesson({ concept, onAnswer, onFinish, onExit }: Props) {
+export function Lesson({ concept, duePrereqs, alreadyPassed, onReviewPrereqs, onAnswer, onFinish, onExit }: Props) {
   const stages: Stage[] = ['hook', 'lens', 'play', 'check', 'done'];
   const [stage, setStage] = useState<Stage>('hook');
   const next = () => setStage(stages[stages.indexOf(stage) + 1]);
+
+  if (duePrereqs > 0 && !alreadyPassed)
+    return (
+      <div className="lesson">
+        <div className="lesson-top">
+          <button type="button" className="btn ghost" onClick={onExit}>
+            ← Map
+          </button>
+          <h1>{concept.title}</h1>
+        </div>
+        <section className="panel">
+          <h2>Review the foundations first</h2>
+          <p>
+            {concept.title} is built from {concept.prereqs.length === 1 ? 'a structure' : 'structures'} with{' '}
+            <strong>{duePrereqs}</strong> review card{duePrereqs === 1 ? '' : 's'} due. New material goes on a solid base, so
+            clear those first.
+          </p>
+          <button type="button" className="btn primary" onClick={onReviewPrereqs}>
+            Review now
+          </button>
+        </section>
+      </div>
+    );
 
   return (
     <div className="lesson">
@@ -74,13 +102,14 @@ export function Lesson({ concept, onAnswer, onFinish, onExit }: Props) {
           </button>
         </section>
       )}
-      {stage === 'check' && <Checkpoint concept={concept} onAnswer={onAnswer} onDone={() => { onFinish(); next(); }} />}
+      {stage === 'check' && <Checkpoint concept={concept} onAnswer={onAnswer} onPassed={() => { onFinish(); next(); }} onExit={onExit} />}
       {stage === 'done' && (
         <section className="panel">
-          <h2>{concept.title} is in your review pool</h2>
+          <h2>Passed. {concept.title} is in your review pool</h2>
           <p>
-            From now on it comes back in reviews as <em>fresh</em> problems, mixed in with the other structures. Nothing to
-            memorise: every review is a new instance.
+            Structures built on it are now unlocked. It isn't <em>mastered</em> yet: that happens when you get every kind of
+            card right, without guessing, on three separate days. Reviews bring it back as fresh problems at growing
+            intervals, and a miss later drops it back.
           </p>
           <button type="button" className="btn primary" onClick={onExit}>
             Back to the map
@@ -151,34 +180,67 @@ function Lens({ concept, onNext }: { concept: Concept; onNext: () => void }) {
   );
 }
 
-function Checkpoint({ concept, onAnswer, onDone }: { concept: Concept; onAnswer: Props['onAnswer']; onDone: () => void }) {
-  const cards = useMemo(() => CHECKPOINT.map((t) => generateCard(concept.id, t)), [concept.id]);
+function Checkpoint({ concept, onAnswer, onPassed, onExit }: { concept: Concept; onAnswer: Props['onAnswer']; onPassed: () => void; onExit: () => void }) {
+  const [attempt, setAttempt] = useState(0);
+  const cards = useMemo(() => CHECKPOINT.map((t) => generateCard(concept.id, t)), [concept.id, attempt]);
   const [i, setI] = useState(0);
   const [score, setScore] = useState(0);
+  const [guessedRight, setGuessedRight] = useState(0);
+  const passed = score >= PASS_SCORE;
+
   if (i >= cards.length)
     return (
       <section className="panel">
         <h2>
-          Checkpoint: {score} / {cards.length}
+          Checkpoint: {score} / {cards.length} {passed ? '✓ passed' : '✗ not yet'}
         </h2>
-        <p className="muted">Anything you missed is scheduled to come back first.</p>
-        <button type="button" className="btn primary" onClick={onDone}>
-          Finish lesson
-        </button>
+        {passed ? (
+          <>
+            <p className="muted">You needed {PASS_SCORE}. Anything you missed is scheduled to come back first.</p>
+            <button type="button" className="btn primary" onClick={onPassed}>
+              Finish lesson
+            </button>
+          </>
+        ) : (
+          <>
+            <p>
+              You need {PASS_SCORE} of {cards.length} right, answered as “fairly sure” or “certain”, to move on.
+              {guessedRight > 0 && ` ${guessedRight} right answer${guessedRight > 1 ? 's were' : ' was a'} guess${guessedRight > 1 ? 'es' : ''}, and guesses don't count.`}
+            </p>
+            <p className="muted">Retrying gives you completely new problems. Consider going back over the Lens and Play first.</p>
+            <button
+              type="button"
+              className="btn primary"
+              onClick={() => {
+                setAttempt((a) => a + 1);
+                setI(0);
+                setScore(0);
+                setGuessedRight(0);
+              }}
+            >
+              Retry with new problems
+            </button>{' '}
+            <button type="button" className="btn ghost" onClick={onExit}>
+              Back to the map
+            </button>
+          </>
+        )}
       </section>
     );
   return (
     <section>
       <p className="muted small">
-        Checkpoint {i + 1} of {cards.length}: one card of each kind. (Rebuild cards come later, in reviews.)
+        Checkpoint {i + 1} of {cards.length}
+        {attempt > 0 && ` (attempt ${attempt + 1})`}: one card of each kind. Pass mark: {PASS_SCORE} right without guessing.
       </p>
       <CardView
-        key={i}
+        key={`${attempt}-${i}`}
         card={cards[i]}
         conceptTitle={concept.title}
         onDone={(correct, conf) => {
           onAnswer(cards[i].type, correct, conf);
-          if (correct) setScore((s) => s + 1);
+          if (correct && conf >= 2) setScore((s) => s + 1);
+          if (correct && conf === 1) setGuessedRight((g) => g + 1);
           setI(i + 1);
         }}
       />

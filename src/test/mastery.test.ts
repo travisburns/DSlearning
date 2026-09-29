@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { calibration, emptyProgress, interleave, markLearned, misconceptions, recordAnswer, scheduleAnswer, newItem, skillStrength, dueItems } from '../engine/mastery';
+import { isMastered, MASTERY_LEVEL, calibration, emptyProgress, interleave, markLearned, misconceptions, recordAnswer, scheduleAnswer, newItem, skillStrength, dueItems } from '../engine/mastery';
 import { CARD_TYPES } from '../engine/types';
 
 const now = 1_000_000_000_000;
@@ -16,6 +16,14 @@ describe('scheduling', () => {
     expect(it.level).toBe(0);
     expect(it.confidentMisses).toBe(1);
     expect(it.due).toBe(now);
+  });
+  it('never promotes when practising before the card is due', () => {
+    const early = scheduleAnswer({ ...newItem(now), level: 2, due: now + 1000 }, true, 3, now);
+    expect(early.level).toBe(2);
+    expect(early.due).toBe(now + 1000);
+  });
+  it('an early miss still drops the level', () => {
+    expect(scheduleAnswer({ ...newItem(now), level: 2, due: now + 1000 }, false, 2, now).level).toBe(0);
   });
   it('waits longer at higher levels', () => {
     const a = scheduleAnswer({ ...newItem(now), level: 1 }, true, 3, now);
@@ -41,9 +49,22 @@ describe('progress', () => {
     expect(skillStrength(p, 'stack', 'cost')).toBeCloseTo(0.2);
     expect(skillStrength(p, 'stack', 'mechanism')).toBe(0);
   });
-  it('every card type of a learned concept becomes due', () => {
-    const p = markLearned(emptyProgress(), 'stack');
-    expect(dueItems(p, now).length).toBe(CARD_TYPES.length);
+  it('mastery needs every card type proven, and is lost after a miss', () => {
+    let p = markLearned(emptyProgress(), 'stack');
+    for (const t of CARD_TYPES) p.items[`stack:${t}`] = { ...newItem(now), level: MASTERY_LEVEL };
+    expect(isMastered(p, 'stack')).toBe(true);
+    p = recordAnswer(p, 'stack', 'count', false, 2, now);
+    expect(isMastered(p, 'stack')).toBe(false);
+  });
+  it('mastery requires passing the lesson', () => {
+    const p = emptyProgress();
+    for (const t of CARD_TYPES) p.items[`stack:${t}`] = { ...newItem(now), level: MASTERY_LEVEL };
+    expect(isMastered(p, 'stack')).toBe(false);
+  });
+  it('unseen card types of a passed lesson come due the next day, not immediately', () => {
+    const p = markLearned(emptyProgress(), 'stack', now);
+    expect(dueItems(p, now).length).toBe(0);
+    expect(dueItems(p, now + 25 * 3600 * 1000).length).toBe(CARD_TYPES.length);
   });
   it('interleaving avoids the same concept twice in a row when possible', () => {
     const items = [

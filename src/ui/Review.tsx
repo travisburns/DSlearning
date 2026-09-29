@@ -11,13 +11,17 @@ interface Props {
   progress: Progress;
   onAnswer: (concept: string, type: Card['type'], correct: boolean, confidence: Confidence) => void;
   onExit: () => void;
+  /** Only review these concepts (e.g. the foundations of a lesson you're about to start). */
+  only?: string[];
+  title?: string;
 }
 
-export function Review({ progress, onAnswer, onExit }: Props) {
+export function Review({ progress, onAnswer, onExit, only, title = 'Review' }: Props) {
   // Freeze the session at start so answering doesn't reshuffle it.
   const [session] = useState<{ items: ReviewItem[]; extra: boolean }>(() => {
-    const due = dueItems(progress);
+    const due = dueItems(progress, Date.now(), only);
     if (due.length) return { items: interleave(due.slice(0, SESSION_SIZE)), extra: false };
+    if (only) return { items: [], extra: false };
     return { items: interleave(weakestItems(progress, SESSION_SIZE)), extra: true };
   });
   const cards = useMemo(() => session.items.map((it) => generateCard(it.concept, it.type)), [session]);
@@ -27,10 +31,10 @@ export function Review({ progress, onAnswer, onExit }: Props) {
   if (!cards.length)
     return (
       <section className="panel">
-        <h2>Nothing to review yet</h2>
-        <p>Finish a lesson first; its structure joins the review pool.</p>
+        <h2>{only ? 'All caught up' : 'Nothing to review yet'}</h2>
+        <p>{only ? 'Nothing is due on these structures.' : 'Finish a lesson first; its structure joins the review pool.'}</p>
         <button type="button" className="btn primary" onClick={onExit}>
-          Back to the map
+          Continue
         </button>
       </section>
     );
@@ -42,9 +46,12 @@ export function Review({ progress, onAnswer, onExit }: Props) {
         <h2>
           Session done: {right} / {cards.length}
         </h2>
-        <p className="muted">Misses come back first next time. Right answers (when you weren't guessing) wait longer before returning.</p>
+        <p className="muted">
+          Misses come back straight away (they're due again now). Right answers, when you weren't guessing, wait longer
+          before returning.
+        </p>
         <button type="button" className="btn primary" onClick={onExit}>
-          Back to the map
+          Continue
         </button>
       </section>
     );
@@ -57,7 +64,7 @@ export function Review({ progress, onAnswer, onExit }: Props) {
         <button type="button" className="btn ghost" onClick={onExit}>
           ← Map
         </button>
-        <h1>Review</h1>
+        <h1>{title}</h1>
         <span className="muted">
           {i + 1} / {cards.length}
           {session.extra && ' · nothing due, practising your weakest skills'}

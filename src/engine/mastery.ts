@@ -33,6 +33,10 @@ export interface Progress {
 const MAX_LOG = 5000;
 
 export const MAX_LEVEL = 5;
+/** A card type counts as proven once it reaches this level: right, not guessing, on 3 separate days. */
+export const MASTERY_LEVEL = 3;
+/** Checkpoint cards (answered right without guessing) needed to pass a lesson and unlock what's next. */
+export const PASS_SCORE = 6;
 const DAY = 24 * 60 * 60 * 1000;
 /** Days to wait after reaching each level. */
 const INTERVAL_DAYS = [0, 1, 3, 7, 16, 35];
@@ -66,7 +70,8 @@ export const newItem = (now: number): ItemState => ({ level: 0, due: now, seen: 
 
 /**
  * Schedule the next review.
- * - Right and sure: move up a level (wait longer).
+ * - Right and sure, and the card was actually due: move up a level (wait longer).
+ *   Answering early (extra practice) never promotes, so levels only rise across real time gaps.
  * - Right but guessing: stay put. A lucky guess doesn't prove understanding.
  * - Wrong: back to level 0, due now. Wrong *and certain* is recorded as a misconception.
  */
@@ -74,6 +79,7 @@ export function scheduleAnswer(item: ItemState, correct: boolean, confidence: Co
   const next = { ...item, seen: item.seen + 1 };
   if (correct) {
     next.correct++;
+    if (item.due > now) return next; // early practice: counts as seen, doesn't change the schedule
     if (confidence >= 2) next.level = Math.min(MAX_LEVEL, item.level + 1);
     next.due = now + INTERVAL_DAYS[next.level] * DAY;
   } else {
@@ -98,12 +104,29 @@ export function recordAnswer(
   return { ...p, items: { ...p.items, [key]: scheduleAnswer(item, correct, confidence, now) }, log };
 }
 
-export function markLearned(p: Progress, concept: string): Progress {
+/**
+ * Mark a lesson passed. Card types not seen in the checkpoint (Rebuild) are first scheduled for
+ * tomorrow: recalling after a delay is their whole point.
+ */
+export function markLearned(p: Progress, concept: string, now = Date.now()): Progress {
   if (p.learned.includes(concept)) return p;
-  return { ...p, learned: [...p.learned, concept] };
+  const items = { ...p.items };
+  for (const t of CARD_TYPES) {
+    const k = itemKey(concept, t);
+    if (!items[k]) items[k] = { ...newItem(now), due: now + DAY };
+  }
+  return { ...p, learned: [...p.learned, concept], items };
 }
 
+/** Unlocked when every structure it's built from has had its checkpoint passed. */
 export const isUnlocked = (p: Progress, c: Concept) => c.prereqs.every((id) => p.learned.includes(id));
+
+/** Mastered: every card type proven on 3 separate days. A later miss drops it back. */
+export const isMastered = (p: Progress, concept: string) =>
+  p.learned.includes(concept) && CARD_TYPES.every((t) => (p.items[itemKey(concept, t)]?.level ?? 0) >= MASTERY_LEVEL);
+
+/** How many of a concept's card types are proven so far (for progress towards mastery). */
+export const provenTypes = (p: Progress, concept: string) => CARD_TYPES.filter((t) => (p.items[itemKey(concept, t)]?.level ?? 0) >= MASTERY_LEVEL).length;
 
 /** 0..1 strength for a concept's skill, for the understanding map. */
 export function strength(p: Progress, concept: string, type: CardType): number {
@@ -155,10 +178,11 @@ export interface ReviewItem {
   type: CardType;
 }
 
-/** Items due for review, weakest and misconception-heavy first. */
-export function dueItems(p: Progress, now = Date.now()): ReviewItem[] {
+/** Items due for review, weakest and misconception-heavy first. Optionally only for some concepts. */
+export function dueItems(p: Progress, now = Date.now(), only?: string[]): ReviewItem[] {
   const out: (ReviewItem & { item: ItemState })[] = [];
   for (const concept of p.learned) {
+    if (only && !only.includes(concept)) continue;
     for (const type of CARD_TYPES) {
       const item = p.items[itemKey(concept, type)] ?? newItem(now);
       if (item.due <= now) out.push({ concept, type, item });

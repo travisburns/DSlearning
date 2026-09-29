@@ -213,6 +213,14 @@ h2 {
 .tile.learned {
   border-color: var(--ok);
 }
+.tile.mastered {
+  border-color: var(--warn);
+  border-width: 2px;
+}
+.tile.mastered .tile-status {
+  color: var(--warn);
+  font-weight: 700;
+}
 .tile.locked {
   opacity: 0.55;
   cursor: not-allowed;

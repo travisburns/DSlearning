@@ -18,6 +18,11 @@ Every structure is taught the same way:
    - **Transfer**: adapt it to a new problem.
 5. It then joins your **review pool**, where **Rebuild** cards also appear: rebuild the structure (or its lens) from memory. Every review is a freshly generated problem, mixed across structures, so there's nothing to memorise.
 
+**Moving on and mastery:**
+- **Pass to unlock:** a lesson's checkpoint needs 6 of 8 right, answered “fairly sure” or “certain” (guesses don't count). Fail and you retry with brand-new problems. Passing unlocks the structures built on it.
+- **Foundations first:** before a new lesson, any reviews due on the structures it's built from must be cleared.
+- **Mastered (★):** every card type answered right, without guessing, on three separate days (practising early doesn't count). A later miss drops it back.
+
 Everything is graded by code. You rate your confidence before each answer: right-but-guessing doesn't count as mastered, and certain-but-wrong is flagged as a misconception and comes back first.
 
 The map shows five skills per structure: **Mechanism** (Predict, Simulate, Rebuild), **Invariant** (Break, Explain), **Cost** (Count), **Tradeoff** (Choose, Connect) and **Application** (Transfer). The **Stats** page shows how well your confidence matches your accuracy, your accuracy per card type, and your misconceptions.
