@@ -13,6 +13,7 @@ import { adjacencyListConcept, adjacencyMatrixConcept, edgeListConcept, graphCon
 import { fenwickConcept, intervalTreeConcept, kdTreeConcept, prefixSumConcept, quadtreeConcept, segmentTreeConcept, sparseTableConcept } from './range';
 import { radixTrieConcept, ropeConcept, suffixArrayConcept, suffixTreeConcept } from './strings';
 import { bloomFilterConcept, countMinConcept, hyperLogLogConcept, skipListConcept } from './probabilistic';
+import { lfuConcept, lruConcept, mergeableHeapsConcept, orderedMapConcept, persistentConcept, sparseMatrixConcept } from './composites';
 import { consistentHashingConcept, cuckooConcept, hashChainingConcept, hashFunctionConcept, hashMapConcept, hashOpenAddressingConcept } from './hashing';
 
 export const CONCEPTS: Concept[] = [
@@ -81,6 +82,13 @@ export const CONCEPTS: Concept[] = [
   bloomFilterConcept,
   countMinConcept,
   hyperLogLogConcept,
+  // Tier 10
+  orderedMapConcept,
+  lruConcept,
+  lfuConcept,
+  sparseMatrixConcept,
+  mergeableHeapsConcept,
+  persistentConcept,
 ];
 
 const byId = new Map(CONCEPTS.map((c) => [c.id, c]));

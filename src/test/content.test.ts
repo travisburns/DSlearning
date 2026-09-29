@@ -57,6 +57,8 @@ const RUNS = 400;
 describe('concept graph', () => {
   const ids = new Set(CONCEPTS.map((c) => c.id));
   it('has unique ids', () => expect(ids.size).toBe(CONCEPTS.length));
+  it('covers all 61 planned data structures', () => expect(CONCEPTS.length).toBe(61));
+  it('every tier is non-empty', () => TIERS.forEach((_, t) => expect(CONCEPTS.some((c) => c.tier === t)).toBe(true)));
   for (const c of CONCEPTS) {
     it(`${c.id}: prerequisites exist and come from earlier or same tier`, () => {
       expect(c.tier).toBeGreaterThanOrEqual(0);
