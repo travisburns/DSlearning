@@ -1,9 +1,9 @@
 import type { Card, Concept, Scene, TreeNode, View } from '../engine/types';
 import { cloneScene } from '../engine/memory';
 import { distinctInts, pick, randInt, shuffle } from '../engine/random';
-import { explainGenerators, growthCard, numberOptions, options } from './helpers';
+import { explainGenerators, growthCard, numberOptions, options, sequenceRebuild } from './helpers';
 import type { BNode } from './treeUtil';
-import { bstPath, buildBST, randomBST, toTree } from './treeUtil';
+import { bstPath, buildBST, levelorder, randomBST, toTree } from './treeUtil';
 
 const t = (id: string | number) => `t:${id}`;
 
@@ -223,6 +223,12 @@ const avlExplain = explainGenerators({
   },
 });
 
+const rebuildAVL = (): Card => {
+  const order = distinctInts(randInt(5, 6), 1, 99).sort((a, b) => (Math.random() < 0.6 ? a - b : b - a));
+  const lv = levelorder(aToB(buildAVL(order)));
+  return sequenceRebuild(AVL, `Insert ${order.join(', ')} into an empty AVL tree (rotating whenever a node's sides differ by more than 1). Write the final tree in LEVEL ORDER.`, lv, [], `Level order: ${lv.join(', ')}. A plain BST of this input would be ${order.every((x, i) => i === 0 || (x > order[i - 1]) === (order[1] > order[0])) ? 'a stick' : 'lopsided'}; rotations keep it bushy.`, 'Your AVL tree, level by level');
+};
+
 const avlOps: Concept['playground'] = {
   initial: () => avlScene(buildAVL([30, 20, 40])),
   ops: [
@@ -279,6 +285,7 @@ export const avlConcept: Concept = {
     simulate: [simulateFindUnbalanced, orderRotate],
     count: [countMinNodes, countSortedHeight, growthAVL],
     explain: avlExplain,
+    rebuild: [rebuildAVL],
   },
 };
 

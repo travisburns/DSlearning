@@ -1,4 +1,4 @@
-import type { Card, CardGenerator, ChoiceOption } from '../engine/types';
+import type { Card, CardGenerator, ChoiceOption, Scene } from '../engine/types';
 import { pick, shuffle } from '../engine/random';
 
 /** Build a single-answer option list: one correct answer + unique distractors, shuffled, max 4. */
@@ -124,4 +124,32 @@ export function explainGenerators(b: ExplainBank): CardGenerator[] {
   });
 
   return [pickTrue, spotMyth, chain, summary];
+}
+
+/**
+ * Rebuild from a blank slate: the learner writes the final structure value by value, clicking
+ * a shuffled palette. The "your build" row fills in as they go.
+ */
+export function sequenceRebuild(concept: string, prompt: string, answer: (number | string)[], extra: (number | string)[], explain: string, buildTitle = 'Your rebuild'): Card {
+  const palette = shuffle([...answer, ...extra.filter((x) => !answer.includes(x))]);
+  const frame = (k: number): Scene => ({
+    views: [
+      { type: 'row', key: 'p', items: palette, labels: palette.map(() => ''), title: 'Values (click in order)' },
+      { type: 'row', key: 'y', items: [...answer.slice(0, k), ...Array(answer.length - k).fill(null)], title: buildTitle },
+    ],
+    highlight: answer.slice(0, k).map((v) => `p:${palette.indexOf(v)}`),
+  });
+  return {
+    concept,
+    type: 'rebuild',
+    prompt,
+    scene: frame(0),
+    body: {
+      kind: 'click',
+      expected: answer.map((v) => `p:${palette.indexOf(v)}`),
+      frames: answer.map((_, k) => frame(k)).concat([frame(answer.length)]),
+      wrongHint: (step) => `Not that one. Work out which value comes in position ${step + 1}.`,
+    },
+    explain,
+  };
 }

@@ -1,7 +1,7 @@
 import type { Card, Concept, Scene, TreeNode, Val } from '../engine/types';
 import { cloneScene, fmtArray } from '../engine/memory';
 import { distinctInts, pick, randInt, shuffle } from '../engine/random';
-import { explainGenerators, growthCard, numberOptions, options } from './helpers';
+import { explainGenerators, growthCard, numberOptions, options, sequenceRebuild } from './helpers';
 
 const t = (id: string | number) => `t:${id}`;
 const small = (n: number) => Array.from({ length: n }, () => randInt(1, 9));
@@ -142,6 +142,13 @@ const psExplain = explainGenerators({
   },
 });
 
+const rebuildPS = (): Card => {
+  const a = distinctInts(5, 1, 9);
+  const P = prefix(a);
+  const near = P.slice(1).map((x) => x + 1).filter((x) => !P.includes(x));
+  return sequenceRebuild(PS, `a = ${fmtArray(a)}. From scratch, write the prefix-sum array P, starting with P[0].`, P, near.slice(0, 3), `${fmtArray(P)}: each entry is the previous one plus the next element.`, 'Your P');
+};
+
 export const prefixSumConcept: Concept = {
   id: PS,
   title: 'Prefix-Sum Array',
@@ -168,6 +175,7 @@ export const prefixSumConcept: Concept = {
     simulate: [simulatePS],
     count: [countPSUpdate, countPSReads, growthPS],
     explain: psExplain,
+    rebuild: [rebuildPS],
   },
 };
 

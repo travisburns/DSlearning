@@ -1,7 +1,7 @@
 import type { Card, Concept, Scene, TreeNode, View } from '../engine/types';
 import { cloneScene, fmtArray } from '../engine/memory';
 import { distinctInts, pick, randInt, shuffle } from '../engine/random';
-import { explainGenerators, growthCard, numberOptions, options } from './helpers';
+import { explainGenerators, growthCard, numberOptions, options, sequenceRebuild } from './helpers';
 import type { BNode } from './treeUtil';
 import {
   bstInsert,
@@ -587,6 +587,59 @@ const bstExplain = explainGenerators({
   },
 });
 
+const rebuildBST = (): Card => {
+  const order = distinctInts(randInt(5, 7), 1, 99);
+  const root = buildBST(order);
+  const lv = levelorder(root);
+  return sequenceRebuild(BST, `Insert ${order.join(', ')} into an empty BST. Without drawing it here, write the finished tree in LEVEL ORDER (row by row, left to right).`, lv, distinctInts(2, 1, 99).filter((x) => !order.includes(x)), `Level order: ${lv.join(', ')}. The first key is the root; each later key slides down to where its search falls off.`, 'Your tree, level by level');
+};
+
+/** A valid BST with one LEAF given a key that breaks the ordering rule relative to an ancestor. */
+const breakBST = (): Card => {
+  for (;;) {
+    const keys = distinctInts(randInt(7, 9), 5, 95);
+    const root = randomBST(keys);
+    const lf = leaves(root).filter((k) => depthOf(root, k) >= 2);
+    if (!lf.length) continue;
+    const x = pick(lf);
+    const path = bstPath(root, x);
+    // Allowed range for x from its ancestors.
+    let lo = -Infinity;
+    let hi = Infinity;
+    for (let i = 0; i < path.length - 1; i++) {
+      if (x < path[i]) hi = Math.min(hi, path[i]);
+      else lo = Math.max(lo, path[i]);
+    }
+    // Pick a bad value just outside the range, but still on the correct side of its direct parent.
+    const parent = path[path.length - 2];
+    const cands: number[] = [];
+    for (let v = 1; v < 100; v++) {
+      if (keys.includes(v)) continue;
+      const sideOk = x < parent ? v < parent : v > parent;
+      if (sideOk && (v <= lo || v >= hi)) cands.push(v);
+    }
+    if (!cands.length) continue;
+    const bad = pick(cands);
+    const relabel = (b: BNode | null): BNode | null => (b ? { key: b.key === x ? bad : b.key, left: relabel(b.left), right: relabel(b.right) } : null);
+    const broken = relabel(root);
+    const scene: Scene = { views: [{ type: 'tree', root: toTree(broken), binary: true, title: 'A “BST” with one bad node' }] };
+    const culprit = path.slice(0, -1).find((a) => (x < a ? bad > a : bad < a))!;
+    return {
+      concept: BST,
+      type: 'break',
+      prompt: 'Someone broke this BST: one node is on the wrong side of an ANCESTOR (its parent looks fine). Click the node that breaks the rule.',
+      scene,
+      body: {
+        kind: 'click',
+        expected: [t(bad)],
+        frames: [scene, { ...cloneScene(scene), highlight: [t(bad), t(culprit)] }],
+        wrongHint: () => 'Check each node against EVERY ancestor, not just its parent: left subtree keys must be smaller, right subtree keys bigger.',
+      },
+      explain: `${bad} sits in the ${x < culprit ? 'left' : 'right'} subtree of ${culprit}, but is ${x < culprit ? 'bigger' : 'smaller'}. A search for ${bad} would turn the other way at ${culprit} and never find it. The rule covers whole subtrees, not just parent and child.`,
+    };
+  }
+};
+
 function sceneToBST(s: Scene): BNode | null {
   const tv = s.views[0] as Extract<View, { type: 'tree' }>;
   const conv = (n: TreeNode | null): BNode | null => (n ? { key: Number(n.id), left: conv(n.children[0] ?? null), right: conv(n.children[1] ?? null) } : null);
@@ -671,6 +724,8 @@ export const bstConcept: Concept = {
     simulate: [simulateBSTSearch, simulateBSTInsert],
     count: [countBSTCompares, countBSTHeight, growthBST],
     explain: bstExplain,
+    rebuild: [rebuildBST],
+    break: [breakBST],
   },
 };
 
@@ -850,6 +905,39 @@ const hpExplain = explainGenerators({
   },
 });
 
+const rebuildHeap = (): Card => {
+  const keys = distinctInts(randInt(5, 6), 1, 99);
+  const a = buildHeap(keys);
+  return sequenceRebuild(HP, `Insert ${keys.join(', ')} one at a time into an empty min-heap (append + sift up). Write the final ARRAY from index 0.`, a, [], `${a.join(', ')}. Each insert only swaps along one path, so the array is heap-ordered, not sorted.`, 'Your heap array');
+};
+
+const breakHeap = (): Card => {
+  for (;;) {
+    const a = buildHeap(distinctInts(randInt(7, 10), 20, 99));
+    const leafIdx = Array.from({ length: a.length }, (_, i) => i).filter((i) => 2 * i + 1 >= a.length);
+    const i = pick(leafIdx);
+    const p = parentIdx(i);
+    const bad = randInt(Math.max(1, a[p] - 15), a[p] - 1);
+    if (a.includes(bad)) continue;
+    const b = [...a];
+    b[i] = bad;
+    const scene = heapScene(b);
+    return {
+      concept: HP,
+      type: 'break',
+      prompt: 'One value in this min-heap breaks heap order. Click the node that is smaller than its parent.',
+      scene,
+      body: {
+        kind: 'click',
+        expected: [t(i)],
+        frames: [scene, { ...cloneScene(scene), highlight: [t(i), t(p)] }],
+        wrongHint: () => 'Compare every node with its parent: in a min-heap, parent ≤ child everywhere.',
+      },
+      explain: `${bad} at [${i}] is smaller than its parent ${b[p]} at [${p}]. The root is no longer guaranteed to be the minimum: peek could return the wrong item. A sift-up would fix it.`,
+    };
+  }
+};
+
 const heapOps: Concept['playground'] = {
   initial: () => heapScene(buildHeap([15, 30, 20, 45, 50, 25])),
   ops: [
@@ -902,6 +990,8 @@ export const binaryHeapConcept: Concept = {
     simulate: [simulateSiftUp, simulateSiftDown],
     count: [countHeapSwaps, growthHeap],
     explain: hpExplain,
+    rebuild: [rebuildHeap],
+    break: [breakHeap],
   },
 };
 

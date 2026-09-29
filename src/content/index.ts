@@ -1,4 +1,6 @@
-import type { Card, CardType, Concept } from '../engine/types';
+import type { Card, CardGenerator, CardType, Concept, ExtraCardType } from '../engine/types';
+import { EXTRAS } from './extras';
+import { extraGenerators } from './generic';
 import { pick } from '../engine/random';
 import { bitsConcept, memoryConcept, pointersConcept } from './tier0';
 import { staticArrayConcept } from './staticArray';
@@ -91,12 +93,23 @@ export const CONCEPTS: Concept[] = [
   persistentConcept,
 ];
 
+for (const c of CONCEPTS) c.extras = EXTRAS[c.id];
+
 const byId = new Map(CONCEPTS.map((c) => [c.id, c]));
 
 export const getConcept = (id: string): Concept | undefined => byId.get(id);
 
-export function generateCard(conceptId: string, type: CardType): Card {
+const generic = new Map(CONCEPTS.map((c) => [c.id, c.extras ? extraGenerators(c, CONCEPTS) : undefined]));
+
+/** Every generator for a concept and card type: hand-written ones plus the generic ones. */
+export function generatorsFor(conceptId: string, type: CardType): CardGenerator[] {
   const c = byId.get(conceptId);
   if (!c) throw new Error(`Unknown concept ${conceptId}`);
-  return pick(c.generators[type])();
+  const own = c.generators[type] ?? [];
+  const gen = generic.get(conceptId)?.[type as ExtraCardType] ?? [];
+  return [...own, ...gen];
+}
+
+export function generateCard(conceptId: string, type: CardType): Card {
+  return pick(generatorsFor(conceptId, type))();
 }

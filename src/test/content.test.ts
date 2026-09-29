@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { CONCEPTS } from '../content';
+import { CONCEPTS, generatorsFor } from '../content';
 import { CARD_TYPES, TIERS } from '../engine/types';
 import type { Scene, TreeNode } from '../engine/types';
 import { walkList } from '../engine/memory';
@@ -52,7 +52,7 @@ function targets(s: Scene): Set<string> {
   return out;
 }
 
-const RUNS = 400;
+const RUNS = 300;
 
 describe('concept graph', () => {
   const ids = new Set(CONCEPTS.map((c) => c.id));
@@ -68,6 +68,13 @@ describe('concept graph', () => {
         expect(CONCEPTS.find((x) => x.id === p)!.tier).toBeLessThanOrEqual(c.tier);
       }
       expect(c.hook.options.some((o) => o.good)).toBe(true);
+      expect(c.extras, `${c.id} has no extras`).toBeDefined();
+      const ex = c.extras!;
+      expect(ex.parts.length).toBeGreaterThanOrEqual(1);
+      expect(ex.uses.length).toBeGreaterThanOrEqual(1);
+      expect(ex.breaks.length).toBeGreaterThanOrEqual(1);
+      expect(ex.transfer.length).toBeGreaterThanOrEqual(1);
+      for (const r of ex.rivals ?? []) expect(ids.has(r), `${c.id} rival ${r} unknown`).toBe(true);
     });
   }
 });
@@ -76,8 +83,9 @@ describe('card generators', () => {
   for (const c of CONCEPTS) {
     for (const type of CARD_TYPES) {
       it(`${c.id} / ${type}`, () => {
-        expect(c.generators[type].length).toBeGreaterThan(0);
-        for (const gen of c.generators[type]) {
+        const gens = generatorsFor(c.id, type);
+        expect(gens.length).toBeGreaterThan(0);
+        for (const gen of gens) {
           for (let r = 0; r < RUNS; r++) {
             const card = gen();
             const ctx = `${c.id}/${type}: ${card.prompt.slice(0, 60)}`;

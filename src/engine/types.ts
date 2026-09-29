@@ -62,16 +62,36 @@ export interface Scene {
 
 // ---------- Cards ----------
 
-export type CardType = 'predict' | 'simulate' | 'count' | 'explain';
+/** The four card types every structure has hand-written generators for. */
+export type CoreCardType = 'predict' | 'simulate' | 'count' | 'explain';
+/** Card types built mostly from each structure's `extras` (plus some hand-written instance cards). */
+export type ExtraCardType = 'break' | 'choose' | 'connect' | 'rebuild' | 'transfer';
+export type CardType = CoreCardType | ExtraCardType;
 
-export const CARD_TYPES: CardType[] = ['predict', 'simulate', 'count', 'explain'];
+export const CORE_CARD_TYPES: CoreCardType[] = ['predict', 'simulate', 'count', 'explain'];
+export const CARD_TYPES: CardType[] = ['predict', 'simulate', 'count', 'break', 'explain', 'connect', 'choose', 'rebuild', 'transfer'];
 
 export const CARD_TYPE_INFO: Record<CardType, { name: string; blurb: string }> = {
   predict: { name: 'Predict', blurb: 'Commit to what happens before you see it.' },
   simulate: { name: 'Simulate', blurb: 'You are the CPU. Do the operation by hand.' },
   count: { name: 'Count', blurb: 'Count the work. Work out the cost yourself.' },
+  break: { name: 'Break it', blurb: 'Break the rule and see what fails.' },
   explain: { name: 'Explain', blurb: 'Put together the reason it works.' },
+  connect: { name: 'Connect', blurb: 'What is it built from?' },
+  choose: { name: 'Choose', blurb: 'Pick the right structure for the job.' },
+  rebuild: { name: 'Rebuild', blurb: 'Rebuild it from memory.' },
+  transfer: { name: 'Transfer', blurb: 'Adapt it to a new problem.' },
 };
+
+/** The five skills of mastery, each fed by some card types. */
+export type Skill = 'mechanism' | 'invariant' | 'cost' | 'tradeoff' | 'application';
+export const SKILLS: { id: Skill; name: string; types: CardType[] }[] = [
+  { id: 'mechanism', name: 'Mechanism', types: ['predict', 'simulate', 'rebuild'] },
+  { id: 'invariant', name: 'Invariant', types: ['break', 'explain'] },
+  { id: 'cost', name: 'Cost', types: ['count'] },
+  { id: 'tradeoff', name: 'Tradeoff', types: ['choose', 'connect'] },
+  { id: 'application', name: 'Application', types: ['transfer'] },
+];
 
 export interface ChoiceOption {
   text: string;
@@ -127,6 +147,24 @@ export interface PlaygroundDef {
   ops: PlaygroundOp[];
 }
 
+/** Hand-written facts that drive the generic Break / Choose / Connect / Transfer cards. */
+export interface ConceptExtras {
+  /** Structures in the same family are never used as each other's wrong answers in Choose cards. */
+  family: string;
+  /** Which primitive it rests on. */
+  primitive: 'slots' | 'links' | 'both' | 'bits' | 'abstract';
+  /** 2–4 building blocks, each a short phrase. */
+  parts: string[];
+  /** Situations where this structure is the best pick. */
+  uses: string[];
+  /** Other concept ids that would also be reasonable for these uses (never offered as wrong answers). */
+  rivals?: string[];
+  /** Break the invariant: what goes wrong? */
+  breaks: { violation: string; result: string; wrong: string[] }[];
+  /** A new problem this structure (or a small variant) solves. */
+  transfer: { problem: string; answer: string; wrong: { text: string; why: string }[]; explain: string }[];
+}
+
 export interface Concept {
   id: string;
   title: string;
@@ -143,7 +181,10 @@ export interface Concept {
   /** The Primitive Lens. */
   lens: { layout: string; invariant: string; payoff: string; price: string };
   playground?: PlaygroundDef;
-  generators: Record<CardType, CardGenerator[]>;
+  /** Hand-written generators. The core four are required; extra types are optional additions. */
+  generators: Record<CoreCardType, CardGenerator[]> & Partial<Record<ExtraCardType, CardGenerator[]>>;
+  /** Filled in from content/extras.ts when concepts are registered. */
+  extras?: ConceptExtras;
 }
 
 export const TIERS: string[] = [

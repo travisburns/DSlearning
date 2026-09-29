@@ -1,7 +1,7 @@
 import type { Card, Cell, Concept, Scene, View } from '../engine/types';
 import { cloneScene, emptyMemory, fmtArray, m, sprinkleGarbage } from '../engine/memory';
 import { distinctInts, pick, randInt, shuffle } from '../engine/random';
-import { explainGenerators, growthCard, numberOptions, options } from './helpers';
+import { explainGenerators, growthCard, numberOptions, options, sequenceRebuild } from './helpers';
 
 type Op = { kind: 'push'; v: number } | { kind: 'pop' };
 
@@ -222,6 +222,16 @@ const stExplain = explainGenerators({
   },
 });
 
+const rebuildStack = (): Card => {
+  let ops: Op[];
+  let r: ReturnType<typeof runStack>;
+  do {
+    ops = randomOps(randInt(6, 8), distinctInts(6, 10, 99));
+    r = runStack(ops);
+  } while (r.st.length < 2 || r.popped.length < 1);
+  return sequenceRebuild(ST, `From a blank slate: run ${fmtOps(ops, 'push', 'pop')} in your head, then write the stack's contents from BOTTOM to TOP.`, r.st, r.popped, `Bottom → top: ${fmtArray(r.st)}. Popped along the way: ${r.popped.join(', ')}.`, 'Your stack (bottom → top)');
+};
+
 const stackOps: Concept['playground'] = {
   initial: () => stackScene(4, 8, [12, 5], false),
   ops: [
@@ -281,6 +291,7 @@ export const stackConcept: Concept = {
     simulate: [simulateStack],
     count: [countReverse, countPop, growthStack],
     explain: stExplain,
+    rebuild: [rebuildStack],
   },
 };
 
@@ -419,6 +430,16 @@ const quExplain = explainGenerators({
   },
 });
 
+const rebuildQueue = (): Card => {
+  let ops: Op[];
+  let r: ReturnType<typeof runQueue>;
+  do {
+    ops = randomOps(randInt(6, 8), distinctInts(6, 10, 99));
+    r = runQueue(ops);
+  } while (r.q.length < 2 || r.out.length < 1);
+  return sequenceRebuild(QU, `From a blank slate: run ${fmtOps(ops, 'enqueue', 'dequeue')} in your head, then write what's waiting from FRONT to BACK.`, r.q, r.out, `Front → back: ${fmtArray(r.q)}. Already served: ${r.out.join(', ')}.`, 'Your queue (front → back)');
+};
+
 export const queueConcept: Concept = {
   id: QU,
   title: 'Queue',
@@ -445,6 +466,7 @@ export const queueConcept: Concept = {
     simulate: [simulateServe, orderEnqueue, orderDequeue],
     count: [countQueue, growthQueue],
     explain: quExplain,
+    rebuild: [rebuildQueue],
   },
 };
 
@@ -849,6 +871,13 @@ const dqExplain = explainGenerators({
   },
 });
 
+const rebuildDeque = (): Card => {
+  let run = randomDequeRun();
+  while (run.d.length < 3) run = randomDequeRun();
+  const gone = run.vals.slice(0, run.vi).filter((v) => !run.d.includes(v));
+  return sequenceRebuild(DQ, `From a blank slate: run ${run.ops.join(', ')}, then write the deque from FRONT to BACK.`, run.d, gone, `Front → back: ${fmtArray(run.d)}.`, 'Your deque (front → back)');
+};
+
 export const dequeConcept: Concept = {
   id: DQ,
   title: 'Deque',
@@ -875,5 +904,6 @@ export const dequeConcept: Concept = {
     simulate: [simulateDeque],
     count: [countFrontIdx, growthDeque],
     explain: dqExplain,
+    rebuild: [rebuildDeque],
   },
 };

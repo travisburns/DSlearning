@@ -1,8 +1,8 @@
 import type { Card, Concept, Scene } from '../engine/types';
 import { cloneScene, fmtArray, m } from '../engine/memory';
-import { pick, randInt, values } from '../engine/random';
+import { distinctInts, pick, randInt, values } from '../engine/random';
 import { arrayView, deleteFrames, insertFrames, arrayScene, readArray } from './arrayUtil';
-import { explainGenerators, growthCard, numberOptions, options } from './helpers';
+import { explainGenerators, growthCard, numberOptions, options, sequenceRebuild } from './helpers';
 
 const ID = 'static-array';
 
@@ -230,6 +230,17 @@ const explain = explainGenerators({
   },
 });
 
+const rebuildArray = (): Card => {
+  const { items } = randomArray(4, 5, 2);
+  const cur = [...items];
+  const [a] = distinctInts(1, 100, 199);
+  const i = randInt(0, cur.length - 1);
+  cur.splice(i, 0, a);
+  const j = randInt(0, cur.length - 1);
+  const removed = cur.splice(j, 1)[0];
+  return sequenceRebuild(ID, `arr = ${fmtArray(items)}. Insert ${a} at index ${i}, then delete index ${j}. From memory, write the final array from index 0.`, cur, removed === a ? [] : [removed], `${fmtArray(cur)}. Inserting and deleting both shift everything after the index.`, 'Your array');
+};
+
 function playInitial(): Scene {
   return arrayScene(4, [12, 5, 31, 8], 10, false);
 }
@@ -303,5 +314,6 @@ export const staticArrayConcept: Concept = {
     simulate: [simulateInsert, simulateDelete, simulateRead],
     count: [countInsert, countDelete, growth],
     explain,
+    rebuild: [rebuildArray],
   },
 };

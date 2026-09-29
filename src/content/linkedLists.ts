@@ -1,7 +1,7 @@
 import type { Card, Cell, Concept, Scene, View } from '../engine/types';
 import { MEM_SIZE, cloneScene, emptyMemory, m, scatterNodes, sprinkleGarbage, walkList, writeDNode, writeNode } from '../engine/memory';
 import { distinctInts, pick, randInt, shuffle } from '../engine/random';
-import { explainGenerators, growthCard, numberOptions, options } from './helpers';
+import { explainGenerators, growthCard, numberOptions, options, sequenceRebuild } from './helpers';
 
 const fmt = (xs: (number | string)[], end = '∅') => `head → ${xs.join(' → ')} → ${end}`;
 
@@ -243,6 +243,22 @@ const llExplain = explainGenerators({
   },
 });
 
+const rebuildLL = (): Card => {
+  const xs = vals(4);
+  const steps: string[] = [];
+  const cur = [...xs];
+  const [a, b] = distinctInts(2, 100, 199);
+  const i = randInt(0, cur.length - 1);
+  steps.push(`insert ${a} after ${cur[i]}`);
+  cur.splice(i + 1, 0, a);
+  steps.push(`insert ${b} at the head`);
+  cur.unshift(b);
+  const d = pick(cur.filter((x) => x !== a && x !== b));
+  steps.push(`delete ${d}`);
+  cur.splice(cur.indexOf(d), 1);
+  return sequenceRebuild(LL, `Start: ${fmt(xs)}. Then: ${steps.join('; ')}. From memory, write the final list from head to end.`, cur, [d], `${fmt(cur)}. Only pointers changed; no node moved in memory.`, 'Your list (head → end)');
+};
+
 // Playground: real allocation in memory.
 function llPlayInitial(): Scene {
   return singly([12, 5, 31], false).scene;
@@ -356,6 +372,7 @@ export const linkedListConcept: Concept = {
     simulate: [simulateSearch, orderInsert, orderDelete, orderInsertHead],
     count: [countAccess, countInsertKnown, growthLL],
     explain: llExplain,
+    rebuild: [rebuildLL],
   },
 };
 
