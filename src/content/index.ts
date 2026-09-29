@@ -12,6 +12,7 @@ import { avlConcept, bPlusTreeConcept, bTreeConcept, redBlackConcept, splayConce
 import { adjacencyListConcept, adjacencyMatrixConcept, edgeListConcept, graphConcept, unionFindConcept } from './graphs';
 import { fenwickConcept, intervalTreeConcept, kdTreeConcept, prefixSumConcept, quadtreeConcept, segmentTreeConcept, sparseTableConcept } from './range';
 import { radixTrieConcept, ropeConcept, suffixArrayConcept, suffixTreeConcept } from './strings';
+import { bloomFilterConcept, countMinConcept, hyperLogLogConcept, skipListConcept } from './probabilistic';
 import { consistentHashingConcept, cuckooConcept, hashChainingConcept, hashFunctionConcept, hashMapConcept, hashOpenAddressingConcept } from './hashing';
 
 export const CONCEPTS: Concept[] = [
@@ -75,6 +76,11 @@ export const CONCEPTS: Concept[] = [
   suffixArrayConcept,
   suffixTreeConcept,
   ropeConcept,
+  // Tier 9
+  skipListConcept,
+  bloomFilterConcept,
+  countMinConcept,
+  hyperLogLogConcept,
 ];
 
 const byId = new Map(CONCEPTS.map((c) => [c.id, c]));
