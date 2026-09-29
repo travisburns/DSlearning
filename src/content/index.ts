@@ -11,6 +11,7 @@ import { binaryHeapConcept, binaryTreeConcept, bstConcept, dAryHeapConcept, tree
 import { avlConcept, bPlusTreeConcept, bTreeConcept, redBlackConcept, splayConcept, treapConcept } from './balanced';
 import { adjacencyListConcept, adjacencyMatrixConcept, edgeListConcept, graphConcept, unionFindConcept } from './graphs';
 import { fenwickConcept, intervalTreeConcept, kdTreeConcept, prefixSumConcept, quadtreeConcept, segmentTreeConcept, sparseTableConcept } from './range';
+import { radixTrieConcept, ropeConcept, suffixArrayConcept, suffixTreeConcept } from './strings';
 import { consistentHashingConcept, cuckooConcept, hashChainingConcept, hashFunctionConcept, hashMapConcept, hashOpenAddressingConcept } from './hashing';
 
 export const CONCEPTS: Concept[] = [
@@ -69,6 +70,11 @@ export const CONCEPTS: Concept[] = [
   intervalTreeConcept,
   kdTreeConcept,
   quadtreeConcept,
+  // Tier 8
+  radixTrieConcept,
+  suffixArrayConcept,
+  suffixTreeConcept,
+  ropeConcept,
 ];
 
 const byId = new Map(CONCEPTS.map((c) => [c.id, c]));
