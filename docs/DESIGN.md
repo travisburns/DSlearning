@@ -226,40 +226,46 @@ autocomplete (trie), task scheduler (heap), maps & social networks (graph), frie
 
 ---
 
-## 8. Architecture (built to add algorithms later)
+## 8. Architecture (as built)
 
 ```
-content/
-  ds/                  ← data-structures pack (now)
-    concepts/*.ts      ← concept: lens answers, prerequisites, hooks, rubrics
-    generators/*.ts    ← instance generators per concept
-  algo/                ← algorithms pack (later)
-engine/
-  concept-graph        ← prerequisites, pain-driven unlocks
-  mastery              ← skill strengths, decay, scheduling, interleaving
-  cards/               ← one plugin per interaction type
-  simulator/           ← memory model + touch counter + invariant checks
-ui/
-  MemoryCanvas, Understanding Map, Session runner, Feynman editor
+src/
+  engine/
+    types.ts       ← Concept, Card, Scene/View definitions
+    memory.ts      ← memory-tape helpers (cells, nodes, lists)
+    mastery.ts     ← per concept × card-type levels, spacing, interleaving, confidence
+  content/         ← one file per group of structures; each Concept =
+                     problem (hook), lens, optional playground, card generators
+  ui/
+    SceneView      ← draws memory tapes, arrays, lists, stacks, ring buffers,
+                     rows, grids, buckets, trees and graphs; any of them clickable
+    CardView       ← choice / multi-select / order / number / click-sequence cards
+    Lesson, Review, Home (the understanding map), Playground
 ```
 
-- Content is **data**, cards are **plugins**, the engine doesn't know what a heap is.
-  Algorithms become a new content pack reusing the same simulator (algorithms *operate on* these
-  structures, so the canvas carries straight over).
+- Content is **data**; the engine doesn't know what a heap is. Algorithms will be a new content
+  set reusing the same scene renderer (algorithms *operate on* these structures).
 - Local-first: progress saved in the browser, no account, no backend.
+- `npm test` generates hundreds of cards per structure and checks each one is well-formed
+  (exactly one right answer, no duplicate options, every click target actually drawn).
 
-**Stack:** a simple front-end project only. No server, no AI, no login. Every answer is checked by code.
+**Stack:** React + TypeScript + Vite. No server, no AI, no login. Every answer is checked by code.
 
 ---
 
-## 9. Proposed build order
+## 9. Status and next steps
 
-1. **MVP** — engine skeleton, Memory Canvas, 4 card types (Predict, Simulate, Count, Explain),
-   Tier 0–2 content (primitives, arrays, linked lists, stack/queue).
-2. Invent / Break / Choose / Rebuild cards; mastery scheduler + Understanding Map.
-3. Tiers 3–4 (hashing, trees, heaps, tries).
-4. Tier 5–6, Transfer cards, confidence calibration dashboard.
-5. Algorithms pack.
+Built:
+- All 61 structures, each with a problem, lens, and generated Predict / Simulate / Count / Explain cards.
+- Playgrounds for the structures where free play teaches the most (memory, pointers, static and
+  dynamic arrays, linked list, stack, circular buffer, hash chaining, BST, heap, AVL, union-find).
+- Spaced, interleaved reviews with confidence rating; the map shows strength per card type.
+
+Not yet built (ideas from sections 3 and 5 that are only partly covered today):
+- Separate Break / Choose / Rebuild / Connect / Transfer card types. Some of this already appears
+  inside Predict cards (e.g. "insert with the pointer steps in the wrong order", "which map fits").
+- A calibration dashboard (confidence vs. accuracy over time).
+- Algorithms pack.
 
 ---
 
@@ -268,4 +274,4 @@ ui/
 - **Platform:** simple front-end web project. Nothing elaborate.
 - **Code:** none. The app teaches mechanism; syntax isn't the goal.
 - **Checking:** everything is graded programmatically. No self-grading, no AI.
-- **Scope:** all 61 data structures in section 7. The first version builds the engine and Tiers 0–2; the rest follow in tier order.
+- **Scope:** all 61 data structures in section 7.
