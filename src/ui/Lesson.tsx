@@ -1,10 +1,14 @@
 import { useMemo, useState } from 'react';
 import type { Card, Concept } from '../engine/types';
-import { CARD_TYPES } from '../engine/types';
+import type { CardType } from '../engine/types';
 import type { Confidence } from '../engine/mastery';
 import { generateCard } from '../content';
 import { CardView } from './CardView';
 import { Playground } from './Playground';
+import { StepThrough } from './StepThrough';
+
+/** Lesson checkpoint order. Rebuild is left for reviews: recalling after a delay is the point of it. */
+const CHECKPOINT: CardType[] = ['predict', 'simulate', 'count', 'break', 'explain', 'connect', 'choose', 'transfer'];
 
 type Stage = 'hook' | 'lens' | 'play' | 'check' | 'done';
 
@@ -23,7 +27,7 @@ const LENS: { key: keyof Concept['lens']; q: string }[] = [
 ];
 
 export function Lesson({ concept, onAnswer, onFinish, onExit }: Props) {
-  const stages: Stage[] = concept.playground ? ['hook', 'lens', 'play', 'check', 'done'] : ['hook', 'lens', 'check', 'done'];
+  const stages: Stage[] = ['hook', 'lens', 'play', 'check', 'done'];
   const [stage, setStage] = useState<Stage>('hook');
   const next = () => setStage(stages[stages.indexOf(stage) + 1]);
 
@@ -44,14 +48,27 @@ export function Lesson({ concept, onAnswer, onFinish, onExit }: Props) {
       </div>
       {stage === 'hook' && <Hook concept={concept} onNext={next} />}
       {stage === 'lens' && <Lens concept={concept} onNext={next} />}
-      {stage === 'play' && concept.playground && (
+      {stage === 'play' && (
         <section className="panel">
-          <h2>Play with it</h2>
-          <p className="muted">
-            Run real operations. Watch the textbook picture and raw memory change together, and watch the touch counter. Try
-            to predict each count before you press.
-          </p>
-          <Playground def={concept.playground} />
+          {concept.playground ? (
+            <>
+              <h2>Play with it</h2>
+              <p className="muted">
+                Run real operations. Watch the textbook picture and raw memory change together, and watch the touch counter.
+                Try to predict each count before you press.
+              </p>
+              <Playground def={concept.playground} />
+            </>
+          ) : (
+            <>
+              <h2>Watch it work</h2>
+              <p className="muted">
+                A worked example, one step at a time. Before each Next, say what you think happens. Then you'll do one
+                yourself in the checkpoint.
+              </p>
+              <StepThrough concept={concept} />
+            </>
+          )}
           <button type="button" className="btn primary" onClick={next}>
             Checkpoint →
           </button>
@@ -135,7 +152,7 @@ function Lens({ concept, onNext }: { concept: Concept; onNext: () => void }) {
 }
 
 function Checkpoint({ concept, onAnswer, onDone }: { concept: Concept; onAnswer: Props['onAnswer']; onDone: () => void }) {
-  const cards = useMemo(() => CARD_TYPES.map((t) => generateCard(concept.id, t)), [concept.id]);
+  const cards = useMemo(() => CHECKPOINT.map((t) => generateCard(concept.id, t)), [concept.id]);
   const [i, setI] = useState(0);
   const [score, setScore] = useState(0);
   if (i >= cards.length)
@@ -153,7 +170,7 @@ function Checkpoint({ concept, onAnswer, onDone }: { concept: Concept; onAnswer:
   return (
     <section>
       <p className="muted small">
-        Checkpoint {i + 1} of {cards.length}: one card of each kind.
+        Checkpoint {i + 1} of {cards.length}: one card of each kind. (Rebuild cards come later, in reviews.)
       </p>
       <CardView
         key={i}

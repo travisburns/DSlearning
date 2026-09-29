@@ -5,13 +5,15 @@ import { getConcept } from './content';
 import { Home } from './ui/Home';
 import { Lesson } from './ui/Lesson';
 import { Review } from './ui/Review';
+import { Stats } from './ui/Stats';
 
-type Route = { page: 'home' } | { page: 'learn'; id: string } | { page: 'review' };
+type Route = { page: 'home' } | { page: 'learn'; id: string } | { page: 'review' } | { page: 'stats' };
 
 function parse(hash: string): Route {
   const [, page, id] = hash.replace(/^#/, '').split('/');
   if (page === 'learn' && id && getConcept(id)) return { page: 'learn', id };
   if (page === 'review') return { page: 'review' };
+  if (page === 'stats') return { page: 'stats' };
   return { page: 'home' };
 }
 
@@ -60,9 +62,22 @@ export function App() {
       </main>
     );
 
+  if (route.page === 'stats')
+    return (
+      <main className="wrap">
+        <Stats progress={progress} onExit={() => go('/')} onLearn={(id) => go(`/learn/${id}`)} />
+      </main>
+    );
+
   return (
     <main className="wrap">
-      <Home progress={progress} onLearn={(id) => go(`/learn/${id}`)} onReview={() => go('/review')} onReset={() => setProgress(emptyProgress())} />
+      <Home
+        progress={progress}
+        onLearn={(id) => go(`/learn/${id}`)}
+        onReview={() => go('/review')}
+        onStats={() => go('/stats')}
+        onReset={() => setProgress(emptyProgress())}
+      />
     </main>
   );
 }

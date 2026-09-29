@@ -18,6 +18,16 @@
   --c-simulate: #1f8a4c;
   --c-count: #b7791f;
   --c-explain: #a63d9a;
+  --c-break: #c2412d;
+  --c-connect: #0f7d86;
+  --c-choose: #5b4bc4;
+  --c-rebuild: #4f5b66;
+  --c-transfer: #b3541e;
+  --s-mechanism: #2f5bd3;
+  --s-invariant: #c2412d;
+  --s-cost: #b7791f;
+  --s-tradeoff: #0f7d86;
+  --s-application: #a63d9a;
   --radius: 10px;
   --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
   color-scheme: light;
@@ -44,6 +54,16 @@
     --c-simulate: #5fcf8d;
     --c-count: #e8b35a;
     --c-explain: #e38ad6;
+    --c-break: #ff8a75;
+    --c-connect: #4fc9d1;
+    --c-choose: #a597ff;
+    --c-rebuild: #a8b3bd;
+    --c-transfer: #f0a070;
+    --s-mechanism: #7ea0ff;
+    --s-invariant: #ff8a75;
+    --s-cost: #e8b35a;
+    --s-tradeoff: #4fc9d1;
+    --s-application: #e38ad6;
     color-scheme: dark;
   }
 }
@@ -161,23 +181,6 @@ h2 {
   border-radius: 3px;
   display: inline-block;
 }
-.chip-predict.bar-swatch,
-.bar-fill.chip-predict {
-  background: var(--c-predict);
-}
-.chip-simulate.bar-swatch,
-.bar-fill.chip-simulate {
-  background: var(--c-simulate);
-}
-.chip-count.bar-swatch,
-.bar-fill.chip-count {
-  background: var(--c-count);
-}
-.chip-explain.bar-swatch,
-.bar-fill.chip-explain {
-  background: var(--c-explain);
-}
-
 .tier {
   margin-top: 24px;
 }
@@ -231,7 +234,7 @@ h2 {
 }
 .bars {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(5, 1fr);
   gap: 4px;
 }
 .bar {
@@ -339,6 +342,36 @@ h2 {
 }
 .chip.chip-explain {
   background: var(--c-explain);
+}
+.chip.chip-break {
+  background: var(--c-break);
+}
+.chip.chip-connect {
+  background: var(--c-connect);
+}
+.chip.chip-choose {
+  background: var(--c-choose);
+}
+.chip.chip-rebuild {
+  background: var(--c-rebuild);
+}
+.chip.chip-transfer {
+  background: var(--c-transfer);
+}
+.skill-mechanism {
+  background: var(--s-mechanism);
+}
+.skill-invariant {
+  background: var(--s-invariant);
+}
+.skill-cost {
+  background: var(--s-cost);
+}
+.skill-tradeoff {
+  background: var(--s-tradeoff);
+}
+.skill-application {
+  background: var(--s-application);
 }
 @media (prefers-color-scheme: dark) {
   .chip {
@@ -864,4 +897,77 @@ svg .tnode.wrong circle {
   75% {
     transform: translateX(3px);
   }
+}
+
+.step-controls {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  flex-wrap: wrap;
+  margin: 12px 0;
+}
+.stepthrough .order-seq {
+  margin: 12px 0;
+}
+
+/* ---------- Stats ---------- */
+
+.calib {
+  display: grid;
+  gap: 8px;
+  margin: 12px 0;
+}
+.calib-row {
+  display: grid;
+  grid-template-columns: 130px 1fr 110px;
+  gap: 10px;
+  align-items: center;
+}
+@media (max-width: 520px) {
+  .calib-row {
+    grid-template-columns: 96px 1fr 80px;
+  }
+}
+.calib-num {
+  font-family: var(--mono);
+  font-size: 0.9rem;
+}
+.meter {
+  height: 12px;
+  background: var(--surface-2);
+  border-radius: 6px;
+  overflow: hidden;
+}
+.meter-fill {
+  height: 100%;
+}
+.meter-fill.conf-1 {
+  background: var(--muted);
+}
+.meter-fill.conf-2 {
+  background: var(--accent);
+}
+.meter-fill.conf-3 {
+  background: var(--ok);
+}
+.chipfill-predict { background: var(--c-predict); }
+.chipfill-simulate { background: var(--c-simulate); }
+.chipfill-count { background: var(--c-count); }
+.chipfill-explain { background: var(--c-explain); }
+.chipfill-break { background: var(--c-break); }
+.chipfill-connect { background: var(--c-connect); }
+.chipfill-choose { background: var(--c-choose); }
+.chipfill-rebuild { background: var(--c-rebuild); }
+.chipfill-transfer { background: var(--c-transfer); }
+.miss-list {
+  list-style: none;
+  padding: 0;
+  display: grid;
+  gap: 6px;
+}
+.miss-list li {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  flex-wrap: wrap;
 }

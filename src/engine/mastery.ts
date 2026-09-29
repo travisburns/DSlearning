@@ -1,5 +1,5 @@
-import type { CardType, Concept } from './types';
-import { CARD_TYPES } from './types';
+import type { CardType, Concept, Skill } from './types';
+import { CARD_TYPES, SKILLS } from './types';
 import { shuffle } from './random';
 
 /** How sure the learner was *before* answering. */
@@ -15,10 +15,22 @@ export interface ItemState {
   confidentMisses: number;
 }
 
+/** One answered card, kept for the calibration dashboard. */
+export interface LogEntry {
+  t: number;
+  concept: string;
+  type: CardType;
+  correct: boolean;
+  confidence: Confidence;
+}
+
 export interface Progress {
   learned: string[];
   items: Record<string, ItemState>;
+  log: LogEntry[];
 }
+
+const MAX_LOG = 5000;
 
 export const MAX_LEVEL = 5;
 const DAY = 24 * 60 * 60 * 1000;
@@ -29,14 +41,14 @@ const KEY = 'dslearning:v1';
 
 export const itemKey = (concept: string, type: CardType) => `${concept}:${type}`;
 
-export const emptyProgress = (): Progress => ({ learned: [], items: {} });
+export const emptyProgress = (): Progress => ({ learned: [], items: {}, log: [] });
 
 export function loadProgress(): Progress {
   try {
     const raw = localStorage.getItem(KEY);
     if (!raw) return emptyProgress();
     const p = JSON.parse(raw) as Progress;
-    return { learned: p.learned ?? [], items: p.items ?? {} };
+    return { learned: p.learned ?? [], items: p.items ?? {}, log: p.log ?? [] };
   } catch {
     return emptyProgress();
   }
@@ -82,7 +94,8 @@ export function recordAnswer(
 ): Progress {
   const key = itemKey(concept, type);
   const item = p.items[key] ?? newItem(now);
-  return { ...p, items: { ...p.items, [key]: scheduleAnswer(item, correct, confidence, now) } };
+  const log = [...p.log, { t: now, concept, type, correct, confidence }].slice(-MAX_LOG);
+  return { ...p, items: { ...p.items, [key]: scheduleAnswer(item, correct, confidence, now) }, log };
 }
 
 export function markLearned(p: Progress, concept: string): Progress {
@@ -96,6 +109,45 @@ export const isUnlocked = (p: Progress, c: Concept) => c.prereqs.every((id) => p
 export function strength(p: Progress, concept: string, type: CardType): number {
   const item = p.items[itemKey(concept, type)];
   return item ? item.level / MAX_LEVEL : 0;
+}
+
+/** 0..1 strength of one of the five skills: the average level of the card types that feed it. */
+export function skillStrength(p: Progress, concept: string, skill: Skill): number {
+  const types = SKILLS.find((s) => s.id === skill)!.types;
+  return types.reduce((sum, t) => sum + strength(p, concept, t), 0) / types.length;
+}
+
+export interface Calibration {
+  confidence: Confidence;
+  answered: number;
+  correct: number;
+}
+
+/** How often you were right at each confidence level. Well calibrated: guess < fairly sure < certain ≈ 100%. */
+export function calibration(p: Progress): Calibration[] {
+  return ([1, 2, 3] as Confidence[]).map((confidence) => {
+    const xs = p.log.filter((e) => e.confidence === confidence);
+    return { confidence, answered: xs.length, correct: xs.filter((e) => e.correct).length };
+  });
+}
+
+/** Accuracy per card type. */
+export function accuracyByType(p: Progress): { type: CardType; answered: number; correct: number }[] {
+  return CARD_TYPES.map((type) => {
+    const xs = p.log.filter((e) => e.type === type);
+    return { type, answered: xs.length, correct: xs.filter((e) => e.correct).length };
+  });
+}
+
+/** Concept × card type pairs with confident misses, worst first. */
+export function misconceptions(p: Progress): { concept: string; type: CardType; count: number }[] {
+  return Object.entries(p.items)
+    .filter(([, it]) => it.confidentMisses > 0)
+    .map(([k, it]) => {
+      const i = k.lastIndexOf(':');
+      return { concept: k.slice(0, i), type: k.slice(i + 1) as CardType, count: it.confidentMisses };
+    })
+    .sort((a, b) => b.count - a.count);
 }
 
 export interface ReviewItem {

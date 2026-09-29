@@ -1,16 +1,17 @@
 import type { Progress } from '../engine/mastery';
-import { dueItems, isUnlocked, strength } from '../engine/mastery';
-import { CARD_TYPES, CARD_TYPE_INFO, TIERS } from '../engine/types';
+import { dueItems, isUnlocked, skillStrength } from '../engine/mastery';
+import { SKILLS, TIERS } from '../engine/types';
 import { CONCEPTS, getConcept } from '../content';
 
 interface Props {
   progress: Progress;
   onLearn: (id: string) => void;
   onReview: () => void;
+  onStats: () => void;
   onReset: () => void;
 }
 
-export function Home({ progress, onLearn, onReview, onReset }: Props) {
+export function Home({ progress, onLearn, onReview, onStats, onReset }: Props) {
   const due = dueItems(progress).length;
   const learned = progress.learned.length;
   const tiers = TIERS.map((name, t) => ({ name, t, concepts: CONCEPTS.filter((c) => c.tier === t) })).filter((x) => x.concepts.length);
@@ -29,6 +30,9 @@ export function Home({ progress, onLearn, onReview, onReset }: Props) {
           <div className="stat">
             <strong>{learned}</strong>/<span>{CONCEPTS.length}</span> learned
           </div>
+          <button type="button" className="btn" onClick={onStats} disabled={progress.log.length === 0}>
+            Stats
+          </button>
           <button type="button" className="btn primary" onClick={onReview} disabled={learned === 0}>
             {due ? `Review (${due} due)` : 'Practise'}
           </button>
@@ -36,9 +40,10 @@ export function Home({ progress, onLearn, onReview, onReset }: Props) {
       </header>
 
       <div className="legend">
-        {CARD_TYPES.map((t) => (
-          <span key={t} className="legend-item">
-            <span className={`bar-swatch chip-${t}`} /> {CARD_TYPE_INFO[t].name}
+        <span className="legend-item">Skills:</span>
+        {SKILLS.map((sk) => (
+          <span key={sk.id} className="legend-item" title={`Fed by: ${sk.types.join(', ')}`}>
+            <span className={`bar-swatch skill-${sk.id}`} /> {sk.name}
           </span>
         ))}
       </div>
@@ -69,11 +74,14 @@ export function Home({ progress, onLearn, onReview, onReset }: Props) {
                   <div className="tile-tag">{unlocked ? c.tagline : `Needs: ${missing.join(', ')}`}</div>
                   {done && (
                     <div className="bars" aria-label="Skill strength">
-                      {CARD_TYPES.map((t) => (
-                        <div key={t} className="bar" title={`${CARD_TYPE_INFO[t].name}: ${Math.round(strength(progress, c.id, t) * 100)}%`}>
-                          <div className={`bar-fill chip-${t}`} style={{ width: `${strength(progress, c.id, t) * 100}%` }} />
-                        </div>
-                      ))}
+                      {SKILLS.map((sk) => {
+                        const v = skillStrength(progress, c.id, sk.id);
+                        return (
+                          <div key={sk.id} className="bar" title={`${sk.name}: ${Math.round(v * 100)}%`}>
+                            <div className={`bar-fill skill-${sk.id}`} style={{ width: `${v * 100}%` }} />
+                          </div>
+                        );
+                      })}
                     </div>
                   )}
                 </button>
