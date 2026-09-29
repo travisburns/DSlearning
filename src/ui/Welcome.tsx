@@ -1,5 +1,8 @@
 import { CONCEPTS } from '../content';
 
+const ALGO = CONCEPTS.filter((c) => c.kind === 'algorithm').length;
+const DS = CONCEPTS.length - ALGO;
+
 /** First-visit guide: what you're learning, and how the app works. Also reachable from the map. */
 export function Welcome({ onStart }: { onStart: () => void }) {
   return (
@@ -13,21 +16,26 @@ export function Welcome({ onStart }: { onStart: () => void }) {
           is slow and tangled.
         </p>
         <p>
-          This course covers {CONCEPTS.length} of them, from the very bottom (what memory actually is) up to advanced ones
-          (like the structures inside databases and caches). You don’t need to write code here: the goal is to understand
-          how each structure works, so well that you could rebuild it yourself.
+          This course covers {DS} of them, from the very bottom (what memory actually is) up to advanced ones (like the
+          structures inside databases and caches). You don’t need to write code here: the goal is to understand how each
+          structure works, so well that you could rebuild it yourself.
+        </p>
+        <p>
+          <b>Algorithms</b> are step-by-step methods that use those structures to solve problems: searching, sorting,
+          finding shortest routes. The course has {ALGO} of them, woven into the same path. Each algorithm opens only after
+          you’ve passed the data structures it uses, so you always learn the tool before the technique.
         </p>
 
         <h2>The idea behind the whole course</h2>
         <p>
           Every data structure is built from just two things: <b>boxes side by side</b> (arrays) and <b>boxes that point to
-          other boxes</b> (pointers), plus <b>one rule</b> the structure promises to keep. Once you see that, the 61
-          structures stop being 61 things to memorise and become variations on one idea.
+          other boxes</b> (pointers), plus <b>one rule</b> the structure promises to keep. Once you see that, the {DS}{' '}
+          structures stop being {DS} things to memorise and become variations on one idea.
         </p>
 
         <h2>The path</h2>
         <p>
-          You start at the bottom and work up. Each structure unlocks once you’ve passed the structures it’s built from.
+          You start at the bottom and work up. Each lesson unlocks once you’ve passed the lessons it’s built on.
           The map shows the whole path, with what’s done, what’s open and what’s still locked.
         </p>
 
@@ -41,7 +49,7 @@ export function Welcome({ onStart }: { onStart: () => void }) {
           </li>
           <li>
             <b>4 questions:</b> the same four questions for every structure (how it’s stored, its rule, what the rule makes
-            fast, what it costs). Answer in your head, then reveal.
+            fast, what it costs), and a matching four for every algorithm. Answer in your head, then reveal.
           </li>
           <li>
             <b>Checkpoint:</b> 8 questions of different kinds. Each question says at the top what it’s asking you to do.
@@ -63,8 +71,8 @@ export function Welcome({ onStart }: { onStart: () => void }) {
 
         <h2>Making it stick</h2>
         <p>
-          Passed structures come back in <b>Review</b> as brand-new questions, spaced out over days. Getting every kind of
-          question right on three separate days makes a structure <b>★ Mastered</b>. Miss it later and it goes back to
+          Passed lessons come back in <b>Review</b> as brand-new questions, spaced out over days. Getting every kind of
+          question right on three separate days makes it <b>★ Mastered</b>. Miss it later and it goes back to
           practice. Doing a short review each day is the whole trick.
         </p>
 

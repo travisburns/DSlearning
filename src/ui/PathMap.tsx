@@ -117,15 +117,15 @@ export function PathMap({ progress, onLearn }: { progress: Progress; onLearn: (i
           return (
             <g
               key={c.id}
-              className={`pm-node pm-${st}`}
+              className={`pm-node pm-${st} ${c.kind === 'algorithm' ? 'pm-algo' : ''}`}
               transform={`translate(${x} ${y})`}
               onClick={clickable ? () => onLearn(c.id) : undefined}
               role={clickable ? 'button' : undefined}
               tabIndex={clickable ? 0 : undefined}
               onKeyDown={clickable ? (e) => (e.key === 'Enter' || e.key === ' ') && onLearn(c.id) : undefined}
             >
-              <title>{`${c.title}: ${st === 'locked' ? 'locked (needs ' + c.prereqs.map((p) => CONCEPTS.find((o) => o.id === p)?.title).join(', ') + ')' : st}. ${c.tagline}`}</title>
-              <rect width={W} height={H} rx={8} />
+              <title>{`${c.kind === 'algorithm' ? 'Algorithm. ' : ''}${c.title}: ${st === 'locked' ? 'locked (needs ' + c.prereqs.map((p) => CONCEPTS.find((o) => o.id === p)?.title).join(', ') + ')' : st}. ${c.tagline}`}</title>
+              <rect width={W} height={H} rx={c.kind === 'algorithm' ? H / 2 : 8} />
               <text x={W / 2} y={19} textAnchor="middle" className="pm-title">
                 {c.title.length > 18 ? c.title.slice(0, 17) + '…' : c.title}
               </text>

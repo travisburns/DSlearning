@@ -32,7 +32,7 @@ export function Review({ progress, onAnswer, onExit, only, title = 'Review' }: P
     return (
       <section className="panel">
         <h2>{only ? 'All caught up' : 'Nothing to review yet'}</h2>
-        <p>{only ? 'Nothing is due on these structures.' : 'Finish a lesson first; its structure joins the review pool.'}</p>
+        <p>{only ? 'Nothing is due on these lessons.' : 'Finish a lesson first; it joins the review pool.'}</p>
         <button type="button" className="btn primary" onClick={onExit}>
           Continue
         </button>

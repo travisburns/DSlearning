@@ -16,23 +16,27 @@ const PRIMITIVE_TEXT: Record<ConceptExtras['primitive'], string> = {
 };
 
 const LENS_FIELDS = [
-  { key: 'layout', name: 'LAYOUT (how it sits in memory)' },
-  { key: 'invariant', name: 'INVARIANT (the rule it always keeps)' },
-  { key: 'payoff', name: 'PAYOFF (what the rule makes cheap)' },
-  { key: 'price', name: 'PRICE (what it costs)' },
+  { key: 'layout', name: 'LAYOUT (how it sits in memory)', algo: 'SETUP (what it works on)' },
+  { key: 'invariant', name: 'INVARIANT (the rule it always keeps)', algo: 'KEY IDEA (what stays true at every step)' },
+  { key: 'payoff', name: 'PAYOFF (what the rule makes cheap)', algo: 'PAYOFF (why it’s fast)' },
+  { key: 'price', name: 'PRICE (what it costs)', algo: 'PRICE (cost and limits)' },
 ] as const;
 
 /** Other concepts that are safe to use as wrong answers for `c`: different family, not a rival. */
 function foils(c: Concept, all: Concept[], maxTierGap = 1): Concept[] {
   const ex = c.extras!;
   const ok = (o: Concept) => o.id !== c.id && o.extras && o.extras.family !== ex.family && !(ex.rivals ?? []).includes(o.id) && !(o.extras.rivals ?? []).includes(c.id);
-  const near = all.filter((o) => ok(o) && o.tier <= c.tier + maxTierGap);
-  return near.length >= 3 ? near : all.filter(ok);
+  const sameKind = (o: Concept) => (o.kind ?? 'ds') === (c.kind ?? 'ds');
+  const near = all.filter((o) => ok(o) && sameKind(o) && o.tier <= c.tier + maxTierGap);
+  if (near.length >= 3) return near;
+  const kind = all.filter((o) => ok(o) && sameKind(o));
+  return kind.length >= 3 ? kind : all.filter(ok);
 }
 
 /** Concepts close in the curriculum, used to make Rebuild distractors hard. */
 function neighbours(c: Concept, all: Concept[]): Concept[] {
-  const others = all.filter((o) => o.id !== c.id);
+  const kindOthers = all.filter((o) => o.id !== c.id && (o.kind ?? 'ds') === (c.kind ?? 'ds'));
+  const others = kindOthers.length >= 3 ? kindOthers : all.filter((o) => o.id !== c.id);
   const close = others.filter((o) => Math.abs(o.tier - c.tier) <= 1);
   return close.length >= 3 ? close : others;
 }
@@ -63,7 +67,7 @@ export function extraGenerators(c: Concept, all: Concept[]): Record<ExtraCardTyp
     return {
       concept: c.id,
       type: 'choose',
-      prompt: `Which structure fits best?\n\n${scenario}`,
+      prompt: `Which ${c.kind === 'algorithm' ? 'approach' : 'structure'} fits best?\n\n${scenario}`,
       body: {
         kind: 'choice',
         options: options(
@@ -98,7 +102,7 @@ export function extraGenerators(c: Concept, all: Concept[]): Record<ExtraCardTyp
   const connectPrimitive: CardGenerator = () => ({
     concept: c.id,
     type: 'connect',
-    prompt: `Strip ${c.title} down to its primitives. What does it rest on?`,
+    prompt: c.kind === 'algorithm' ? `What kind of data layout does ${c.title} mainly work on?` : `Strip ${c.title} down to its primitives. What does it rest on?`,
     body: {
       kind: 'choice',
       options: (Object.keys(PRIMITIVE_TEXT) as ConceptExtras['primitive'][]).map((k) => ({
@@ -115,7 +119,7 @@ export function extraGenerators(c: Concept, all: Concept[]): Record<ExtraCardTyp
     return {
       concept: c.id,
       type: 'connect',
-      prompt: `Which structure is built from: ${ex.parts.join(' + ')}?`,
+      prompt: `Which ${c.kind === 'algorithm' ? 'algorithm' : 'structure'} is built from: ${ex.parts.join(' + ')}?`,
       body: {
         kind: 'choice',
         options: options({ text: c.title, why: c.lens.layout }, wrong.map((o) => ({ text: o.title, why: `${o.title} = ${o.extras!.parts.join(' + ')}` }))),
@@ -124,13 +128,14 @@ export function extraGenerators(c: Concept, all: Concept[]): Record<ExtraCardTyp
     };
   };
 
+  const fieldName = (f: (typeof LENS_FIELDS)[number]) => (c.kind === 'algorithm' ? f.algo : f.name);
   const rebuildLens: CardGenerator = () => {
     const f = pick(LENS_FIELDS);
     const wrong = shuffle(neighbours(c, all)).slice(0, 3);
     return {
       concept: c.id,
       type: 'rebuild',
-      prompt: `From memory: what is the ${f.name} of ${c.title}?`,
+      prompt: `From memory: what is the ${fieldName(f)} of ${c.title}?`,
       body: {
         kind: 'choice',
         options: options({ text: c.lens[f.key], why: 'That’s the one.' }, wrong.map((o) => ({ text: o.lens[f.key], why: `That’s ${o.title}.` }))),
@@ -145,7 +150,7 @@ export function extraGenerators(c: Concept, all: Concept[]): Record<ExtraCardTyp
     return {
       concept: c.id,
       type: 'rebuild',
-      prompt: `Which structure has this ${f.name.split(' ')[0].toLowerCase()}?\n\n“${c.lens[f.key]}”`,
+      prompt: `Which ${c.kind === 'algorithm' ? 'algorithm' : 'structure'} has this ${fieldName(f).split(' (')[0].toLowerCase()}?\n\n“${c.lens[f.key]}”`,
       body: { kind: 'choice', options: options({ text: c.title }, wrong.map((o) => ({ text: o.title, why: `${o.title}: ${o.lens[f.key]}` }))) },
       explain: `${c.title}. ${c.lens.invariant}`,
     };
@@ -154,7 +159,7 @@ export function extraGenerators(c: Concept, all: Concept[]): Record<ExtraCardTyp
   const rebuildFour: CardGenerator = () => ({
     concept: c.id,
     type: 'rebuild',
-    prompt: `Rebuild ${c.title} from memory: put the lens in order from how it’s laid out to what it costs.`,
+    prompt: `Rebuild ${c.title} from memory: put its 4 answers in order (${c.kind === 'algorithm' ? 'what it works on → key idea → why it’s fast → cost' : 'how it’s stored → its rule → what the rule makes fast → what it costs'}).`,
     body: { kind: 'order', steps: [c.lens.layout, c.lens.invariant, c.lens.payoff, c.lens.price] },
     explain: 'Layout → the rule it keeps → what the rule buys → what the rule costs. Every structure answers these four.',
   });

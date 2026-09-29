@@ -45,7 +45,8 @@ export function Home({ progress, onLearn, onReview, onStats, onHelp, onReset }: 
           <h1>DS Learning</h1>
           <p className="muted">
             Every data structure is built from two things: <strong>slots in a row</strong> and <strong>pointers</strong>, plus
-            one rule it promises to keep. Learn each one by working it by hand, not by memorising.
+            one rule it promises to keep. Algorithms then put those structures to work. Learn each one by working it by
+            hand, not by memorising.
           </p>
         </div>
         <div className="hero-actions">
@@ -70,7 +71,8 @@ export function Home({ progress, onLearn, onReview, onStats, onHelp, onReset }: 
       <p className="map-help">
         This is your learning path. You start at the top with the most basic ideas and work down; arrows show which lessons
         are built on which. A lesson opens once you’ve passed everything it’s built on. <b>Start here</b> marks lessons you
-        can do now.
+        can do now. Rounded, dashed boxes are <b>algorithms</b>: they open once you’ve passed the data structures they
+        use.
       </p>
 
       <div className="view-toggle" role="tablist">
@@ -122,6 +124,7 @@ export function Home({ progress, onLearn, onReview, onStats, onHelp, onReset }: 
                       {star ? '★ Mastered' : done ? `✓ ${provenTypes(progress, c.id)}/${CARD_TYPES.length} proven` : unlocked ? 'New' : '🔒'}
                     </span>
                   </div>
+                  {c.kind === 'algorithm' && <span className="algo-badge">Algorithm</span>}
                   <div className="tile-tag">{unlocked ? c.tagline : `Needs: ${missing.join(', ')}`}</div>
                   {done && (
                     <div className="bars" aria-label="Skill strength">

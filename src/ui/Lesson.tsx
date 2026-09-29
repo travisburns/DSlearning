@@ -27,11 +27,11 @@ interface Props {
   onExit: () => void;
 }
 
-const LENS: { key: keyof Concept['lens']; q: string }[] = [
-  { key: 'layout', q: '1. How is it stored in memory?' },
-  { key: 'invariant', q: '2. What rule does it always keep true?' },
-  { key: 'payoff', q: '3. What does that rule make fast?' },
-  { key: 'price', q: '4. What does that rule cost?' },
+const LENS: { key: keyof Concept['lens']; q: string; algo: string }[] = [
+  { key: 'layout', q: '1. How is it stored in memory?', algo: '1. What does it work on?' },
+  { key: 'invariant', q: '2. What rule does it always keep true?', algo: '2. What’s the key idea that stays true at every step?' },
+  { key: 'payoff', q: '3. What does that rule make fast?', algo: '3. Why is it fast?' },
+  { key: 'price', q: '4. What does that rule cost?', algo: '4. What does it cost, and when does it fail?' },
 ];
 
 const STAGE_NAMES: Record<Stage, string> = { learn: 'Learn', play: 'Try it', lens: '4 questions', check: 'Checkpoint', done: 'Done' };
@@ -58,7 +58,7 @@ export function Lesson({ concept, duePrereqs, alreadyPassed, onReviewPrereqs, on
         <section className="panel">
           <h2>Review the foundations first</h2>
           <p>
-            {concept.title} is built from {concept.prereqs.length === 1 ? 'a structure' : 'structures'} with{' '}
+            {concept.title} is built on {concept.prereqs.length === 1 ? 'a lesson' : 'lessons'} with{' '}
             <strong>{duePrereqs}</strong> review card{duePrereqs === 1 ? '' : 's'} due. New material goes on a solid base, so
             clear those first.
           </p>
@@ -194,14 +194,14 @@ function Lens({ concept, onNext }: { concept: Concept; onNext: () => void }) {
   return (
     <section className="panel">
       <StepIntro>
-        <b>This step:</b> every data structure can be summed up by the same four questions. Answer each one in your own
+        <b>This step:</b> every {concept.kind === 'algorithm' ? 'algorithm' : 'data structure'} can be summed up by the same four questions. Answer each one in your own
         head first, then reveal it to check. Recalling before you look is what makes it stick.
       </StepIntro>
       <h2>The 4 questions</h2>
       <div className="lens">
         {LENS.map((l, i) => (
           <div key={l.key} className={`lens-q ${i < shown ? 'open' : ''}`}>
-            <div className="lens-title">{l.q}</div>
+            <div className="lens-title">{concept.kind === 'algorithm' ? l.algo : l.q}</div>
             {i < shown ? (
               <p>
                 <Rich text={concept.lens[l.key]} />

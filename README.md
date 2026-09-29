@@ -45,6 +45,18 @@ The map shows five skills per structure: **Mechanism** (Predict, Simulate, Rebui
 | 9 Probabilistic | skip list, Bloom filter, count-min sketch, HyperLogLog |
 | 10 Composites | ordered map, LRU cache, LFU cache, sparse matrix, mergeable heaps, persistent structures |
 
+Plus 23 algorithms woven into the same path. Each one unlocks only after the data structures it uses have been passed (shown as rounded, dashed boxes on the map):
+
+| Tier | Algorithms (needs) |
+|---|---|
+| 1 | binary search, two pointers, sliding window, insertion sort, counting sort (static array); fast & slow pointers (linked list); bit manipulation (bits) |
+| 2 | recursion (stack); merge sort, quicksort (array + recursion); backtracking (recursion); greedy (merge sort) |
+| 3 | counting with hash maps (hash map); string search (string + hash function); 1D DP (recursion + hash map); 2D DP (1D DP + 2D array) |
+| 4 | tree traversals (binary tree + recursion); heapsort (binary heap) |
+| 6 | BFS (graph + queue + adjacency list); DFS (graph + recursion + adjacency list); topological sort (BFS); Dijkstra (BFS + binary heap); Kruskal (union-find + edge list + merge sort) |
+
+Algorithms use the same lesson steps and card types; their "4 questions" are what it works on, the key idea, why it's fast, and what it costs.
+
 ## Run it
 
 ```bash
@@ -74,4 +86,4 @@ src/
 docs/DESIGN.md  the design and reasoning behind it
 ```
 
-Adding a structure means adding one `Concept` object in `src/content/`, its entry in `src/content/extras.ts`, and registering it in `src/content/index.ts`. The engine and UI don't need to change. Algorithms will be added later the same way.
+Adding a structure means adding one `Concept` object in `src/content/`, its entry in `src/content/extras.ts`, and registering it in `src/content/index.ts`. The engine and UI don't need to change. Algorithms are added the same way, with `kind: 'algorithm'` and their extras/learn text inline (`algoBasics.ts`, `sorting.ts`, `graphAlgos.ts`, `paradigms.ts`).

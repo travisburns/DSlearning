@@ -17,6 +17,19 @@ import { fenwickConcept, intervalTreeConcept, kdTreeConcept, prefixSumConcept, q
 import { radixTrieConcept, ropeConcept, suffixArrayConcept, suffixTreeConcept } from './strings';
 import { bloomFilterConcept, countMinConcept, hyperLogLogConcept, skipListConcept } from './probabilistic';
 import { lfuConcept, lruConcept, mergeableHeapsConcept, orderedMapConcept, persistentConcept, sparseMatrixConcept } from './composites';
+import {
+  binarySearchConcept,
+  bitManipulationConcept,
+  fastSlowConcept,
+  hashingPatternsConcept,
+  recursionConcept,
+  slidingWindowConcept,
+  stringMatchingConcept,
+  twoPointersConcept,
+} from './algoBasics';
+import { countingSortConcept, heapsortConcept, insertionSortConcept, mergeSortConcept, quicksortConcept } from './sorting';
+import { bfsConcept, dfsConcept, dijkstraConcept, kruskalConcept, topologicalSortConcept, treeDfsConcept } from './graphAlgos';
+import { backtrackingConcept, dp1dConcept, dp2dConcept, greedyConcept } from './paradigms';
 import { consistentHashingConcept, cuckooConcept, hashChainingConcept, hashFunctionConcept, hashMapConcept, hashOpenAddressingConcept } from './hashing';
 
 export const CONCEPTS: Concept[] = [
@@ -33,6 +46,14 @@ export const CONCEPTS: Concept[] = [
   doublyLinkedListConcept,
   circularLinkedListConcept,
   bitsetConcept,
+  // Tier 1 algorithms
+  binarySearchConcept,
+  twoPointersConcept,
+  slidingWindowConcept,
+  insertionSortConcept,
+  countingSortConcept,
+  fastSlowConcept,
+  bitManipulationConcept,
   // Tier 2
   stackConcept,
   queueConcept,
@@ -40,6 +61,12 @@ export const CONCEPTS: Concept[] = [
   dequeConcept,
   monotonicStackConcept,
   priorityQueueConcept,
+  // Tier 2 algorithms
+  recursionConcept,
+  mergeSortConcept,
+  quicksortConcept,
+  backtrackingConcept,
+  greedyConcept,
   // Tier 3
   hashFunctionConcept,
   hashChainingConcept,
@@ -47,6 +74,11 @@ export const CONCEPTS: Concept[] = [
   hashMapConcept,
   cuckooConcept,
   consistentHashingConcept,
+  // Tier 3 algorithms
+  hashingPatternsConcept,
+  stringMatchingConcept,
+  dp1dConcept,
+  dp2dConcept,
   // Tier 4
   treeConcept,
   binaryTreeConcept,
@@ -54,6 +86,9 @@ export const CONCEPTS: Concept[] = [
   binaryHeapConcept,
   dAryHeapConcept,
   trieConcept,
+  // Tier 4 algorithms
+  treeDfsConcept,
+  heapsortConcept,
   // Tier 5
   avlConcept,
   redBlackConcept,
@@ -67,6 +102,12 @@ export const CONCEPTS: Concept[] = [
   adjacencyListConcept,
   edgeListConcept,
   unionFindConcept,
+  // Tier 6 algorithms
+  bfsConcept,
+  dfsConcept,
+  topologicalSortConcept,
+  dijkstraConcept,
+  kruskalConcept,
   // Tier 7
   prefixSumConcept,
   sparseTableConcept,
@@ -95,8 +136,8 @@ export const CONCEPTS: Concept[] = [
 ];
 
 for (const c of CONCEPTS) {
-  c.extras = EXTRAS[c.id];
-  c.learn = LEARN[c.id];
+  c.extras = c.extras ?? EXTRAS[c.id];
+  c.learn = c.learn ?? LEARN[c.id];
 }
 
 const byId = new Map(CONCEPTS.map((c) => [c.id, c]));

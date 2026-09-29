@@ -1137,6 +1137,20 @@ svg .tnode.wrong circle {
 .pm-locked {
   opacity: 0.55;
 }
+.pm-algo rect {
+  stroke-dasharray: 5 3;
+}
+.algo-badge {
+  align-self: flex-start;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--accent);
+  border: 1px dashed var(--accent);
+  border-radius: 999px;
+  padding: 1px 8px;
+}
 .pm-node[role='button'] {
   cursor: pointer;
 }

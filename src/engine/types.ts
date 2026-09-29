@@ -170,6 +170,8 @@ export interface ConceptExtras {
 export interface Concept {
   id: string;
   title: string;
+  /** Data structures are the default; algorithms are placed in the same path after the structures they use. */
+  kind?: 'algorithm';
   tier: number;
   prereqs: string[];
   /** One-line summary shown on the map. */

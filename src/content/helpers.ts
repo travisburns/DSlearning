@@ -22,8 +22,14 @@ export function numberOptions(answer: number, wrong: { value: number; why: strin
   );
 }
 
-export const GROWTH = ['O(1) — same work no matter how big', 'O(log n) — grows slowly', 'O(n) — grows with the size', 'O(n²) — grows with the square'] as const;
-export type Growth = 0 | 1 | 2 | 3;
+export const GROWTH = [
+  'O(1) — same work no matter how big',
+  'O(log n) — grows slowly',
+  'O(n) — grows with the size',
+  'O(n²) — grows with the square',
+  'O(n log n) — a bit more than the size',
+] as const;
+export type Growth = 0 | 1 | 2 | 3 | 4;
 
 /**
  * "Here are the measured touch counts at several sizes. What's the growth?"

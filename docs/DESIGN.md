@@ -4,7 +4,7 @@
 > but by understanding each structure from its primitives and being able to rebuild,
 > predict, break, explain, and apply it.
 >
-> Scope right now: **data structures only.** Algorithms come later as a separate content pack.
+> Scope: all 61 data structures, plus 23 algorithms woven into the same path (each unlocks after the structures it uses).
 
 ---
 
@@ -266,7 +266,11 @@ Built:
 - Spaced, interleaved reviews with confidence rating; the map shows the five skills from section 5.
 - Stats page: calibration (confidence vs. accuracy), accuracy per card type, misconceptions.
 
-Next (by agreement, later): the algorithms pack, reusing the same engine and scene renderer.
+- 23 algorithms in the same path (`kind: 'algorithm'`): searching, two pointers, sliding window,
+  fast/slow pointers, bit tricks, hashing patterns, string search, recursion, five sorts, backtracking,
+  greedy, 1D/2D DP, tree traversals, BFS, DFS, topological sort, Dijkstra, Kruskal. Each has prerequisites
+  on the structures it uses, its tier is the highest tier of those, and it gets all nine card types.
+  Generic cards compare algorithms with algorithms; the lens is read as setup / key idea / payoff / price.
 
 ---
 
@@ -275,4 +279,4 @@ Next (by agreement, later): the algorithms pack, reusing the same engine and sce
 - **Platform:** simple front-end web project. Nothing elaborate.
 - **Code:** none. The app teaches mechanism; syntax isn't the goal.
 - **Checking:** everything is graded programmatically. No self-grading, no AI.
-- **Scope:** all 61 data structures in section 7.
+- **Scope:** all 61 data structures in section 7, plus algorithms placed after the structures they use.
