@@ -72,7 +72,7 @@ and you're asked to invent something. The structure is the answer to *your* frus
 |---|---|---|
 | **Productive failure / invention** | Attempt a problem *before* instruction | Every concept opens with "design something that…" |
 | **First principles** | Build up from irreducible parts | The Primitive Lens + Memory Canvas |
-| **Feynman technique** | Explain simply; gaps reveal themselves | "Explain it" card: write plain-language explanation, check against rubric, fix gaps, simplify again |
+| **Feynman technique** | Explain simply; gaps reveal themselves | "Explain" card: *assemble* the explanation from pieces (true vs. misconception, order the reasoning chain, pick the plain summary). Checked by code |
 | **Prediction → observation** | Commit to a guess, then see | "What does memory look like after this op?" then animate |
 | **Enactment / manual simulation** | *You* are the CPU | Tap swaps, drag pointers, move items by hand |
 | **Retrieval practice** | Pull from memory, don't reread | Blank-canvas rebuilds, generated problems |
@@ -86,8 +86,7 @@ and you're asked to invent something. The structure is the answer to *your* frus
 | **Self-explanation** | Explain each step to yourself | After a simulation: "why did that swap happen?" |
 | **Transfer / far application** | Use in new context | Design a variant structure (min-stack, LRU cache…) |
 | **Metacognition / calibration** | Know what you know | Rate confidence *before* answering; track calibration |
-| **Teaching (protégé effect)** | Teach it to learn it | "Teach the novice" mode — explain to a confused persona |
-| **Build it** | Implementation | Code the structure against a test suite (later phase) |
+| **Teaching (protégé effect)** | Teach it to learn it | "Fix the novice": a novice's explanation with a wrong step; find and fix it |
 
 ---
 
@@ -107,12 +106,15 @@ not just one.
 6. **Choose** — A real-world scenario. Pick the structure *and justify it* in one sentence.
    Includes trick scenarios where the "obvious" answer is wrong.
 7. **Connect** — "A hash table is just ___ + ___ + ___." Composing structures from primitives.
-8. **Explain (Feynman)** — Write it plainly for a 12-year-old. Self-check against a rubric of
-   key ideas (later: optional AI feedback). Then compress to one sentence.
+8. **Explain (Feynman)** — Assemble the explanation instead of writing prose: select the true
+   statements and reject the misconceptions, put the cause→effect reasoning in order, spot the myth,
+   pick the best plain one-sentence summary. Every piece is checked by code; no self-grading, no AI.
 9. **Rebuild** — Blank canvas. After this sequence of ops, draw the structure from memory.
 10. **Transfer** — Design a variant: stack with O(1) min, queue from two stacks, LRU cache,
     circular buffer, etc.
-11. **Build** *(later phase)* — Implement it in code; hidden tests probe the invariant and edge cases.
+
+**No code cards.** Mastery of data structures is about mechanism, not syntax. If you can drive the
+structure by hand on the Memory Canvas, writing it in C# (or anything) is just typing.
 
 Every card is a **template + generator**, not a fixed question. `Predict(heap, insert)` rolls a new
 heap and a new value each time.
@@ -146,7 +148,7 @@ Each concept has five **skills**, tracked separately:
 - **Invariant** — do you know the rule and why it matters? (Break, Explain)
 - **Cost** — can you derive the complexity? (Count)
 - **Tradeoff** — do you know when *not* to use it? (Choose, Connect)
-- **Application** — can you use/extend it in a new situation? (Transfer, Build)
+- **Application** — can you use/extend it in a new situation? (Transfer)
 
 Each skill has a strength (0–1) that decays over time and is refreshed by successful generative
 reviews. The review scheduler picks the weakest/most-decayed skills and **interleaves** across
@@ -229,10 +231,9 @@ ui/
 - Content is **data**, cards are **plugins**, the engine doesn't know what a heap is.
   Algorithms become a new content pack reusing the same simulator (algorithms *operate on* these
   structures, so the canvas carries straight over).
-- Local-first: progress in the browser (IndexedDB), no account needed. Sync can come later.
+- Local-first: progress saved in the browser, no account, no backend.
 
-**Proposed stack:** React + TypeScript + Vite, SVG-based canvas, IndexedDB for progress,
-Vitest for tests. Optional later: Claude API for Feynman feedback and Socratic hints.
+**Stack:** a simple front-end project only. No server, no AI, no login. Every answer is checked by code.
 
 ---
 
@@ -243,14 +244,13 @@ Vitest for tests. Optional later: Claude API for Feynman feedback and Socratic h
 2. Invent / Break / Choose / Rebuild cards; mastery scheduler + Understanding Map.
 3. Tiers 3–4 (hashing, trees, heaps, tries).
 4. Tier 5–6, Transfer cards, confidence calibration dashboard.
-5. Build-it (code) cards; optional AI Feynman feedback.
-6. Algorithms pack.
+5. Algorithms pack.
 
 ---
 
-## 10. Open questions
+## 10. Decisions
 
-- Platform: web app (default) vs. mobile vs. desktop?
-- Should code appear from day one, and in which language?
-- AI feedback on Feynman explanations (needs an API key) or rubric self-grading only?
-- Solo tool, or eventually shareable with others?
+- **Platform:** simple front-end web project. Nothing elaborate.
+- **Code:** none. The app teaches mechanism; syntax isn't the goal.
+- **Checking:** everything is graded programmatically. No self-grading, no AI.
+- **MVP scope:** Memory Canvas + Predict / Simulate / Count / Explain cards, Tier 0–2 content.
