@@ -9,8 +9,8 @@ import { explainGenerators, growthCard, numberOptions, options } from './helpers
 
 const MEM = 'memory';
 
-function namedScene(vars: { name: string; addr: number; v: number }[]): Scene {
-  const cells = sprinkleGarbage(emptyMemory());
+function namedScene(vars: { name: string; addr: number; v: number }[], junk = true): Scene {
+  const cells = junk ? sprinkleGarbage(emptyMemory()) : emptyMemory();
   for (const x of vars) cells[x.addr] = { v: x.v, kind: 'val', label: x.name };
   return { cells, views: [{ type: 'memory' }], markers: vars.map((x) => ({ name: x.name, addr: x.addr })) };
 }
@@ -193,7 +193,13 @@ export const memoryConcept: Concept = {
     price: 'Writing destroys the old value. And you need to *know* the address; memory can’t find things for you.',
   },
   playground: {
-    initial: () => namedScene([{ name: 'x', addr: 5, v: 42 }]),
+    initial: () => namedScene([{ name: 'x', addr: 5, v: 42 }], false),
+    guide: [
+      { do: 'Type 5 in the box next to “Read address” and press it.', see: 'You get 42, the value stored in box 5 (the variable x lives there). The computer didn’t search: it went straight to box 5 by its number. That’s the whole idea of memory.' },
+      { do: 'Now read box 20, then box 0.', see: 'They’re empty, but notice the work: always exactly 1 box touched, whichever box you ask for. Far-away boxes aren’t slower.' },
+      { do: 'Write 99 into box 5 (value 99, address 5).', see: 'Box 5 held 42 (that’s the variable x). Now it holds 99 and the 42 is gone forever. A box holds one number; writing replaces it.' },
+      { do: 'Copy from 5 to 10.', see: 'Box 10 now also holds 99, but it’s a separate copy. Write something new into box 5 and box 10 won’t change.' },
+    ],
     ops: [
       {
         label: 'Write value → address',
@@ -438,6 +444,11 @@ export const pointersConcept: Concept = {
   },
   playground: {
     initial: ptrInitial,
+    guide: [
+      { do: 'Look at box 17: it holds →10. Press “Follow pointers from address” with address 17.', see: 'Box 17 doesn’t hold data; it holds the NUMBER of another box (10). Box 10 points to 3, and box 3 holds the real value, 42. You had to read 3 boxes to get there.' },
+      { do: 'Make box 20 point at box 3 (target 3, address 20), then follow from 20.', see: 'Now two different boxes lead to the same 42. That’s how two parts of a program share one piece of data without copying it.' },
+      { do: 'Write 7 into box 3, then follow from 17 again.', see: 'The chain now ends at 7. Everything that points to box 3 sees the change.' },
+    ],
     ops: [
       {
         label: 'Write value → address',

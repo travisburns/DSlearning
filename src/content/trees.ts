@@ -661,6 +661,11 @@ function bstDelete(root: BNode | null, k: number): BNode | null {
 
 const bstOps: Concept['playground'] = {
   initial: () => bstScene(buildBST([50, 30, 70, 20, 40, 60, 80])),
+  guide: [
+    { do: 'Search 60.', see: 'At 50: 60 is bigger, go right. At 70: smaller, go left. Found. Each step throws away half of what’s left.' },
+    { do: 'Insert 65.', see: 'It follows the same path a search would, and is attached where the path runs out.' },
+    { do: 'Insert 90, 95, 99 (one at a time).', see: 'Each is bigger than everything, so they form a long chain down the right. Order of inserting decides the shape; a long chain makes searches slow.' },
+  ],
   ops: [
     {
       label: 'Insert',
@@ -940,6 +945,11 @@ const breakHeap = (): Card => {
 
 const heapOps: Concept['playground'] = {
   initial: () => heapScene(buildHeap([15, 30, 20, 45, 50, 25])),
+  guide: [
+    { do: 'Compare the tree with the array row under it.', see: 'They’re the same data. The tree is how you picture it; the array is what’s stored. Children of [i] are at [2i+1] and [2i+2].' },
+    { do: 'Insert 5.', see: 'It’s added at the end, then swaps upward while it’s smaller than its parent. It ends on top: the smallest is always at the top.' },
+    { do: 'Remove min.', see: 'The top is taken, the last item moves to the top and sinks down (swapping with its smaller child) until order is restored.' },
+  ],
   ops: [
     {
       label: 'Insert',

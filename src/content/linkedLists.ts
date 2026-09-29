@@ -282,6 +282,12 @@ function setHead(s: Scene, head: number | null) {
 
 const llOps: Concept['playground'] = {
   initial: llPlayInitial,
+  guide: [
+    { do: 'Find value 31.', see: 'You start at head (box 0) and follow each node’s “next” box to the next node. 31 is 3rd, so it takes 3 visits. No shortcuts: the nodes are scattered in memory.' },
+    { do: 'Insert 99 at head.', see: 'A new node is made anywhere free and pointed at the old first node; then head points at it. 3 writes, however long the list is. Nothing moved.' },
+    { do: 'Insert 77 after position 2.', see: 'The walk to position 2 is the expensive part; the actual insert is just re-pointing two “next” boxes.' },
+    { do: 'Delete position 1.', see: 'The node before it is re-pointed to skip it. The old numbers stay in memory as junk, but nothing can reach them anymore.' },
+  ],
   ops: [
     {
       label: 'Insert at head',

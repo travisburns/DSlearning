@@ -145,6 +145,8 @@ export interface PlaygroundOp {
 export interface PlaygroundDef {
   initial: () => Scene;
   ops: PlaygroundOp[];
+  /** Guided steps in plain language: what to do, and what it shows you. */
+  guide: { do: string; see: string }[];
 }
 
 /** Hand-written facts that drive the generic Break / Choose / Connect / Transfer cards. */

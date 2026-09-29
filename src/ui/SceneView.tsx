@@ -57,6 +57,11 @@ function MemoryTape({ scene, ctx }: { scene: Scene; ctx: Ctx }) {
   return (
     <div className="view">
       <div className="view-title">Memory</div>
+      <div className="tape-legend">
+        Each square is one box of memory. <b>Small number on top</b> = the box’s address (its fixed position).{' '}
+        <b>Big number</b> = what’s stored in it. <b>→10</b> = this box holds the address of box 10 (a pointer).
+        {cells.some((c) => c.kind === 'free' && c.v !== null) && <> <b>Faded grey numbers</b> = leftover junk nobody is using.</>}
+      </div>
       <div className="tape">
         {cells.map((c, addr) => (
           <div className="tape-slot" key={addr}>

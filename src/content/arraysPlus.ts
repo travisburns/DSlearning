@@ -443,6 +443,11 @@ export const dynamicArrayConcept: Concept = {
   },
   playground: {
     initial: dynPlayInitial,
+    guide: [
+      { do: 'Append 1, then 2.', see: 'The first append fits. The second finds the block full (capacity 2), so a new block twice as big is made further along, everything is copied over, and the old block is abandoned.' },
+      { do: 'Append 3, then 4.', see: 'Now there’s room: each append costs just 1 write.' },
+      { do: 'Keep appending until it moves again.', see: 'Moves get rarer as it grows (at 2, 4, 8…), so on average each append stays cheap.' },
+    ],
     ops: [
       {
         label: 'Append value',

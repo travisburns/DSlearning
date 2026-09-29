@@ -29,6 +29,17 @@ export function Playground({ def }: { def: PlaygroundDef }) {
 
   return (
     <div className="playground">
+      <ol className="guide">
+        {def.guide.map((g, i) => (
+          <li key={i}>
+            <div className="guide-do">{g.do}</div>
+            <details>
+              <summary>What does this show?</summary>
+              <p>{g.see}</p>
+            </details>
+          </li>
+        ))}
+      </ol>
       <div className="ops">
         {def.ops.map((op, i) => (
           <div className="op" key={i}>
@@ -62,7 +73,8 @@ export function Playground({ def }: { def: PlaygroundDef }) {
         </button>
       </div>
       <div className="touch-counter">
-        Last op: <strong>{log.find((l) => l.touches !== undefined)?.touches ?? 0}</strong> touches · Total: <strong>{total}</strong>
+        Work done by the last operation: <strong>{log.find((l) => l.touches !== undefined)?.touches ?? 0}</strong> box
+        {(log.find((l) => l.touches !== undefined)?.touches ?? 0) === 1 ? '' : 'es'} read or written · total so far: <strong>{total}</strong>
       </div>
       <SceneView scene={scene} />
       <ul className="log">

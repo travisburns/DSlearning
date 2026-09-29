@@ -329,6 +329,11 @@ const chExplain = explainGenerators({
 
 const chainOps: Concept['playground'] = {
   initial: () => bucketScene(chainTable(5, [12, 27, 33, 40]), 5),
+  guide: [
+    { do: 'Insert 17.', see: '17 ÷ 5 leaves 2, so it goes in bucket 2. The key itself tells you where it lives: no searching the whole table.' },
+    { do: 'Find 27.', see: 'Compute its bucket (27 ÷ 5 leaves 2), then check only that bucket’s short list.' },
+    { do: 'Insert 22, then 32.', see: 'They also land in bucket 2 (a “collision”), so that list grows. If one list gets long, lookups there slow down.' },
+  ],
   ops: [
     {
       label: 'Insert key',

@@ -839,6 +839,11 @@ const ufExplain = explainGenerators({
 
 const ufOps: Concept['playground'] = {
   initial: () => forestScene(Array.from({ length: 8 }, (_, i) => i)),
+  guide: [
+    { do: 'union(1, 2), then union(3, 4).', see: 'Each group is a little tree. The row underneath is all that’s stored: each element’s “parent”. A root is its own parent.' },
+    { do: 'union(2, 4).', see: 'The two groups merge by hanging one root under the other. Now 1, 2, 3, 4 share one root.' },
+    { do: 'find(1).', see: 'Follow parents up to the root. Every element on that path is then pointed straight at the root, so the next find is faster.' },
+  ],
   ops: [
     {
       label: 'union(a, b)',

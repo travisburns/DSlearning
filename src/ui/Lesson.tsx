@@ -80,10 +80,10 @@ export function Lesson({ concept, duePrereqs, alreadyPassed, onReviewPrereqs, on
         <section className="panel">
           {concept.playground ? (
             <>
-              <h2>Play with it</h2>
+              <h2>Try it yourself</h2>
               <p className="muted">
-                Run real operations. Watch the textbook picture and raw memory change together, and watch the touch counter.
-                Try to predict each count before you press.
+                Do the steps below with the buttons. Before each one, guess what will happen; then open “What does this
+                show?” to check.
               </p>
               <Playground def={concept.playground} />
             </>

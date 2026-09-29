@@ -269,6 +269,12 @@ export const staticArrayConcept: Concept = {
   },
   playground: {
     initial: playInitial,
+    guide: [
+      { do: 'Read index 2.', see: 'The array starts at box 4 (“base”). Element [2] is at 4 + 2 = box 6. One sum, one read, however long the array is.' },
+      { do: 'Insert 50 at index 0.', see: 'To make room at the front, every element had to move one box to the right. Count the work: it grows with the length of the array.' },
+      { do: 'Insert 60 at index 5 (right after the last element).', see: 'Adding at the end moves nothing: just 1 write. Where you insert decides the cost.' },
+      { do: 'Delete index 0.', see: 'Everything slides back left to close the gap. An array never has holes, which is why base + index always works.' },
+    ],
     ops: [
       {
         label: 'Read [i]',

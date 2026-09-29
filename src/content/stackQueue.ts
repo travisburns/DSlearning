@@ -234,6 +234,11 @@ const rebuildStack = (): Card => {
 
 const stackOps: Concept['playground'] = {
   initial: () => stackScene(4, 8, [12, 5], false),
+  guide: [
+    { do: 'Push 7, then push 8.', see: 'Each push goes on top (the next free slot above the others). 1 write each.' },
+    { do: 'Pop.', see: 'You get 8, the last thing you pushed. A stack always gives back the newest item first, like a pile of plates.' },
+    { do: 'Pop until it’s empty.', see: 'Items come out in reverse order of going in. Nothing ever slides; only the “top” marker moves.' },
+  ],
   ops: [
     {
       label: 'Push',
@@ -621,6 +626,11 @@ const cbExplain = explainGenerators({
 
 const ringOps: Concept['playground'] = {
   initial: () => ringScene(6, 6, 3, [12, 5], false),
+  guide: [
+    { do: 'Enqueue 1, 2, 3, 4.', see: 'Items go in after the last one. When they reach the end of the row, the next one wraps round to slot [0].' },
+    { do: 'Dequeue twice.', see: 'You get 12, then 5: the oldest items first. Nothing slides forward; the “head” marker just moves along.' },
+    { do: 'Enqueue until it says Full.', see: 'The row has a fixed size. Free slots at the start get reused by wrapping round, so no space is wasted.' },
+  ],
   ops: [
     {
       label: 'Enqueue',

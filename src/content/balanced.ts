@@ -231,6 +231,11 @@ const rebuildAVL = (): Card => {
 
 const avlOps: Concept['playground'] = {
   initial: () => avlScene(buildAVL([30, 20, 40])),
+  guide: [
+    { do: 'Insert 10.', see: 'Each node shows bf: left height minus right height. Everything is still within ±1.' },
+    { do: 'Insert 5.', see: 'The left side of 20 is now 2 deeper, so the tree rotates to fix it. Watch the shape stay short.' },
+    { do: 'Insert 50, 60, 70, 80 (one at a time).', see: 'Sorted inserts would make a plain BST a long chain. Here rotations keep it bushy.' },
+  ],
   ops: [
     {
       label: 'Insert',

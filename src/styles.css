@@ -979,3 +979,30 @@ svg .tnode.wrong circle {
   align-items: center;
   flex-wrap: wrap;
 }
+
+.guide {
+  margin: 0 0 16px;
+  padding-left: 22px;
+  display: grid;
+  gap: 10px;
+}
+.guide-do {
+  font-weight: 600;
+}
+.guide details {
+  font-size: 0.92rem;
+  color: var(--muted);
+}
+.guide summary {
+  cursor: pointer;
+  color: var(--accent);
+}
+.guide details p {
+  margin: 6px 0 0;
+  color: var(--text);
+}
+.tape-legend {
+  font-size: 0.8rem;
+  color: var(--muted);
+  margin-bottom: 8px;
+}
