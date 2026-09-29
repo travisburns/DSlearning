@@ -5,6 +5,8 @@ import { staticArrayConcept } from './staticArray';
 import { dynamicArrayConcept, matrixConcept, stringConcept } from './arraysPlus';
 import { circularLinkedListConcept, doublyLinkedListConcept, linkedListConcept } from './linkedLists';
 import { bitsetConcept } from './bitset';
+import { circularBufferConcept, dequeConcept, queueConcept, stackConcept } from './stackQueue';
+import { monotonicStackConcept, priorityQueueConcept } from './monoPq';
 
 export const CONCEPTS: Concept[] = [
   // Tier 0
@@ -20,6 +22,13 @@ export const CONCEPTS: Concept[] = [
   doublyLinkedListConcept,
   circularLinkedListConcept,
   bitsetConcept,
+  // Tier 2
+  stackConcept,
+  queueConcept,
+  circularBufferConcept,
+  dequeConcept,
+  monotonicStackConcept,
+  priorityQueueConcept,
 ];
 
 const byId = new Map(CONCEPTS.map((c) => [c.id, c]));
