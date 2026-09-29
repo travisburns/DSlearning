@@ -35,9 +35,9 @@ export function growthCard(
   measure: (n: number) => number,
   growth: Growth,
   explain: string,
+  sizes: number[] = [4, 8, 16, 32],
 ): Card {
-  const sizes = [4, 8, 16, 32];
-  const rows = sizes.map((n) => `n = ${n}: ${measure(n)} touches`).join('\n');
+  const rows = sizes.map((n) => `n = ${n.toLocaleString()}: ${measure(n)} ${measure(n) === 1 ? 'touch' : 'touches'}`).join('\n');
   return {
     concept,
     type: 'count',
