@@ -9,6 +9,8 @@ const GX = 12;
 const GY = 48;
 /** Room on the left for the tier labels. */
 const LABEL = 64;
+/** Most boxes side by side; more than this go onto an extra row so the map fits the page. */
+const MAX_PER_ROW = 6;
 
 /**
  * The learning path as a diagram: bottom-level primitives at the top, arrows from each structure to
@@ -29,27 +31,34 @@ function layout() {
   };
   CONCEPTS.forEach((c) => d(c.id));
   const keys = [...new Set(CONCEPTS.map((c) => `${String(c.tier).padStart(2, '0')}.${sub.get(c.id)}`))].sort();
-  const rows: Concept[][] = keys.map((k) => CONCEPTS.filter((c) => `${String(c.tier).padStart(2, '0')}.${sub.get(c.id)}` === k));
-  const maxRow = Math.max(...rows.map((r) => r.length));
-  const width = (maxRow + 1) * (W + GX) + GX + LABEL;
+  const groups: Concept[][] = keys.map((k) => CONCEPTS.filter((c) => `${String(c.tier).padStart(2, '0')}.${sub.get(c.id)}` === k));
+  const width = MAX_PER_ROW * (W + GX) + GX + LABEL;
+  const step = W + GX;
   const cx = new Map<string, number>(); // centre x of each node
-  rows.forEach((row) => {
-    // Want each node under the average of what it's built from; then pack left to right without overlap.
-    const want = row.map((c) => {
+  const rows: Concept[][] = [];
+  groups.forEach((group) => {
+    // Want each node under the average of what it's built from.
+    const want = group.map((c) => {
       const ps = c.prereqs.map((p) => cx.get(p)).filter((v): v is number => v !== undefined);
       return { c, w: ps.length ? ps.reduce((a, b) => a + b, 0) / ps.length : width / 2 };
     });
     want.sort((a, b) => a.w - b.w);
-    const step = W + GX;
-    let xs = want.map((v) => v.w);
-    for (let i = 1; i < xs.length; i++) xs[i] = Math.max(xs[i], xs[i - 1] + step);
-    // Shift back inside the canvas if the packing ran off either side.
-    const over = xs[xs.length - 1] + W / 2 + GX - width;
-    if (over > 0) xs = xs.map((v) => v - over);
-    for (let i = xs.length - 2; i >= 0; i--) xs[i] = Math.min(xs[i], xs[i + 1] - step);
-    const under = LABEL + GX + W / 2 - xs[0];
-    if (under > 0) xs = xs.map((v) => v + under);
-    want.forEach((v, i) => cx.set(v.c.id, xs[i]));
+    // Too many for one row: deal them out over several rows (none depend on each other), so each row
+    // still spans the width and every node stays near where it wants to be.
+    const n = Math.ceil(want.length / MAX_PER_ROW);
+    for (let k = 0; k < n; k++) {
+      const part = want.filter((_, i) => i % n === k);
+      // Pack left to right without overlap, then shift back inside the canvas.
+      let xs = part.map((v) => v.w);
+      for (let i = 1; i < xs.length; i++) xs[i] = Math.max(xs[i], xs[i - 1] + step);
+      const over = xs[xs.length - 1] + W / 2 + GX - width;
+      if (over > 0) xs = xs.map((v) => v - over);
+      for (let i = xs.length - 2; i >= 0; i--) xs[i] = Math.min(xs[i], xs[i + 1] - step);
+      const under = LABEL + GX + W / 2 - xs[0];
+      if (under > 0) xs = xs.map((v) => v + under);
+      part.forEach((v, i) => cx.set(v.c.id, xs[i]));
+      rows.push(part.map((v) => v.c));
+    }
   });
   const coords = new Map<string, { x: number; y: number }>();
   rows.forEach((row, r) => row.forEach((c) => coords.set(c.id, { x: cx.get(c.id)! - W / 2, y: 24 + r * (H + GY) })));
