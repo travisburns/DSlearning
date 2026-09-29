@@ -95,8 +95,8 @@ and you're asked to invent something. The structure is the answer to *your* frus
 Each card type trains a different facet. A concept is **mastered** only when you pass several types,
 not just one.
 
-1. **Invent** — A problem with a pain point. Sketch a structure on the canvas that solves it.
-   Hints are stepwise and cost "hint points" (fewer hints = stronger signal).
+1. **Invent** — A problem with a pain point. Pick the idea you'd try from several; each idea gets
+   feedback on why it would or wouldn't work.
 2. **Predict** — Given a state and an operation, predict the resulting state (memory + abstract view).
 3. **Simulate** — Perform the operation yourself: tap the swaps, drag the pointers, shift the slots.
    The app only checks; it never does it for you.
@@ -116,7 +116,8 @@ not just one.
 **No code cards.** Mastery of data structures is about mechanism, not syntax. If you can drive the
 structure by hand on the Memory Canvas, writing it in C# (or anything) is just typing.
 
-Every card is a **template + generator**, not a fixed question. `Predict(heap, insert)` rolls a new
+Every card is a **template + generator**, not a fixed question. (As built: Invent is the lesson's opening
+problem; the other nine are card types. Build was dropped by decision; see section 10.) `Predict(heap, insert)` rolls a new
 heap and a new value each time.
 
 ---
@@ -253,19 +254,19 @@ src/
 
 ---
 
-## 9. Status and next steps
+## 9. Status
 
 Built:
-- All 61 structures, each with a problem, lens, and generated Predict / Simulate / Count / Explain cards.
-- Playgrounds for the structures where free play teaches the most (memory, pointers, static and
-  dynamic arrays, linked list, stack, circular buffer, hash chaining, BST, heap, AVL, union-find).
-- Spaced, interleaved reviews with confidence rating; the map shows strength per card type.
+- All 61 structures, each with a problem, lens, Play step, and generated cards of all nine types:
+  Predict, Simulate, Count, Break, Explain, Connect, Choose, Rebuild, Transfer.
+- Hands-on playgrounds for 12 structures; every other structure gets a step-through worked example.
+- Break / Choose / Connect / Transfer are driven by hand-written facts per structure (`content/extras.ts`);
+  Rebuild uses the lens. Trees, heaps and linear structures also get hands-on Rebuild and Break cards
+  (rebuild the final state value by value; click the node that breaks the rule).
+- Spaced, interleaved reviews with confidence rating; the map shows the five skills from section 5.
+- Stats page: calibration (confidence vs. accuracy), accuracy per card type, misconceptions.
 
-Not yet built (ideas from sections 3 and 5 that are only partly covered today):
-- Separate Break / Choose / Rebuild / Connect / Transfer card types. Some of this already appears
-  inside Predict cards (e.g. "insert with the pointer steps in the wrong order", "which map fits").
-- A calibration dashboard (confidence vs. accuracy over time).
-- Algorithms pack.
+Next (by agreement, later): the algorithms pack, reusing the same engine and scene renderer.
 
 ---
 

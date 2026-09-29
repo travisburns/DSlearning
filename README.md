@@ -6,15 +6,21 @@ Every structure is taught the same way:
 
 1. **Problem**: a situation where what you already know hurts. Pick the idea you'd try.
 2. **Primitive Lens**: four questions (layout, invariant, payoff, price). Answer each in your head before revealing it.
-3. **Play** (for some structures): run real operations and watch memory and the touch counter.
+3. **Play**: run real operations and watch memory and the touch counter, or step through a worked example one move at a time.
 4. **Checkpoint**: one card of each kind:
    - **Predict**: commit to what happens before you see it.
    - **Simulate**: you are the CPU; do the operation by clicking, in order.
    - **Count**: count the work and work out the cost yourself.
+   - **Break it**: break the structure's rule and say what fails (or find the node that breaks it).
    - **Explain**: put together the reason it works (sort truths from misconceptions, order the reasoning, pick the plainest summary).
-5. It then joins your **review pool**. Every review is a freshly generated problem, mixed across structures, so there's nothing to memorise.
+   - **Connect**: what it's built from, and which primitive it rests on.
+   - **Choose**: pick the right structure for a real situation.
+   - **Transfer**: adapt it to a new problem.
+5. It then joins your **review pool**, where **Rebuild** cards also appear: rebuild the structure (or its lens) from memory. Every review is a freshly generated problem, mixed across structures, so there's nothing to memorise.
 
 Everything is graded by code. You rate your confidence before each answer: right-but-guessing doesn't count as mastered, and certain-but-wrong is flagged as a misconception and comes back first.
+
+The map shows five skills per structure: **Mechanism** (Predict, Simulate, Rebuild), **Invariant** (Break, Explain), **Cost** (Count), **Tradeoff** (Choose, Connect) and **Application** (Transfer). The **Stats** page shows how well your confidence matches your accuracy, your accuracy per card type, and your misconceptions.
 
 ## Coverage
 
@@ -46,7 +52,7 @@ Progress is saved in your browser (localStorage). No account, no server.
 Other commands:
 
 ```bash
-npm test         # generates hundreds of cards per structure and checks every one is well-formed
+npm test         # generates hundreds of cards per structure and card type and checks every one is well-formed
 npm run build    # production build into dist/ (serve with `npm run preview`)
 ```
 
@@ -54,11 +60,13 @@ npm run build    # production build into dist/ (serve with `npm run preview`)
 
 ```
 src/
-  engine/     types, memory helpers, randomness, mastery scheduling (spaced + interleaved)
+  engine/     types, memory helpers, randomness, mastery scheduling (spaced + interleaved) and stats
   content/    one file per group of structures; each concept = problem, lens, playground, card generators
-  ui/         map, lesson, review, card renderer, scene renderer (memory, arrays, lists, trees, graphs, grids)
+              extras.ts: per-structure facts behind Break / Choose / Connect / Transfer
+              generic.ts: turns those facts (and the lens) into cards for every structure
+  ui/         map, lesson, review, stats, card renderer, scene renderer (memory, arrays, lists, trees, graphs, grids)
   test/       content validation
 docs/DESIGN.md  the design and reasoning behind it
 ```
 
-Adding a structure means adding one `Concept` object in `src/content/` and registering it in `src/content/index.ts`. The engine and UI don't need to change. Algorithms will be added later the same way.
+Adding a structure means adding one `Concept` object in `src/content/`, its entry in `src/content/extras.ts`, and registering it in `src/content/index.ts`. The engine and UI don't need to change. Algorithms will be added later the same way.
