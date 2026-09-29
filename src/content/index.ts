@@ -10,6 +10,7 @@ import { monotonicStackConcept, priorityQueueConcept } from './monoPq';
 import { binaryHeapConcept, binaryTreeConcept, bstConcept, dAryHeapConcept, treeConcept, trieConcept } from './trees';
 import { avlConcept, bPlusTreeConcept, bTreeConcept, redBlackConcept, splayConcept, treapConcept } from './balanced';
 import { adjacencyListConcept, adjacencyMatrixConcept, edgeListConcept, graphConcept, unionFindConcept } from './graphs';
+import { fenwickConcept, intervalTreeConcept, kdTreeConcept, prefixSumConcept, quadtreeConcept, segmentTreeConcept, sparseTableConcept } from './range';
 import { consistentHashingConcept, cuckooConcept, hashChainingConcept, hashFunctionConcept, hashMapConcept, hashOpenAddressingConcept } from './hashing';
 
 export const CONCEPTS: Concept[] = [
@@ -60,6 +61,14 @@ export const CONCEPTS: Concept[] = [
   adjacencyListConcept,
   edgeListConcept,
   unionFindConcept,
+  // Tier 7
+  prefixSumConcept,
+  sparseTableConcept,
+  segmentTreeConcept,
+  fenwickConcept,
+  intervalTreeConcept,
+  kdTreeConcept,
+  quadtreeConcept,
 ];
 
 const byId = new Map(CONCEPTS.map((c) => [c.id, c]));
