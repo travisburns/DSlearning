@@ -7,6 +7,7 @@ import { circularLinkedListConcept, doublyLinkedListConcept, linkedListConcept }
 import { bitsetConcept } from './bitset';
 import { circularBufferConcept, dequeConcept, queueConcept, stackConcept } from './stackQueue';
 import { monotonicStackConcept, priorityQueueConcept } from './monoPq';
+import { binaryHeapConcept, binaryTreeConcept, bstConcept, dAryHeapConcept, treeConcept, trieConcept } from './trees';
 import { consistentHashingConcept, cuckooConcept, hashChainingConcept, hashFunctionConcept, hashMapConcept, hashOpenAddressingConcept } from './hashing';
 
 export const CONCEPTS: Concept[] = [
@@ -37,6 +38,13 @@ export const CONCEPTS: Concept[] = [
   hashMapConcept,
   cuckooConcept,
   consistentHashingConcept,
+  // Tier 4
+  treeConcept,
+  binaryTreeConcept,
+  bstConcept,
+  binaryHeapConcept,
+  dAryHeapConcept,
+  trieConcept,
 ];
 
 const byId = new Map(CONCEPTS.map((c) => [c.id, c]));
