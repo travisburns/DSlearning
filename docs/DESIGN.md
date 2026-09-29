@@ -177,34 +177,49 @@ red the moment it's violated).
 
 ---
 
-## 7. Curriculum (data structures only)
+## 7. Curriculum (data structures only): the full catalog
 
-**Tier 0 — Primitives**
-- Memory as numbered slots; values vs. references/pointers; index arithmetic
+Goal: **every data structure that shows up in CS courses, interviews, and real systems.**
+Each tier is built from the tiers before it, so the order matters, but everything below is in scope.
 
-**Tier 1 — Linear foundations**
-- Static array
-- Dynamic array (growth, doubling, amortized cost)
-- Singly linked list → doubly linked list (sentinels)
+**Tier 0 — Primitives (3)**
+- Memory & addresses · Pointers / references · Bits & bytes
 
-**Tier 2 — Restricted interfaces** (same guts, fewer doors)
-- Stack · Queue · Deque · Circular buffer
+**Tier 1 — Linear (8)**
+- Static array · 2D array / matrix · Dynamic array · String
+- Singly linked list · Doubly linked list · Circular linked list · Bit array / bitset
 
-**Tier 3 — Hashing**
-- Hash functions · Hash table (chaining, open addressing, load factor, resizing) · Hash set
+**Tier 2 — Restricted interfaces (6)**
+- Stack · Queue · Circular buffer · Deque · Monotonic stack / queue · Priority queue (the interface)
 
-**Tier 4 — Trees**
-- Tree vocabulary · Binary tree · Binary search tree
-- Balanced BST (rotations; AVL / red-black as ideas)
-- Binary heap / priority queue
-- Trie
+**Tier 3 — Hashing (6)**
+- Hash function · Hash table: chaining · Hash table: open addressing · Hash set / hash map
+- Cuckoo hashing · Consistent hashing
 
-**Tier 5 — Networks & groups**
-- Graph (adjacency list vs. matrix)
+**Tier 4 — Core trees (6)**
+- Tree basics · Binary tree · Binary search tree · Binary heap · d-ary heap · Trie
+
+**Tier 5 — Balanced & disk trees (6)**
+- AVL tree · Red-black tree · Splay tree · Treap · B-tree · B+ tree
+
+**Tier 6 — Graphs & groups (5)**
+- Graph basics (directed / undirected / weighted) · Adjacency matrix · Adjacency list · Edge list
 - Union-Find (disjoint set)
 
-**Tier 6 — Composites & advanced** (optional)
-- LRU cache (hash + DLL) · Skip list · B-tree · Segment tree · Fenwick tree · Bloom filter
+**Tier 7 — Range & spatial (7)**
+- Prefix-sum array · Sparse table · Segment tree · Fenwick tree · Interval tree · k-d tree · Quadtree
+
+**Tier 8 — String structures (4)**
+- Radix (compressed) trie · Suffix array · Suffix tree · Rope
+
+**Tier 9 — Probabilistic (4)**
+- Skip list · Bloom filter · Count-min sketch · HyperLogLog
+
+**Tier 10 — Composites & advanced (6)**
+- Ordered map / tree map · LRU cache · LFU cache · Sparse matrix
+- Mergeable heaps (binomial / Fibonacci / pairing) · Persistent (immutable) structures
+
+**Total: 61.** Anything more exotic (van Emde Boas, wavelet trees, …) can be added the same way.
 
 Real-world anchors for each: undo/redo (stack), print queue (queue), phone contacts (hash table),
 autocomplete (trie), task scheduler (heap), maps & social networks (graph), friend groups (union-find).
@@ -253,4 +268,4 @@ ui/
 - **Platform:** simple front-end web project. Nothing elaborate.
 - **Code:** none. The app teaches mechanism; syntax isn't the goal.
 - **Checking:** everything is graded programmatically. No self-grading, no AI.
-- **MVP scope:** Memory Canvas + Predict / Simulate / Count / Explain cards, Tier 0–2 content.
+- **Scope:** all 61 data structures in section 7. The first version builds the engine and Tiers 0–2; the rest follow in tier order.
