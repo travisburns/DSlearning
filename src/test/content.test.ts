@@ -52,7 +52,7 @@ function targets(s: Scene): Set<string> {
   return out;
 }
 
-const RUNS = 150;
+const RUNS = 400;
 
 describe('concept graph', () => {
   const ids = new Set(CONCEPTS.map((c) => c.id));

@@ -1,6 +1,6 @@
 import type { Card, Cell, Concept, Scene } from '../engine/types';
 import { MEM_SIZE, cloneScene, emptyMemory, m, sprinkleGarbage } from '../engine/memory';
-import { distinctInts, pick, randInt, shuffle, values } from '../engine/random';
+import { distinctInts, pick, randInt, shuffle } from '../engine/random';
 import { explainGenerators, growthCard, numberOptions } from './helpers';
 
 const ID = 'memory';
@@ -9,7 +9,7 @@ const ID = 'memory';
 function chainScene(hops: number): { scene: Scene; path: number[]; value: number } {
   const cells = sprinkleGarbage(emptyMemory());
   const path = distinctInts(hops + 1, 0, MEM_SIZE - 1);
-  const [value] = values(1);
+  const [value] = distinctInts(1, 30, 99);
   path.forEach((addr, i) => {
     const last = i === path.length - 1;
     cells[addr] = last ? { v: value, kind: 'val' } : { v: path[i + 1], kind: 'ptr' };
@@ -45,7 +45,7 @@ const predictFollow = (): Card => {
 const predictWriteThrough = (): Card => {
   const cells = sprinkleGarbage(emptyMemory());
   const [a, b] = distinctInts(2, 0, MEM_SIZE - 1);
-  const [x, y] = values(2);
+  const [x, y] = distinctInts(2, 30, 99); // never confusable with an address (0–23)
   cells[a] = { v: x, kind: 'val', label: 'x' };
   cells[b] = { v: a, kind: 'ptr', label: 'p' };
   const scene: Scene = { cells, views: [{ type: 'memory' }], markers: [{ name: 'x', addr: a }, { name: 'p', addr: b }] };
