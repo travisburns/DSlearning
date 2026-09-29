@@ -69,6 +69,8 @@ describe('concept graph', () => {
       }
       expect(c.hook.options.some((o) => o.good)).toBe(true);
       expect(c.extras, `${c.id} has no extras`).toBeDefined();
+      expect(c.learn, `${c.id} has no Learn text`).toBeDefined();
+      expect(c.learn!.how.length).toBeGreaterThanOrEqual(3);
       const ex = c.extras!;
       expect(ex.parts.length).toBeGreaterThanOrEqual(1);
       expect(ex.uses.length).toBeGreaterThanOrEqual(1);

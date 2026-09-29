@@ -6,19 +6,29 @@ import { Home } from './ui/Home';
 import { Lesson } from './ui/Lesson';
 import { Review } from './ui/Review';
 import { Stats } from './ui/Stats';
+import { Welcome } from './ui/Welcome';
 
-type Route = { page: 'home' } | { page: 'learn'; id: string } | { page: 'review'; before?: string } | { page: 'stats' };
+type Route = { page: 'home' } | { page: 'learn'; id: string } | { page: 'review'; before?: string } | { page: 'stats' } | { page: 'welcome' };
 
 function parse(hash: string): Route {
   const [, page, id] = hash.replace(/^#/, '').split('/');
   if (page === 'learn' && id && getConcept(id)) return { page: 'learn', id };
   if (page === 'review') return id && getConcept(id) ? { page: 'review', before: id } : { page: 'review' };
   if (page === 'stats') return { page: 'stats' };
+  if (page === 'welcome') return { page: 'welcome' };
   return { page: 'home' };
 }
 
 export function App() {
-  const [route, setRoute] = useState<Route>(() => parse(location.hash));
+  const [route, setRoute] = useState<Route>(() => {
+    // First visit ever: explain what this is before anything else.
+    try {
+      if (!localStorage.getItem('dslearning:welcomed') && !location.hash) return { page: 'welcome' };
+    } catch {
+      /* ignore */
+    }
+    return parse(location.hash);
+  });
   const [progress, setProgress] = useState<Progress>(loadProgress);
 
   useEffect(() => {
@@ -70,6 +80,23 @@ export function App() {
     );
   }
 
+  if (route.page === 'welcome')
+    return (
+      <main className="wrap">
+        <Welcome
+          onStart={() => {
+            try {
+              localStorage.setItem('dslearning:welcomed', '1');
+            } catch {
+              /* ignore */
+            }
+            if (location.hash && location.hash !== '#/') go('/');
+            else setRoute({ page: 'home' });
+          }}
+        />
+      </main>
+    );
+
   if (route.page === 'stats')
     return (
       <main className="wrap">
@@ -84,6 +111,7 @@ export function App() {
         onLearn={(id) => go(`/learn/${id}`)}
         onReview={() => go('/review')}
         onStats={() => go('/stats')}
+        onHelp={() => go('/welcome')}
         onReset={() => setProgress(emptyProgress())}
       />
     </main>

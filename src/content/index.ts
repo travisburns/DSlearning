@@ -1,5 +1,6 @@
 import type { Card, CardGenerator, CardType, Concept, ExtraCardType } from '../engine/types';
 import { EXTRAS } from './extras';
+import { LEARN } from './learn';
 import { extraGenerators } from './generic';
 import { pick } from '../engine/random';
 import { bitsConcept, memoryConcept, pointersConcept } from './tier0';
@@ -93,7 +94,10 @@ export const CONCEPTS: Concept[] = [
   persistentConcept,
 ];
 
-for (const c of CONCEPTS) c.extras = EXTRAS[c.id];
+for (const c of CONCEPTS) {
+  c.extras = EXTRAS[c.id];
+  c.learn = LEARN[c.id];
+}
 
 const byId = new Map(CONCEPTS.map((c) => [c.id, c]));
 

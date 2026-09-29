@@ -4,6 +4,7 @@ import { CARD_TYPE_INFO } from '../engine/types';
 import type { Confidence } from '../engine/mastery';
 import { shuffle } from '../engine/random';
 import { SceneView } from './SceneView';
+import { Rich } from './Rich';
 
 interface Props {
   card: Card;
@@ -40,7 +41,12 @@ export function CardView({ card, conceptTitle, onDone }: Props) {
         <span className={`chip chip-${card.type}`}>{info.name}</span>
         <span className="muted">{conceptTitle}</span>
       </div>
-      <p className="prompt">{card.prompt}</p>
+      <p className="how">
+        <b>{info.name}:</b> {info.how}
+      </p>
+      <p className="prompt">
+        <Rich text={card.prompt} />
+      </p>
       {card.body.kind !== 'click' && card.scene && <SceneView scene={card.scene} />}
       <Body card={card} result={result} onSubmit={finish} />
       {result && (
@@ -50,7 +56,9 @@ export function CardView({ card, conceptTitle, onDone }: Props) {
             <span className="misconception"> You were certain, so this is a misconception worth fixing. It will come back soon.</span>
           )}
           {result.correct && result.confidence === 1 && <span className="muted"> Right, but you were guessing, so it won't count as mastered yet.</span>}
-          <p className="explain">{card.explain}</p>
+          <p className="explain">
+            <Rich text={card.explain} />
+          </p>
           <button type="button" className="btn primary" onClick={() => onDone(result.correct, result.confidence)} autoFocus>
             Continue
           </button>
@@ -98,8 +106,14 @@ function ChoiceBody({ body, result, onSubmit }: { card: Card; body: BodyOf<'choi
             <button key={i} type="button" className={`option ${state}`} onClick={() => toggle(i)} disabled={!!result}>
               <span className="opt-mark">{body.multi ? (picked.has(i) ? '☑' : '☐') : String.fromCharCode(65 + i)}</span>
               <span className="opt-text">
-                {o.text}
-                {result && o.why && (picked.has(i) || o.correct) && <span className="why">{o.why}</span>}
+                <span>
+                  <Rich text={o.text} />
+                </span>
+                {result && o.why && (picked.has(i) || o.correct) && (
+                  <span className="why">
+                    <Rich text={o.why} />
+                  </span>
+                )}
               </span>
             </button>
           );

@@ -2,6 +2,7 @@ import { useState } from 'react';
 import type { Card, Concept } from '../engine/types';
 import { generatorsFor } from '../content';
 import { SceneView } from './SceneView';
+import { Rich } from './Rich';
 
 /** Find a fresh worked example: a Simulate card with a step-by-step body. */
 function example(concept: Concept): Card | null {
@@ -31,7 +32,9 @@ export function StepThrough({ concept }: { concept: Concept }) {
 
   return (
     <div className="stepthrough">
-      <p className="prompt">{card.prompt}</p>
+      <p className="prompt">
+        <b>Example:</b> <Rich text={card.prompt} />
+      </p>
       {card.body.kind === 'click' && (
         <SceneView scene={card.body.frames[step]} done={card.body.expected.slice(0, step)} />
       )}
@@ -40,7 +43,9 @@ export function StepThrough({ concept }: { concept: Concept }) {
           {card.body.steps.slice(0, step).map((s, i) => (
             <li key={i}>
               <div className="option right">
-                <span className="opt-text">{s}</span>
+                <span className="opt-text">
+                  <Rich text={s} />
+                </span>
               </div>
             </li>
           ))}
@@ -61,7 +66,11 @@ export function StepThrough({ concept }: { concept: Concept }) {
           New example
         </button>
       </div>
-      {done && <div className="feedback ok explain">{card.explain}</div>}
+      {done && (
+        <div className="feedback ok explain">
+          <Rich text={card.explain} />
+        </div>
+      )}
     </div>
   );
 }

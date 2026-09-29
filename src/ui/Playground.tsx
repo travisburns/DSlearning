@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import type { PlaygroundDef } from '../engine/types';
 import { SceneView } from './SceneView';
+import { Rich } from './Rich';
 
 /** Free play: run real operations and watch both views and the touch counter. */
 export function Playground({ def }: { def: PlaygroundDef }) {
@@ -32,10 +33,14 @@ export function Playground({ def }: { def: PlaygroundDef }) {
       <ol className="guide">
         {def.guide.map((g, i) => (
           <li key={i}>
-            <div className="guide-do">{g.do}</div>
+            <div className="guide-do">
+              <Rich text={g.do} />
+            </div>
             <details>
               <summary>What does this show?</summary>
-              <p>{g.see}</p>
+              <p>
+                <Rich text={g.see} />
+              </p>
             </details>
           </li>
         ))}

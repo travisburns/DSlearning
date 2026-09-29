@@ -71,16 +71,16 @@ export type CardType = CoreCardType | ExtraCardType;
 export const CORE_CARD_TYPES: CoreCardType[] = ['predict', 'simulate', 'count', 'explain'];
 export const CARD_TYPES: CardType[] = ['predict', 'simulate', 'count', 'break', 'explain', 'connect', 'choose', 'rebuild', 'transfer'];
 
-export const CARD_TYPE_INFO: Record<CardType, { name: string; blurb: string }> = {
-  predict: { name: 'Predict', blurb: 'Commit to what happens before you see it.' },
-  simulate: { name: 'Simulate', blurb: 'You are the CPU. Do the operation by hand.' },
-  count: { name: 'Count', blurb: 'Count the work. Work out the cost yourself.' },
-  break: { name: 'Break it', blurb: 'Break the rule and see what fails.' },
-  explain: { name: 'Explain', blurb: 'Put together the reason it works.' },
-  connect: { name: 'Connect', blurb: 'What is it built from?' },
-  choose: { name: 'Choose', blurb: 'Pick the right structure for the job.' },
-  rebuild: { name: 'Rebuild', blurb: 'Rebuild it from memory.' },
-  transfer: { name: 'Transfer', blurb: 'Adapt it to a new problem.' },
+export const CARD_TYPE_INFO: Record<CardType, { name: string; blurb: string; how: string }> = {
+  predict: { name: 'Predict', blurb: 'Commit to what happens before you see it.', how: 'Work out what will happen, then pick your answer. Guess honestly first; that’s how it sticks.' },
+  simulate: { name: 'Simulate', blurb: 'You are the CPU. Do the operation by hand.', how: 'Do the operation yourself: click the boxes (or put the steps in order) exactly as the computer would, one at a time.' },
+  count: { name: 'Count', blurb: 'Count the work. Work out the cost yourself.', how: 'Work out how much work it takes: how many boxes are read or written, or how the work grows as the data grows.' },
+  break: { name: 'Break it', blurb: 'Break the rule and see what fails.', how: 'Someone broke the structure’s rule. Work out what goes wrong (or find the part that breaks it).' },
+  explain: { name: 'Explain', blurb: 'Put together the reason it works.', how: 'Build the explanation: pick the true statements, spot the false one, or put the reasoning in order.' },
+  connect: { name: 'Connect', blurb: 'What is it built from?', how: 'Say what this structure is made of: which simpler pieces it combines.' },
+  choose: { name: 'Choose', blurb: 'Pick the right structure for the job.', how: 'Read the situation and pick the structure that fits it best.' },
+  rebuild: { name: 'Rebuild', blurb: 'Rebuild it from memory.', how: 'From memory, rebuild the structure (or its key facts) without looking anything up.' },
+  transfer: { name: 'Transfer', blurb: 'Adapt it to a new problem.', how: 'A new problem you haven’t seen: pick how you’d use or adapt this structure to solve it.' },
 };
 
 /** The five skills of mastery, each fed by some card types. */
@@ -187,6 +187,8 @@ export interface Concept {
   generators: Record<CoreCardType, CardGenerator[]> & Partial<Record<ExtraCardType, CardGenerator[]>>;
   /** Filled in from content/extras.ts when concepts are registered. */
   extras?: ConceptExtras;
+  /** The teaching text shown first in the lesson. Filled in from content/learn.ts. */
+  learn?: { what: string; how: string[] };
 }
 
 export const TIERS: string[] = [

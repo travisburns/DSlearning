@@ -1006,3 +1006,146 @@ svg .tnode.wrong circle {
   color: var(--muted);
   margin-bottom: 8px;
 }
+
+/* ---------- Glossary terms ---------- */
+
+.term-wrap {
+  position: relative;
+  display: inline;
+}
+.term {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: help;
+  text-decoration: underline dotted var(--accent);
+  text-underline-offset: 3px;
+}
+.term-pop {
+  display: block;
+  margin: 4px 0;
+  padding: 8px 10px;
+  border-radius: 6px;
+  background: var(--accent-soft);
+  color: var(--text);
+  font-size: 0.88rem;
+  font-weight: 400;
+  line-height: 1.4;
+  white-space: normal;
+}
+.how {
+  font-size: 0.9rem;
+  background: var(--surface-2);
+  border-radius: 6px;
+  padding: 8px 10px;
+  margin: 0 0 10px;
+}
+.step-intro {
+  background: var(--surface-2);
+  border-radius: 8px;
+  padding: 10px 12px;
+  margin-bottom: 14px;
+  font-size: 0.95rem;
+}
+
+.learn h2 {
+  margin-top: 20px;
+}
+.learn .lead {
+  font-size: 1.08rem;
+}
+.how-list {
+  padding-left: 22px;
+  display: grid;
+  gap: 8px;
+}
+.welcome h2 {
+  margin-top: 18px;
+}
+.tier-intro {
+  color: var(--muted);
+  margin: -6px 0 10px;
+  font-size: 0.92rem;
+}
+
+/* ---------- Path map ---------- */
+
+.map-help {
+  max-width: 760px;
+}
+.view-toggle {
+  display: flex;
+  gap: 6px;
+  margin: 8px 0 12px;
+}
+.btn.on {
+  background: var(--accent-soft);
+  border-color: var(--accent);
+}
+.pathmap-wrap {
+  overflow-x: auto;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 8px 0;
+}
+.pathmap {
+  display: block;
+  margin: 0 auto;
+}
+.pm-edge {
+  fill: none;
+  stroke: var(--line);
+  stroke-width: 1.5;
+}
+.pm-edge.lit {
+  stroke: var(--ok);
+}
+.pm-arrowfill {
+  fill: var(--muted);
+}
+.pm-node rect {
+  fill: var(--surface-2);
+  stroke: var(--line);
+  stroke-width: 1.5;
+}
+.pm-node .pm-title {
+  fill: var(--text);
+  font-size: 12px;
+  font-weight: 600;
+}
+.pm-node .pm-sub {
+  fill: var(--muted);
+  font-size: 10.5px;
+}
+.pm-open rect {
+  fill: var(--accent-soft);
+  stroke: var(--accent);
+  stroke-width: 2;
+}
+.pm-passed rect {
+  fill: var(--ok-soft);
+  stroke: var(--ok);
+}
+.pm-mastered rect {
+  fill: var(--ok-soft);
+  stroke: var(--warn);
+  stroke-width: 2.5;
+}
+.pm-locked {
+  opacity: 0.55;
+}
+.pm-node[role='button'] {
+  cursor: pointer;
+}
+.pm-node[role='button']:hover rect {
+  stroke: var(--accent);
+}
+
+.pathmap .pm-tier {
+  fill: var(--muted);
+  font-size: 11px;
+  font-weight: 700;
+}

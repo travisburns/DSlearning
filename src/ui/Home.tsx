@@ -1,17 +1,38 @@
 import type { Progress } from '../engine/mastery';
 import { dueItems, isMastered, isUnlocked, provenTypes, skillStrength } from '../engine/mastery';
 import { CARD_TYPES, SKILLS, TIERS } from '../engine/types';
+import { useState } from 'react';
 import { CONCEPTS, getConcept } from '../content';
+import { TIER_INTRO } from '../content/learn';
+import { PathMap } from './PathMap';
 
 interface Props {
   progress: Progress;
   onLearn: (id: string) => void;
   onReview: () => void;
   onStats: () => void;
+  onHelp: () => void;
   onReset: () => void;
 }
 
-export function Home({ progress, onLearn, onReview, onStats, onReset }: Props) {
+function loadView(): 'path' | 'list' {
+  try {
+    return localStorage.getItem('dslearning:view') === 'list' ? 'list' : 'path';
+  } catch {
+    return 'path';
+  }
+}
+
+export function Home({ progress, onLearn, onReview, onStats, onHelp, onReset }: Props) {
+  const [view, setView] = useState<'path' | 'list'>(loadView);
+  const pickView = (v: 'path' | 'list') => {
+    setView(v);
+    try {
+      localStorage.setItem('dslearning:view', v);
+    } catch {
+      /* ignore */
+    }
+  };
   const due = dueItems(progress).length;
   const learned = progress.learned.length;
   const mastered = CONCEPTS.filter((c) => isMastered(progress, c.id)).length;
@@ -34,6 +55,9 @@ export function Home({ progress, onLearn, onReview, onStats, onReset }: Props) {
             </div>
             <div className="muted small">{learned} passed</div>
           </div>
+          <button type="button" className="btn" onClick={onHelp}>
+            How this works
+          </button>
           <button type="button" className="btn" onClick={onStats} disabled={progress.log.length === 0}>
             Stats
           </button>
@@ -43,6 +67,25 @@ export function Home({ progress, onLearn, onReview, onStats, onReset }: Props) {
         </div>
       </header>
 
+      <p className="map-help">
+        This is your learning path. You start at the top with the most basic ideas and work down; arrows show which lessons
+        are built on which. A lesson opens once you’ve passed everything it’s built on. <b>Start here</b> marks lessons you
+        can do now.
+      </p>
+
+      <div className="view-toggle" role="tablist">
+        <button type="button" role="tab" aria-selected={view === 'path'} className={`btn small ${view === 'path' ? 'on' : 'ghost'}`} onClick={() => pickView('path')}>
+          Path
+        </button>
+        <button type="button" role="tab" aria-selected={view === 'list'} className={`btn small ${view === 'list' ? 'on' : 'ghost'}`} onClick={() => pickView('list')}>
+          List with progress
+        </button>
+      </div>
+
+      {view === 'path' && <PathMap progress={progress} onLearn={onLearn} />}
+
+      {view === 'list' && (
+      <>
       <div className="legend">
         <span className="legend-item">Skills:</span>
         {SKILLS.map((sk) => (
@@ -57,6 +100,7 @@ export function Home({ progress, onLearn, onReview, onStats, onReset }: Props) {
           <h2>
             <span className="tier-num">Tier {t}</span> {name}
           </h2>
+          <p className="tier-intro">{TIER_INTRO[t]}</p>
           <div className="tiles">
             {concepts.map((c) => {
               const unlocked = isUnlocked(progress, c);
@@ -97,6 +141,9 @@ export function Home({ progress, onLearn, onReview, onStats, onReset }: Props) {
           </div>
         </section>
       ))}
+
+      </>
+      )}
 
       <footer className="foot">
         <button
