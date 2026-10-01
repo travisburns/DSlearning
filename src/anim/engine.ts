@@ -129,7 +129,9 @@ export class Stage {
     for (const f of this.frames) {
       for (const b of Object.values(f.boxes)) {
         const titleW = b.shape === 'frame' && b.label ? b.label.length * 7.6 + 8 : 0;
-        grow(b.x, b.y - (b.top ? 16 : 0) - (b.shape === 'frame' ? 18 : 0), Math.max(b.x + b.w, b.x + titleW), b.y + b.h + (b.sub ? 16 : 0));
+        const half = Math.max(b.top?.length ?? 0, b.sub?.length ?? 0) * 3.4;
+        const cx = b.x + b.w / 2;
+        grow(Math.min(b.x, cx - half), b.y - (b.top ? 16 : 0) - (b.shape === 'frame' ? 18 : 0), Math.max(b.x + b.w, b.x + titleW, cx + half), b.y + b.h + (b.sub ? 16 : 0));
       }
       for (const t of Object.values(f.texts)) {
         const w = t.text.length * (t.size === 'lg' ? 9.5 : t.size === 'sm' ? 6.5 : 7.8);
