@@ -1426,3 +1426,52 @@ path.an-arrow { fill: none; }
 @media (prefers-color-scheme: dark) {
   .tone-black { fill: #0c0c0b; stroke: #8a877f; }
 }
+
+/* ---------- Build it (C# challenges) ---------- */
+.buildit {
+  margin: 20px 0;
+  padding-top: 16px;
+  border-top: 1px solid var(--line);
+}
+.brief {
+  border: 1px solid var(--line);
+  border-left: 4px solid var(--accent);
+  border-radius: var(--radius);
+  background: var(--surface-2);
+  padding: 4px 16px;
+  margin: 12px 0;
+}
+.md code,
+.how-run code {
+  font-family: var(--mono);
+  font-size: 0.88em;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  padding: 0 4px;
+}
+.md ul {
+  padding-left: 20px;
+}
+.md li {
+  margin: 4px 0;
+}
+.how-run li {
+  margin: 6px 0;
+}
+pre.cmd {
+  font-family: var(--mono);
+  background: #1d1c1a;
+  color: #e9e7df;
+  padding: 10px 12px;
+  border-radius: 8px;
+  overflow-x: auto;
+  margin: 6px 0;
+}
+.built-tick {
+  display: inline-flex;
+  gap: 8px;
+  align-items: center;
+  font-weight: 600;
+  cursor: pointer;
+}

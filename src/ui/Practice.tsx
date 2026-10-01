@@ -39,7 +39,7 @@ export function Practice({ concept }: { concept: Concept }) {
   };
   return (
     <div className="practice">
-      <h2>Now write it in C#</h2>
+      <h2>More practice: LeetCode problems</h2>
       <p className="muted">
         You understand how {concept.title} works. These are real problems that use it. Solve them on LeetCode in C#: it runs
         your code against its own tests and tells you if it’s right. Try them in order; they get harder. Tick one off when

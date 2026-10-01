@@ -10,6 +10,7 @@ import { Playground } from './Playground';
 import { StepThrough } from './StepThrough';
 import { Rich } from './Rich';
 import { Practice } from './Practice';
+import { BuildIt } from './BuildIt';
 import { AnimPlayer } from './AnimPlayer';
 import { ANIMS } from '../anim';
 import { getConcept } from '../content';
@@ -81,7 +82,7 @@ export function Lesson({ concept, duePrereqs, alreadyPassed, onReviewPrereqs, on
         <h1>{concept.title}</h1>
         {alreadyPassed && stage !== 'done' && (
           <button type="button" className="btn small" onClick={() => setStage('done')}>
-            C# practice →
+            C# challenges →
           </button>
         )}
         <ol className="stepper">
@@ -141,6 +142,7 @@ export function Lesson({ concept, duePrereqs, alreadyPassed, onReviewPrereqs, on
             card right, without guessing, on three separate days. Reviews bring it back as fresh problems at growing
             intervals, and a miss later drops it back.
           </p>
+          <BuildIt concept={concept} />
           <Practice concept={concept} />
           <button type="button" className="btn primary" onClick={onExit}>
             Back to the map

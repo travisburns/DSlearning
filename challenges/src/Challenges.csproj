@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!--
+    Your code. Each folder is one challenge: read its README.md, then fill in the methods.
+    Build with -p:UseSolutions=true to compile the reference solutions instead (used to check the tests).
+  -->
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <RootNamespace>Challenges</RootNamespace>
+    <NoWarn>CS1998;CS0169;CS0414;CS0649;CS9113</NoWarn>
+  </PropertyGroup>
+  <ItemGroup Condition="'$(UseSolutions)' == 'true'">
+    <Compile Remove="**/*.cs" />
+    <Compile Include="../solutions/**/*.cs" />
+  </ItemGroup>
+</Project>
