@@ -6,6 +6,7 @@ import { TIER3_ANIMS } from './scripts/tier3';
 import { TIER4_ANIMS } from './scripts/tier4';
 import { TIER5_ANIMS } from './scripts/tier5';
 import { TIER6_ANIMS } from './scripts/tier6';
+import { TIER7_ANIMS } from './scripts/tier7';
 
 /** One animation per lesson, keyed by concept id. */
 export const ANIMS: Record<string, AnimScript> = {
@@ -16,4 +17,5 @@ export const ANIMS: Record<string, AnimScript> = {
   ...TIER4_ANIMS,
   ...TIER5_ANIMS,
   ...TIER6_ANIMS,
+  ...TIER7_ANIMS,
 };
