@@ -32,6 +32,9 @@ public class KdTreeTests
             double x = rnd.NextDouble() * 120 - 10, y = rnd.NextDouble() * 120 - 10;
             var expected = stores.OrderBy(s => (s.Item1 - x) * (s.Item1 - x) + (s.Item2 - y) * (s.Item2 - y)).First().Item3;
             Assert.Equal(expected, f.Nearest(x, y));
+            var r = rnd.NextDouble() * 15;
+            var inside = stores.Where(s => (s.Item1 - x) * (s.Item1 - x) + (s.Item2 - y) * (s.Item2 - y) <= r * r).Select(s => s.Item3).OrderBy(n => n, StringComparer.Ordinal);
+            Assert.Equal(inside, f.Within(x, y, r));
         }
     }
 

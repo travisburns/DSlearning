@@ -52,8 +52,8 @@ public class StoreFinder
             var p = _p[mid];
             if ((p.X - x) * (p.X - x) + (p.Y - y) * (p.Y - y) <= radius * radius) outp.Add(p.Name);
             var diff = (depth % 2 == 0 ? x : y) - Coord(p, depth % 2);
-            if (diff <= radius) Search(mid + 1, hi, depth + 1);
-            if (diff >= -radius) Search(lo, mid - 1, depth + 1);
+            if (diff >= -radius) Search(mid + 1, hi, depth + 1); // right side holds coords ≥ the split: reachable if q + r ≥ split
+            if (diff <= radius) Search(lo, mid - 1, depth + 1);  // left side holds coords ≤ the split: reachable if q − r ≤ split
         }
         Search(0, _p.Length - 1, 0);
         outp.Sort(StringComparer.Ordinal);
