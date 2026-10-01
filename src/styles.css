@@ -1378,9 +1378,14 @@ svg .tnode.wrong circle {
   stroke-dasharray: 5 4;
 }
 .an-arrow-label {
-  font-size: 10.5px;
-  fill: var(--muted);
+  font-size: 12px;
+  font-weight: 700;
+  fill: var(--text);
   font-family: var(--mono);
+  paint-order: stroke;
+  stroke: var(--surface-2);
+  stroke-width: 4px;
+  stroke-linejoin: round;
 }
 
 .tone-plain { fill: var(--surface); stroke: var(--muted); }
