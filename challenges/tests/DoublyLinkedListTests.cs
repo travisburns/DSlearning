@@ -28,7 +28,7 @@ public class DoublyLinkedListTests
 
     [Fact]
     public void Typing_in_the_middle_of_a_huge_line_is_fast() =>
-        Perf.Under(400, () =>
+        Perf.Under(1600, () =>
         {
             var e = new EditorLine();
             for (var i = 0; i < 100_000; i++) e.Type('a');

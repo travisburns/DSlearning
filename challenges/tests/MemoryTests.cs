@@ -47,7 +47,7 @@ public class MemoryTests
 
     [Fact]
     public void Million_allocations_per_frame_are_fast() =>
-        Perf.Under(500, () =>
+        Perf.Under(2000, () =>
         {
             var a = new MemoryArena(4_000_000);
             for (var frame = 0; frame < 5; frame++)

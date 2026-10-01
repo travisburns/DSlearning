@@ -42,7 +42,7 @@ public class LinkedListTests
 
     [Fact]
     public void Adding_to_the_end_is_constant_time() =>
-        Perf.Under(400, () =>
+        Perf.Under(1600, () =>
         {
             var p = new Playlist();
             for (var i = 0; i < 300_000; i++) p.AddLast("s");

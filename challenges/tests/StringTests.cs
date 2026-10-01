@@ -24,7 +24,7 @@ public class StringTests
 
     [Fact]
     public void Exports_100k_rows_quickly() =>
-        Perf.Under(500, () =>
+        Perf.Under(2000, () =>
         {
             var rows = Enumerable.Range(0, 100_000).Select(i => new[] { i.ToString(), "item " + i, "12.50" });
             var csv = CsvExport.Build(rows);

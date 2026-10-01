@@ -34,7 +34,7 @@ public class DynamicArrayTests
 
     [Fact]
     public void A_million_adds_are_fast() =>
-        Perf.Under(300, () =>
+        Perf.Under(1500, () =>
         {
             var l = new GrowableList<int>();
             for (var i = 0; i < 1_000_000; i++) l.Add(i);

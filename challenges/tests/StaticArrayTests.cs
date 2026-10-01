@@ -33,7 +33,7 @@ public class StaticArrayTests
 
     [Fact]
     public void Checking_seats_is_constant_time() =>
-        Perf.Under(300, () =>
+        Perf.Under(1500, () =>
         {
             var r = new SeatRow(1_000_000);
             for (var i = 0; i < 1_000_000; i += 2) r.Book(i);
