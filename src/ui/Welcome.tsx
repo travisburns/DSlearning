@@ -45,7 +45,9 @@ export function Welcome({ onStart }: { onStart: () => void }) {
             <b>Learn:</b> a plain explanation of what it is, the problem it solves, and how it works step by step.
           </li>
           <li>
-            <b>Try it:</b> watch it work, or press the buttons yourself, one guided step at a time.
+            <b>Try it:</b> an animation shows it working, step by step: values slide into place, pointers swing,
+            trees rotate, with a sentence at each step saying what is happening and why. Some lessons then let you press
+            the buttons yourself.
           </li>
           <li>
             <b>4 questions:</b> the same four questions for every structure (how it’s stored, its rule, what the rule makes

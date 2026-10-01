@@ -265,6 +265,9 @@ Built:
   (rebuild the final state value by value; click the node that breaks the rule).
 - Spaced, interleaved reviews with confidence rating; the map shows the five skills from section 5.
 - Stats page: calibration (confidence vs. accuracy), accuracy per card type, misconceptions.
+- An animated, captioned walkthrough for all 84 lessons (2D SVG, tweened between steps), generated from the real
+  algorithm on random values, with play/pause/step/speed controls.
+- C# practice: real LeetCode problems per lesson after passing it (graded by LeetCode's tests).
 
 - 23 algorithms in the same path (`kind: 'algorithm'`): searching, two pointers, sliding window,
   fast/slow pointers, bit tricks, hashing patterns, string search, recursion, five sorts, backtracking,

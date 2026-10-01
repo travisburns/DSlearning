@@ -57,6 +57,17 @@ Plus 23 algorithms woven into the same path. Each one unlocks only after the dat
 
 Algorithms use the same lesson steps and card types; their "4 questions" are what it works on, the key idea, why it's fast, and what it costs.
 
+## Animations
+
+Every lesson's **Try it** step opens with an animated walkthrough (`src/anim/`): values slide between slots, pointers re-aim, trees rotate and split, graphs light up as they are explored, with a caption at every step saying what is happening and why. Play, pause, step back and forward, change speed, or press **New example** to run it again on fresh random values. Each animation runs the real algorithm on those values, so every run is correct, not a canned recording.
+
+- `src/anim/engine.ts`: the frame model (boxes, arrows, texts with stable ids) and the tweening between frames.
+- `src/anim/kit.ts`: layout helpers (rows of slots, pointer tags, tree and graph layouts).
+- `src/anim/scripts/*.ts`: one script per lesson, grouped by tier.
+- `src/ui/AnimPlayer.tsx`: the player and its controls.
+
+Tests run every animation 40 times with random values and check every frame.
+
 ## C# practice
 
 After you pass a lesson, its Done page lists real LeetCode problems that use it (`src/content/practice.ts`), easiest first, with a note where the link to the lesson isn't obvious. You solve them in C# on LeetCode, which checks your code with its own tests. A tick box per problem is your checklist (saved in the browser); it doesn't affect mastery. Lessons with no good graded problem (Bloom filter, B-tree, …) say so instead of padding the list. Passed lessons show a **C# practice →** button to get back there.

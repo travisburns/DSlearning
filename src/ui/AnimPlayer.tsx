@@ -108,7 +108,7 @@ export function AnimPlayer({ script }: { script: AnimScript }) {
       return;
     }
     const words = anim.frames[to].say.split(/\s+/).length;
-    timer.current = setTimeout(() => goTo(to + 1), Math.max(1300, words * 260) / speed);
+    timer.current = setTimeout(() => goTo(to + 1), Math.max(1500, words * 200) / speed);
     return () => clearTimeout(timer.current);
   }, [playing, t, to, last, speed, anim, goTo]);
 

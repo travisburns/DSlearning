@@ -1,10 +1,15 @@
 import { describe, expect, it } from 'vitest';
 import { ANIMS } from '../anim';
 import { between } from '../anim/engine';
+import { CONCEPTS } from '../content';
 
 const RUNS = 40;
 
 describe('animations', () => {
+  it('every lesson has an animation', () => {
+    for (const c of CONCEPTS) expect(ANIMS[c.id], `${c.id} has no animation`).toBeDefined();
+    for (const id of Object.keys(ANIMS)) expect(CONCEPTS.some((c) => c.id === id), `animation ${id} has no lesson`).toBe(true);
+  });
   for (const [id, script] of Object.entries(ANIMS)) {
     it(`${id}: every run builds well-formed frames`, () => {
       for (let r = 0; r < RUNS; r++) {
