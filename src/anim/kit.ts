@@ -78,7 +78,11 @@ export function treePos(root: TNode | null, o: { x?: number; y?: number; dx?: nu
 /** Draw (or re-place) a whole tree: node boxes `n<id>` as circles, edges `e<id>` from parent. */
 const treeIds = new WeakMap<Stage, Map<string, Set<string>>>();
 
-export function drawTree(s: Stage, root: TNode | null, o: { x?: number; y?: number; dx?: number; dy?: number; size?: number; prefix?: string } = {}) {
+export function drawTree(
+  s: Stage,
+  root: TNode | null,
+  o: { x?: number; y?: number; dx?: number; dy?: number; size?: number; prefix?: string; nodeW?: number } = {},
+) {
   const size = o.size ?? 40;
   const pre = o.prefix ?? 'n';
   const pos = treePos(root, o);
@@ -88,7 +92,8 @@ export function drawTree(s: Stage, root: TNode | null, o: { x?: number; y?: numb
     const p = pos.get(n.id)!;
     const id = pre + n.id;
     keep.add(id);
-    s.box(id, { x: p.x, y: p.y, w: size, h: size, shape: 'circle', label: n.label, sub: n.sub, tone: n.tone ?? 'plain' });
+    if (o.nodeW) s.box(id, { x: p.x, y: p.y, w: o.nodeW, h: 32, shape: 'rect', label: n.label, sub: n.sub, tone: n.tone ?? 'plain', mono: false });
+    else s.box(id, { x: p.x, y: p.y, w: size, h: size, shape: 'circle', label: n.label, sub: n.sub, tone: n.tone ?? 'plain' });
     if (parent) s.arrow(`e${id}`, pre + parent.id, id, { tone: 'dim', line: true });
     else delete s.arrows[`e${id}`];
     for (const k of n.kids ?? [n.left, n.right]) walk(k, n);
