@@ -1232,3 +1232,184 @@ svg .tnode.wrong circle {
   font-size: 0.78rem;
   color: var(--muted);
 }
+
+/* ---------- Animations ---------- */
+.anim {
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+  padding: 12px;
+  margin: 12px 0;
+  outline: none;
+}
+.anim:focus-visible {
+  box-shadow: 0 0 0 2px var(--accent);
+}
+.anim-title {
+  font-weight: 700;
+  font-size: 0.95rem;
+  margin-bottom: 6px;
+}
+.anim-stage {
+  background: var(--surface-2);
+  border-radius: 8px;
+  padding: 8px;
+  display: flex;
+  justify-content: center;
+  overflow: hidden;
+}
+.anim-stage svg {
+  display: block;
+  max-height: 460px;
+}
+.anim-caption {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  min-height: 3.2em;
+  margin: 10px 2px 6px;
+  font-size: 1.02rem;
+  line-height: 1.45;
+}
+.anim-stepno {
+  flex: none;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--muted);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 2px 8px;
+  margin-top: 2px;
+}
+.anim-progress {
+  display: flex;
+  gap: 3px;
+  margin: 4px 0 10px;
+}
+.anim-dot {
+  flex: 1;
+  height: 6px;
+  border: 0;
+  padding: 0;
+  border-radius: 3px;
+  background: var(--line);
+  cursor: pointer;
+}
+.anim-dot.on {
+  background: var(--accent);
+}
+.anim-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  align-items: center;
+}
+.anim-play {
+  min-width: 92px;
+}
+.anim-speed {
+  display: inline-flex;
+  gap: 2px;
+  margin-left: auto;
+}
+
+.an-box {
+  stroke-width: 1.6;
+  transition: fill 0.35s, stroke 0.35s;
+}
+.an-slot {
+  stroke-dasharray: 4 3;
+}
+.an-frame {
+  fill: var(--surface);
+  stroke: var(--line);
+  stroke-width: 1.2;
+  transition: fill 0.35s, stroke 0.35s;
+}
+.an-frame-title {
+  font-size: 11px;
+  font-weight: 700;
+  fill: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+.an-label {
+  fill: var(--text);
+  font-weight: 600;
+}
+.an-label.mono {
+  font-family: var(--mono);
+}
+.an-slot-label {
+  fill: var(--muted);
+  font-weight: 400;
+}
+.an-tag-label {
+  fill: var(--ptr);
+  font-weight: 700;
+  font-family: system-ui, sans-serif;
+}
+.an-top,
+.an-sub {
+  font-size: 10.5px;
+  fill: var(--muted);
+  font-family: var(--mono);
+}
+.an-text {
+  fill: var(--text);
+}
+.an-text.bold {
+  font-weight: 700;
+}
+.an-sm {
+  font-size: 11px;
+}
+.an-md {
+  font-size: 13px;
+}
+.an-lg {
+  font-size: 16px;
+}
+.an-arrow {
+  fill: none;
+  stroke-width: 2;
+}
+.an-arrow.dashed {
+  stroke-dasharray: 5 4;
+}
+.an-arrow-label {
+  font-size: 10.5px;
+  fill: var(--muted);
+  font-family: var(--mono);
+}
+
+.tone-plain { fill: var(--surface); stroke: var(--muted); }
+.tone-accent { fill: var(--accent-soft); stroke: var(--accent); }
+.tone-ok { fill: var(--ok-soft); stroke: var(--ok); }
+.tone-bad { fill: var(--bad-soft); stroke: var(--bad); }
+.tone-warn,
+.tone-hl { fill: var(--hl); stroke: var(--warn); }
+.tone-dim { fill: var(--surface-2); stroke: var(--line); opacity: 0.75; }
+.tone-ptr { fill: var(--surface); stroke: var(--ptr); }
+.tone-ghost { fill: transparent; stroke: var(--line); stroke-dasharray: 4 3; }
+.an-frame.tone-accent { fill: var(--accent-soft); }
+.an-frame.tone-ok { fill: var(--ok-soft); }
+.an-frame.tone-bad { fill: var(--bad-soft); }
+.an-tag { fill: var(--surface); stroke: var(--ptr); }
+
+.tone-a-plain { stroke: var(--muted); fill: var(--muted); }
+.tone-a-accent { stroke: var(--accent); fill: var(--accent); }
+.tone-a-ok { stroke: var(--ok); fill: var(--ok); }
+.tone-a-bad { stroke: var(--bad); fill: var(--bad); }
+.tone-a-warn { stroke: var(--warn); fill: var(--warn); }
+.tone-a-ptr { stroke: var(--ptr); fill: var(--ptr); }
+.tone-a-dim { stroke: var(--line); fill: var(--line); }
+path.an-arrow { fill: none; }
+
+.tone-t-plain { fill: var(--text); }
+.tone-t-accent { fill: var(--accent); }
+.tone-t-ok { fill: var(--ok); }
+.tone-t-bad { fill: var(--bad); }
+.tone-t-warn { fill: var(--warn); }
+.tone-t-ptr { fill: var(--ptr); }
+.tone-t-dim { fill: var(--muted); }

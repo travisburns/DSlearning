@@ -10,6 +10,8 @@ import { Playground } from './Playground';
 import { StepThrough } from './StepThrough';
 import { Rich } from './Rich';
 import { Practice } from './Practice';
+import { AnimPlayer } from './AnimPlayer';
+import { ANIMS } from '../anim';
 import { getConcept } from '../content';
 
 /** Lesson checkpoint order. Rebuild is left for reviews: recalling after a delay is the point of it. */
@@ -97,23 +99,32 @@ export function Lesson({ concept, duePrereqs, alreadyPassed, onReviewPrereqs, on
           <StepIntro>
             <b>This step:</b> see what you just read actually happen. Nothing here is graded.
           </StepIntro>
-          {concept.playground ? (
+          {ANIMS[concept.id] ? (
             <>
-              <h2>Try it yourself</h2>
+              <h2>Watch it work</h2>
+              <p className="muted">
+                Press <b>Play</b> to watch, or step through with <b>Next</b> and <b>Back</b>. Each step says what is
+                happening and why. Before pressing Next, guess what will happen. <b>New example</b> runs it again with
+                different values.
+              </p>
+              <AnimPlayer key={concept.id} script={ANIMS[concept.id]} />
+            </>
+          ) : (
+            !concept.playground && (
+              <>
+                <h2>Watch it work</h2>
+                <StepThrough concept={concept} />
+              </>
+            )
+          )}
+          {concept.playground && (
+            <>
+              <h2>{ANIMS[concept.id] ? 'Now you drive it' : 'Try it yourself'}</h2>
               <p className="muted">
                 Do the steps below with the buttons. Before each one, guess what will happen; then open “What does this
                 show?” to check.
               </p>
               <Playground def={concept.playground} />
-            </>
-          ) : (
-            <>
-              <h2>Watch it work</h2>
-              <p className="muted">
-                A worked example, one step at a time. Press Next to see each step; before you do, guess what it will be.
-                You'll do one yourself in the checkpoint.
-              </p>
-              <StepThrough concept={concept} />
             </>
           )}
           <button type="button" className="btn primary" onClick={next}>
