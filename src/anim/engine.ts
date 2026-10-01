@@ -127,7 +127,10 @@ export class Stage {
       y1 = Math.max(y1, d);
     };
     for (const f of this.frames) {
-      for (const b of Object.values(f.boxes)) grow(b.x, b.y - (b.top ? 16 : 0) - (b.shape === 'frame' ? 18 : 0), b.x + b.w, b.y + b.h + (b.sub ? 16 : 0));
+      for (const b of Object.values(f.boxes)) {
+        const titleW = b.shape === 'frame' && b.label ? b.label.length * 7.6 + 8 : 0;
+        grow(b.x, b.y - (b.top ? 16 : 0) - (b.shape === 'frame' ? 18 : 0), Math.max(b.x + b.w, b.x + titleW), b.y + b.h + (b.sub ? 16 : 0));
+      }
       for (const t of Object.values(f.texts)) {
         const w = t.text.length * (t.size === 'lg' ? 9.5 : t.size === 'sm' ? 6.5 : 7.8);
         const left = t.anchor === 'middle' ? t.x - w / 2 : t.anchor === 'end' ? t.x - w : t.x;
