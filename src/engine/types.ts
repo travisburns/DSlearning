@@ -207,4 +207,5 @@ export const TIERS: string[] = [
   'Probabilistic',
   'Composites & advanced',
   'Operating systems',
+  'Databases',
 ];

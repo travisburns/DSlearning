@@ -544,4 +544,28 @@ export const PRACTICE: Record<string, PracticeSet> = {
     problems: [],
     none: 'LeetCode has no graded async/await problem. The C# challenge (a concurrent fetcher) is the practice for this one.',
   },
+
+  // ---------- Systems: databases (SQL problems: pick MS SQL Server as the language) ----------
+  'relational-model': {
+    problems: [
+      p(595, 'big-countries', 'Big Countries', 'Easy', 'SQL: choose MS SQL Server. WHERE with OR.'),
+      p(182, 'duplicate-emails', 'Duplicate Emails', 'Easy', 'GROUP BY with HAVING.'),
+      p(176, 'second-highest-salary', 'Second Highest Salary', 'Medium'),
+    ],
+  },
+  'db-indexes': {
+    problems: [],
+    none: 'Indexes can’t be graded on LeetCode (it only checks results, not speed). The C# challenge, an indexed table that must stay fast, is the practice here.',
+  },
+  'query-joins': {
+    problems: [
+      p(175, 'combine-two-tables', 'Combine Two Tables', 'Easy', 'SQL: a LEFT JOIN.'),
+      p(183, 'customers-who-never-order', 'Customers Who Never Order', 'Easy'),
+      p(181, 'employees-earning-more-than-their-managers', 'Employees Earning More Than Their Managers', 'Easy', 'Join a table to itself.'),
+      p(184, 'department-highest-salary', 'Department Highest Salary', 'Medium'),
+    ],
+  },
+  transactions: { problems: [], none: 'No graded transaction problems exist on LeetCode. The C# challenge (a key-value store with nested transactions) covers it.' },
+  'write-ahead-log': { problems: [], none: 'No graded problems exist for crash recovery. The C# challenge builds a store that survives a simulated crash.' },
+  'isolation-mvcc': { problems: [], none: 'No graded problems exist for MVCC. The C# challenge builds snapshot reads and write-conflict detection.' },
 };

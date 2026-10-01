@@ -229,7 +229,7 @@ const intervalTree: AnimScript = () => {
   const opts = { nodeW: 64, dx: 72, dy: 72 };
   drawTree(s, toT(root, () => 'plain'), opts);
   s.say('An interval tree stores ranges like meeting times. It is a BST ordered by start time, and every node also remembers the latest END anywhere in its subtree (max).');
-  const qs = randInt(5, 18);
+  const qs = randInt(Math.min(...ivs.map((v) => v.s)), Math.max(...ivs.map((v) => v.e)) - 1); // always inside the data, so the search walks the tree
   const qe = qs + randInt(1, 3);
   s.text('q', 0, -30, `Which intervals overlap ${qs}–${qe}?`, { bold: true, size: 'lg', tone: 'accent' });
   const hit = new Set<IV>();
