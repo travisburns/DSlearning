@@ -267,6 +267,8 @@ Built:
 - Stats page: calibration (confidence vs. accuracy), accuracy per card type, misconceptions.
 - An animated, captioned walkthrough for all 84 lessons (2D SVG, tweened between steps), generated from the real
   algorithm on random values, with play/pause/step/speed controls.
+- C# challenges: one work-style feature per lesson (84) in `challenges/`, graded by xUnit tests that check
+  behaviour and speed; reference solutions included.
 - C# practice: real LeetCode problems per lesson after passing it (graded by LeetCode's tests).
 
 - 23 algorithms in the same path (`kind: 'algorithm'`): searching, two pointers, sliding window,

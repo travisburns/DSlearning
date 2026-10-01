@@ -14,6 +14,9 @@ const testSources = Object.entries(files)
 
 describe('C# build-it challenges', () => {
   const ids = Object.keys(CHALLENGES);
+  it('every lesson has a challenge', () => {
+    for (const c of CONCEPTS) expect(CHALLENGES[c.id], `${c.id} has no C# challenge`).toBeDefined();
+  });
   it('every challenge folder belongs to a lesson', () => {
     for (const id of ids) expect(CONCEPTS.some((c) => c.id === id), `${id} is not a lesson`).toBe(true);
   });

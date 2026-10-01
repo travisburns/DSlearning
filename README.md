@@ -68,6 +68,17 @@ Every lesson's **Try it** step opens with an animated walkthrough (`src/anim/`):
 
 Tests run every animation 40 times with random values and check every frame.
 
+## C# challenges
+
+Every lesson also has a small work-style feature to build in C# (`challenges/`): a ticket, starter code with empty methods, xUnit tests that check behaviour **and speed**, and a reference solution. Examples: undo/redo with stacks, an API rate limiter with a queue, a URL shortener with hash maps, autocomplete with a trie, a build-task runner with topological sort, an LRU cache, a Bloom filter in front of a username check. The lesson's Done page shows the ticket and the exact command:
+
+```
+cd challenges/tests
+dotnet test --filter Lesson=<lesson-id>
+```
+
+Speed tests fail an approach that gives correct answers but uses the wrong structure. `dotnet test -p:UseSolutions=true` runs every test against the reference solutions (all 249 pass). See `challenges/README.md`.
+
 ## C# practice
 
 After you pass a lesson, its Done page lists real LeetCode problems that use it (`src/content/practice.ts`), easiest first, with a note where the link to the lesson isn't obvious. You solve them in C# on LeetCode, which checks your code with its own tests. A tick box per problem is your checklist (saved in the browser); it doesn't affect mastery. Lessons with no good graded problem (Bloom filter, B-tree, …) say so instead of padding the list. Passed lessons show a **C# practice →** button to get back there.
