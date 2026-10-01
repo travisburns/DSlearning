@@ -1413,3 +1413,11 @@ path.an-arrow { fill: none; }
 .tone-t-warn { fill: var(--warn); }
 .tone-t-ptr { fill: var(--ptr); }
 .tone-t-dim { fill: var(--muted); }
+
+.tone-red { fill: #d64533; stroke: #9e2a1c; }
+.tone-black { fill: #2b2a28; stroke: #000; }
+.an-label.lt-red,
+.an-label.lt-black { fill: #fff; }
+@media (prefers-color-scheme: dark) {
+  .tone-black { fill: #0c0c0b; stroke: #8a877f; }
+}

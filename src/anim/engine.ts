@@ -5,7 +5,7 @@
  * they connect. Scripts never deal with time; they just describe states with the `Stage` builder.
  */
 
-export type Tone = 'plain' | 'accent' | 'ok' | 'bad' | 'warn' | 'hl' | 'dim' | 'ptr' | 'ghost';
+export type Tone = 'plain' | 'accent' | 'ok' | 'bad' | 'warn' | 'hl' | 'dim' | 'ptr' | 'ghost' | 'red' | 'black';
 
 export interface ABox {
   x: number;

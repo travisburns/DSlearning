@@ -31,7 +31,7 @@ function BoxShape({ b }: { b: ABox }) {
             <rect x={b.x} y={b.y} width={b.w} height={b.h} rx={b.shape === 'tag' ? b.h / 2 : 6} className={`an-box ${b.shape === 'slot' ? 'an-slot' : ''} ${b.shape === 'tag' ? 'an-tag' : ''} ${tone}`} />
           )}
           {label && (
-            <text x={cx} y={cy + fs * 0.35} textAnchor="middle" className={`an-label ${b.mono !== false ? 'mono' : ''} ${b.shape === 'tag' ? 'an-tag-label' : ''} ${b.shape === 'slot' ? 'an-slot-label' : ''}`} fontSize={b.shape === 'tag' ? 12 : fs}>
+            <text x={cx} y={cy + fs * 0.35} textAnchor="middle" className={`an-label lt-${b.tone ?? 'plain'} ${b.mono !== false ? 'mono' : ''} ${b.shape === 'tag' ? 'an-tag-label' : ''} ${b.shape === 'slot' ? 'an-slot-label' : ''}`} fontSize={b.shape === 'tag' ? 12 : fs}>
               {label}
             </text>
           )}
