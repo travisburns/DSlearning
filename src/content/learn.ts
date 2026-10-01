@@ -588,4 +588,8 @@ export const TIER_INTRO: string[] = [
   'Structures for searching and editing large amounts of text.',
   'Trading a little accuracy for huge savings in time or memory.',
   'Combining earlier structures to build caches, sorted maps and version history.',
+  'How the computer runs many programs at once: processes, threads, scheduling, locks and memory.',
+  'How databases store, find and protect data: tables, indexes, joins, transactions and crash recovery.',
+  'How computers talk: packets, routing, TCP, DNS, HTTP, and what to do when the network is slow.',
+  'Putting it all together to build systems that stay fast and reliable as they grow.',
 ];

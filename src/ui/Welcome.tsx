@@ -1,7 +1,8 @@
 import { CONCEPTS } from '../content';
 
 const ALGO = CONCEPTS.filter((c) => c.kind === 'algorithm').length;
-const DS = CONCEPTS.length - ALGO;
+const SYS = CONCEPTS.filter((c) => c.kind === 'systems').length;
+const DS = CONCEPTS.length - ALGO - SYS;
 
 /** First-visit guide: what you're learning, and how the app works. Also reachable from the map. */
 export function Welcome({ onStart }: { onStart: () => void }) {

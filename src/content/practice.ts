@@ -516,4 +516,32 @@ export const PRACTICE: Record<string, PracticeSet> = {
   'persistent-structures': {
     problems: [p(1146, 'snapshot-array', 'Snapshot Array', 'Medium', 'Keep a history per slot instead of copying the array.')],
   },
+
+  // ---------- Systems: operating systems ----------
+  'processes-threads': {
+    problems: [p(1114, 'print-in-order', 'Print in Order', 'Easy', 'Concurrency problem: make three threads run in a fixed order. If C# isn’t offered, use Java: the ideas map one to one.')],
+  },
+  scheduling: {
+    problems: [
+      p(1834, 'single-threaded-cpu', 'Single-Threaded CPU', 'Medium', 'Shortest job first, with a priority queue of ready tasks.'),
+      p(621, 'task-scheduler', 'Task Scheduler', 'Medium'),
+    ],
+  },
+  locks: {
+    problems: [
+      p(1115, 'print-foobar-alternately', 'Print FooBar Alternately', 'Medium', 'Two threads taking turns. Use SemaphoreSlim or Monitor.'),
+      p(1116, 'print-zero-even-odd', 'Print Zero Even Odd', 'Medium'),
+      p(1195, 'fizz-buzz-multithreaded', 'Fizz Buzz Multithreaded', 'Medium'),
+    ],
+  },
+  deadlock: {
+    problems: [p(1226, 'the-dining-philosophers', 'The Dining Philosophers', 'Medium', 'Avoid deadlock with a fixed fork order.')],
+  },
+  'virtual-memory': {
+    problems: [p(146, 'lru-cache', 'LRU Cache', 'Medium', 'The page replacement policy from this lesson.')],
+  },
+  'async-io': {
+    problems: [],
+    none: 'LeetCode has no graded async/await problem. The C# challenge (a concurrent fetcher) is the practice for this one.',
+  },
 };

@@ -127,6 +127,7 @@ export function Home({ progress, onLearn, onReview, onStats, onHelp, onReset }: 
                     </span>
                   </div>
                   {c.kind === 'algorithm' && <span className="algo-badge">Algorithm</span>}
+                  {c.kind === 'systems' && <span className="algo-badge sys-badge">Systems</span>}
                   <div className="tile-tag">{unlocked ? c.tagline : `Needs: ${missing.join(', ')}`}</div>
                   {done && (
                     <div className="bars" aria-label="Skill strength">

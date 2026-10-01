@@ -170,8 +170,9 @@ export interface ConceptExtras {
 export interface Concept {
   id: string;
   title: string;
-  /** Data structures are the default; algorithms are placed in the same path after the structures they use. */
-  kind?: 'algorithm';
+  /** Data structures are the default; algorithms come after the structures they use; systems topics (OS, databases,
+   *  networking, system design) come after everything they build on. */
+  kind?: 'algorithm' | 'systems';
   tier: number;
   prereqs: string[];
   /** One-line summary shown on the map. */
@@ -205,4 +206,5 @@ export const TIERS: string[] = [
   'String structures',
   'Probabilistic',
   'Composites & advanced',
+  'Operating systems',
 ];

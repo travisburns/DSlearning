@@ -16,10 +16,10 @@ const PRIMITIVE_TEXT: Record<ConceptExtras['primitive'], string> = {
 };
 
 const LENS_FIELDS = [
-  { key: 'layout', name: 'LAYOUT (how it sits in memory)', algo: 'SETUP (what it works on)' },
-  { key: 'invariant', name: 'INVARIANT (the rule it always keeps)', algo: 'KEY IDEA (what stays true at every step)' },
-  { key: 'payoff', name: 'PAYOFF (what the rule makes cheap)', algo: 'PAYOFF (why it’s fast)' },
-  { key: 'price', name: 'PRICE (what it costs)', algo: 'PRICE (cost and limits)' },
+  { key: 'layout', name: 'LAYOUT (how it sits in memory)', algo: 'SETUP (what it works on)', sys: 'PARTS (what it’s made of)' },
+  { key: 'invariant', name: 'INVARIANT (the rule it always keeps)', algo: 'KEY IDEA (what stays true at every step)', sys: 'GUARANTEE (what it promises)' },
+  { key: 'payoff', name: 'PAYOFF (what the rule makes cheap)', algo: 'PAYOFF (why it’s fast)', sys: 'PAYOFF (what that makes possible)' },
+  { key: 'price', name: 'PRICE (what it costs)', algo: 'PRICE (cost and limits)', sys: 'PRICE (what it costs, where it breaks)' },
 ] as const;
 
 /** Other concepts that are safe to use as wrong answers for `c`: different family, not a rival. */
@@ -43,6 +43,7 @@ function neighbours(c: Concept, all: Concept[]): Concept[] {
 
 export function extraGenerators(c: Concept, all: Concept[]): Record<ExtraCardType, CardGenerator[]> {
   const ex = c.extras!;
+  const noun = c.kind === 'algorithm' ? 'algorithm' : c.kind === 'systems' ? 'technique' : 'structure';
 
   const breakIt: CardGenerator = () => {
     const b = pick(ex.breaks);
@@ -67,7 +68,7 @@ export function extraGenerators(c: Concept, all: Concept[]): Record<ExtraCardTyp
     return {
       concept: c.id,
       type: 'choose',
-      prompt: `Which ${c.kind === 'algorithm' ? 'approach' : 'structure'} fits best?\n\n${scenario}`,
+      prompt: `Which ${c.kind === 'algorithm' ? 'approach' : noun} fits best?\n\n${scenario}`,
       body: {
         kind: 'choice',
         options: options(
@@ -119,7 +120,7 @@ export function extraGenerators(c: Concept, all: Concept[]): Record<ExtraCardTyp
     return {
       concept: c.id,
       type: 'connect',
-      prompt: `Which ${c.kind === 'algorithm' ? 'algorithm' : 'structure'} is built from: ${ex.parts.join(' + ')}?`,
+      prompt: `Which ${noun} is built from: ${ex.parts.join(' + ')}?`,
       body: {
         kind: 'choice',
         options: options({ text: c.title, why: c.lens.layout }, wrong.map((o) => ({ text: o.title, why: `${o.title} = ${o.extras!.parts.join(' + ')}` }))),
@@ -128,7 +129,7 @@ export function extraGenerators(c: Concept, all: Concept[]): Record<ExtraCardTyp
     };
   };
 
-  const fieldName = (f: (typeof LENS_FIELDS)[number]) => (c.kind === 'algorithm' ? f.algo : f.name);
+  const fieldName = (f: (typeof LENS_FIELDS)[number]) => (c.kind === 'algorithm' ? f.algo : c.kind === 'systems' ? f.sys : f.name);
   const rebuildLens: CardGenerator = () => {
     const f = pick(LENS_FIELDS);
     const wrong = shuffle(neighbours(c, all)).slice(0, 3);
@@ -150,7 +151,7 @@ export function extraGenerators(c: Concept, all: Concept[]): Record<ExtraCardTyp
     return {
       concept: c.id,
       type: 'rebuild',
-      prompt: `Which ${c.kind === 'algorithm' ? 'algorithm' : 'structure'} has this ${fieldName(f).split(' (')[0].toLowerCase()}?\n\n“${c.lens[f.key]}”`,
+      prompt: `Which ${noun} has this ${fieldName(f).split(' (')[0].toLowerCase()}?\n\n“${c.lens[f.key]}”`,
       body: { kind: 'choice', options: options({ text: c.title }, wrong.map((o) => ({ text: o.title, why: `${o.title}: ${o.lens[f.key]}` }))) },
       explain: `${c.title}. ${c.lens.invariant}`,
     };
@@ -159,7 +160,7 @@ export function extraGenerators(c: Concept, all: Concept[]): Record<ExtraCardTyp
   const rebuildFour: CardGenerator = () => ({
     concept: c.id,
     type: 'rebuild',
-    prompt: `Rebuild ${c.title} from memory: put its 4 answers in order (${c.kind === 'algorithm' ? 'what it works on → key idea → why it’s fast → cost' : 'how it’s stored → its rule → what the rule makes fast → what it costs'}).`,
+    prompt: `Rebuild ${c.title} from memory: put its 4 answers in order (${c.kind === 'algorithm' ? 'what it works on → key idea → why it’s fast → cost' : c.kind === 'systems' ? 'what it’s made of → what it guarantees → what that makes possible → what it costs' : 'how it’s stored → its rule → what the rule makes fast → what it costs'}).`,
     body: { kind: 'order', steps: [c.lens.layout, c.lens.invariant, c.lens.payoff, c.lens.price] },
     explain: 'Layout → the rule it keeps → what the rule buys → what the rule costs. Every structure answers these four.',
   });
@@ -178,7 +179,7 @@ export function extraGenerators(c: Concept, all: Concept[]): Record<ExtraCardTyp
   return {
     break: [breakIt],
     choose: [choose],
-    connect: [connectParts, connectPrimitive, connectName],
+    connect: c.kind === 'systems' ? [connectParts, connectName] : [connectParts, connectPrimitive, connectName],
     rebuild: [rebuildLens, rebuildReverse, rebuildFour],
     transfer: [transfer],
   };

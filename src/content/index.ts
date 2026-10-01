@@ -30,6 +30,7 @@ import {
 import { countingSortConcept, heapsortConcept, insertionSortConcept, mergeSortConcept, quicksortConcept } from './sorting';
 import { bfsConcept, dfsConcept, dijkstraConcept, kruskalConcept, topologicalSortConcept, treeDfsConcept } from './graphAlgos';
 import { backtrackingConcept, dp1dConcept, dp2dConcept, greedyConcept } from './paradigms';
+import { OS_CONCEPTS } from './osTrack';
 import { consistentHashingConcept, cuckooConcept, hashChainingConcept, hashFunctionConcept, hashMapConcept, hashOpenAddressingConcept } from './hashing';
 
 export const CONCEPTS: Concept[] = [
@@ -133,6 +134,8 @@ export const CONCEPTS: Concept[] = [
   sparseMatrixConcept,
   mergeableHeapsConcept,
   persistentConcept,
+  // Tier 11+: systems tracks
+  ...OS_CONCEPTS,
 ];
 
 for (const c of CONCEPTS) {

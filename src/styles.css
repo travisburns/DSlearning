@@ -1142,6 +1142,16 @@ svg .tnode.wrong circle {
 .pm-algo rect {
   stroke-dasharray: 5 3;
 }
+.pm-sys rect {
+  stroke-width: 3;
+  stroke-dasharray: 1 3;
+  stroke-linecap: round;
+}
+.sys-badge {
+  color: var(--c-transfer);
+  border-color: var(--c-transfer);
+  border-style: dotted;
+}
 .algo-badge {
   align-self: flex-start;
   font-size: 0.7rem;
