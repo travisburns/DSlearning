@@ -161,7 +161,7 @@ export const PRACTICE: Record<string, PracticeSet> = {
     ],
   },
 
-  // ---------- Tier 2 ----------
+  // ---------- Tier 3 ----------
   stack: {
     problems: [
       p(20, 'valid-parentheses', 'Valid Parentheses', 'Easy'),
@@ -243,7 +243,7 @@ export const PRACTICE: Record<string, PracticeSet> = {
     ],
   },
 
-  // ---------- Tier 3 ----------
+  // ---------- Tier 4 ----------
   'hash-function': {
     problems: [
       p(49, 'group-anagrams', 'Group Anagrams', 'Medium', 'The whole problem is choosing a good key: equal for anagrams, different otherwise.'),
@@ -301,7 +301,7 @@ export const PRACTICE: Record<string, PracticeSet> = {
     ],
   },
 
-  // ---------- Tier 4 ----------
+  // ---------- Tier 5 ----------
   tree: {
     problems: [
       p(589, 'n-ary-tree-preorder-traversal', 'N-ary Tree Preorder Traversal', 'Easy'),
@@ -354,7 +354,7 @@ export const PRACTICE: Record<string, PracticeSet> = {
     problems: [SORT_ARRAY('Write in-place heapsort: build a max-heap, then swap the root to the end repeatedly.')],
   },
 
-  // ---------- Tier 5 ----------
+  // ---------- Tier 6 ----------
   'avl-tree': {
     problems: [
       p(110, 'balanced-binary-tree', 'Balanced Binary Tree', 'Easy', 'The AVL rule: heights of the two sides differ by at most 1.'),
@@ -374,7 +374,7 @@ export const PRACTICE: Record<string, PracticeSet> = {
   'b-tree': { problems: [], none: 'No graded problem exists. B-trees live inside databases and file systems; knowing why they are wide and shallow is the useful part.' },
   'b-plus-tree': { problems: [], none: 'No graded problem exists. B+ trees live inside databases; knowing why their leaves are linked is the useful part.' },
 
-  // ---------- Tier 6 ----------
+  // ---------- Tier 7 ----------
   graph: {
     problems: [
       p(1791, 'find-center-of-star-graph', 'Find Center of Star Graph', 'Easy'),
@@ -437,7 +437,7 @@ export const PRACTICE: Record<string, PracticeSet> = {
     problems: [p(1584, 'min-cost-to-connect-all-points', 'Min Cost to Connect All Points', 'Medium')],
   },
 
-  // ---------- Tier 7 ----------
+  // ---------- Tier 8 ----------
   'prefix-sum': {
     problems: [
       p(1480, 'running-sum-of-1d-array', 'Running Sum of 1d Array', 'Easy'),
@@ -474,7 +474,7 @@ export const PRACTICE: Record<string, PracticeSet> = {
     ],
   },
 
-  // ---------- Tier 8 ----------
+  // ---------- Tier 9 ----------
   'radix-trie': {
     problems: [p(208, 'implement-trie-prefix-tree', 'Implement Trie (Prefix Tree)', 'Medium', 'Build the compressed version: edges hold whole strings, split them on insert.')],
   },
@@ -490,7 +490,7 @@ export const PRACTICE: Record<string, PracticeSet> = {
   },
   rope: { problems: [], none: NONE_RARE },
 
-  // ---------- Tier 9 ----------
+  // ---------- Tier 10 ----------
   'skip-list': {
     problems: [p(1206, 'design-skiplist', 'Design Skiplist', 'Hard')],
   },
@@ -498,7 +498,7 @@ export const PRACTICE: Record<string, PracticeSet> = {
   'count-min-sketch': { problems: [], none: NONE_RARE },
   hyperloglog: { problems: [], none: NONE_RARE },
 
-  // ---------- Tier 10 ----------
+  // ---------- Tier 11 ----------
   'ordered-map': {
     problems: [
       p(981, 'time-based-key-value-store', 'Time Based Key-Value Store', 'Medium'),
@@ -613,5 +613,35 @@ export const PRACTICE: Record<string, PracticeSet> = {
   },
   'rate-limiting': {
     problems: [p(933, 'number-of-recent-calls', 'Number of Recent Calls', 'Easy', 'A sliding window of timestamps: exactly a sliding-window rate limiter.')],
+  },
+  'logic-gates': {
+    problems: [
+      p(371, 'sum-of-two-integers', 'Sum of Two Integers', 'Medium', 'Add without + or −: exactly what the adder circuit does.'),
+      p(67, 'add-binary', 'Add Binary', 'Easy', 'Column addition with a carry.'),
+      p(190, 'reverse-bits', 'Reverse Bits', 'Easy'),
+    ],
+  },
+  'cpu-cycle': {
+    problems: [
+      p(2011, 'final-value-of-variable-after-performing-operations', 'Final Value of Variable After Performing Operations', 'Easy', 'Run a tiny instruction list.'),
+      p(150, 'evaluate-reverse-polish-notation', 'Evaluate Reverse Polish Notation', 'Medium', 'How a simple stack machine executes.'),
+    ],
+  },
+  'call-stack': {
+    problems: [
+      p(636, 'exclusive-time-of-functions', 'Exclusive Time of Functions', 'Medium', 'Rebuild the call stack from start/end logs.'),
+      p(394, 'decode-string', 'Decode String', 'Medium', 'Turn recursion into an explicit stack.'),
+    ],
+  },
+  'cpu-caches': {
+    problems: [p(48, 'rotate-image', 'Rotate Image', 'Medium', 'Then time row-order vs column-order loops yourself in C#.')],
+  },
+  pipelining: {
+    problems: [],
+    none: 'LeetCode can’t grade CPU behaviour. The C# challenge builds a branch predictor and measures it on sorted vs random data.',
+  },
+  simd: {
+    problems: [],
+    none: 'LeetCode doesn’t measure SIMD. The C# challenge vectorises real loops with Vector<T> and checks they get faster.',
   },
 };

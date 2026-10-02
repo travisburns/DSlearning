@@ -323,7 +323,7 @@ export const mergeSortConcept: Concept = {
   id: MS,
   kind: 'algorithm',
   title: 'Merge Sort',
-  tier: 2,
+  tier: 3,
   prereqs: ['static-array', 'recursion'],
   tagline: 'Split in half, sort each, zip them together.',
   hook: {
@@ -502,7 +502,7 @@ export const quicksortConcept: Concept = {
   id: QS,
   kind: 'algorithm',
   title: 'Quicksort',
-  tier: 2,
+  tier: 3,
   prereqs: ['static-array', 'recursion'],
   tagline: 'Pick a pivot, split around it, repeat.',
   hook: {
@@ -842,7 +842,7 @@ export const heapsortConcept: Concept = {
   id: HS,
   kind: 'algorithm',
   title: 'Heapsort',
-  tier: 4,
+  tier: 5,
   prereqs: ['binary-heap'],
   tagline: 'A heap gives the smallest next, so empty it in order.',
   hook: {

@@ -8,6 +8,7 @@ import { staticArrayConcept } from './staticArray';
 import { dynamicArrayConcept, matrixConcept, stringConcept } from './arraysPlus';
 import { circularLinkedListConcept, doublyLinkedListConcept, linkedListConcept } from './linkedLists';
 import { bitsetConcept } from './bitset';
+import { ARCH_CONCEPTS } from './archTrack';
 import { circularBufferConcept, dequeConcept, queueConcept, stackConcept } from './stackQueue';
 import { monotonicStackConcept, priorityQueueConcept } from './monoPq';
 import { binaryHeapConcept, binaryTreeConcept, bstConcept, dAryHeapConcept, treeConcept, trieConcept } from './trees';
@@ -58,61 +59,63 @@ export const CONCEPTS: Concept[] = [
   countingSortConcept,
   fastSlowConcept,
   bitManipulationConcept,
-  // Tier 2
+  // Tier 2: computer architecture
+  ...ARCH_CONCEPTS,
+  // Tier 3
   stackConcept,
   queueConcept,
   circularBufferConcept,
   dequeConcept,
   monotonicStackConcept,
   priorityQueueConcept,
-  // Tier 2 algorithms
+  // Tier 3 algorithms
   recursionConcept,
   mergeSortConcept,
   quicksortConcept,
   backtrackingConcept,
   greedyConcept,
-  // Tier 3
+  // Tier 4
   hashFunctionConcept,
   hashChainingConcept,
   hashOpenAddressingConcept,
   hashMapConcept,
   cuckooConcept,
   consistentHashingConcept,
-  // Tier 3 algorithms
+  // Tier 4 algorithms
   hashingPatternsConcept,
   stringMatchingConcept,
   dp1dConcept,
   dp2dConcept,
-  // Tier 4
+  // Tier 5
   treeConcept,
   binaryTreeConcept,
   bstConcept,
   binaryHeapConcept,
   dAryHeapConcept,
   trieConcept,
-  // Tier 4 algorithms
+  // Tier 5 algorithms
   treeDfsConcept,
   heapsortConcept,
-  // Tier 5
+  // Tier 6
   avlConcept,
   redBlackConcept,
   splayConcept,
   treapConcept,
   bTreeConcept,
   bPlusTreeConcept,
-  // Tier 6
+  // Tier 7
   graphConcept,
   adjacencyMatrixConcept,
   adjacencyListConcept,
   edgeListConcept,
   unionFindConcept,
-  // Tier 6 algorithms
+  // Tier 7 algorithms
   bfsConcept,
   dfsConcept,
   topologicalSortConcept,
   dijkstraConcept,
   kruskalConcept,
-  // Tier 7
+  // Tier 8
   prefixSumConcept,
   sparseTableConcept,
   segmentTreeConcept,
@@ -120,24 +123,24 @@ export const CONCEPTS: Concept[] = [
   intervalTreeConcept,
   kdTreeConcept,
   quadtreeConcept,
-  // Tier 8
+  // Tier 9
   radixTrieConcept,
   suffixArrayConcept,
   suffixTreeConcept,
   ropeConcept,
-  // Tier 9
+  // Tier 10
   skipListConcept,
   bloomFilterConcept,
   countMinConcept,
   hyperLogLogConcept,
-  // Tier 10
+  // Tier 11
   orderedMapConcept,
   lruConcept,
   lfuConcept,
   sparseMatrixConcept,
   mergeableHeapsConcept,
   persistentConcept,
-  // Tier 11+: systems tracks
+  // Tier 12+: systems tracks
   ...OS_CONCEPTS,
   ...DB_CONCEPTS,
   ...NET_CONCEPTS,

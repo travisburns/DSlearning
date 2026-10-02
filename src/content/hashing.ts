@@ -155,7 +155,7 @@ const hfExplain = explainGenerators({
 export const hashFunctionConcept: Concept = {
   id: HF,
   title: 'Hash Function',
-  tier: 3,
+  tier: 4,
   prereqs: ['static-array', 'string'],
   tagline: 'Turn any key into an array index.',
   hook: {
@@ -385,7 +385,7 @@ const chainOps: Concept['playground'] = {
 export const hashChainingConcept: Concept = {
   id: CH,
   title: 'Hash Table: Chaining',
-  tier: 3,
+  tier: 4,
   prereqs: [HF, 'linked-list'],
   tagline: 'Each bucket keeps a little list.',
   hook: {
@@ -575,7 +575,7 @@ const oaExplain = explainGenerators({
 export const hashOpenAddressingConcept: Concept = {
   id: OA,
   title: 'Hash Table: Open Addressing',
-  tier: 3,
+  tier: 4,
   prereqs: [HF],
   tagline: 'Taken? Try the next slot.',
   hook: {
@@ -749,7 +749,7 @@ const hmExplain = explainGenerators({
 export const hashMapConcept: Concept = {
   id: HM,
   title: 'Hash Set / Hash Map',
-  tier: 3,
+  tier: 4,
   prereqs: [CH],
   tagline: 'Key → value in O(1), growing as needed.',
   hook: {
@@ -928,7 +928,7 @@ const ckExplain = explainGenerators({
 export const cuckooConcept: Concept = {
   id: CK,
   title: 'Cuckoo Hashing',
-  tier: 3,
+  tier: 4,
   prereqs: [OA],
   tagline: 'Two possible homes. Lookups check two slots, ever.',
   hook: {
@@ -1097,7 +1097,7 @@ const conExplain = explainGenerators({
 export const consistentHashingConcept: Concept = {
   id: CON,
   title: 'Consistent Hashing',
-  tier: 3,
+  tier: 4,
   prereqs: [HM],
   tagline: 'A ring where servers can come and go.',
   hook: {

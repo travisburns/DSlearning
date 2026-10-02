@@ -160,7 +160,7 @@ export const backtrackingConcept: Concept = {
   id: BT,
   kind: 'algorithm',
   title: 'Backtracking',
-  tier: 2,
+  tier: 3,
   prereqs: ['recursion'],
   tagline: 'Choose, explore, un-choose.',
   hook: {
@@ -340,7 +340,7 @@ export const dp1dConcept: Concept = {
   id: D1,
   kind: 'algorithm',
   title: 'Dynamic Programming (1D)',
-  tier: 3,
+  tier: 4,
   prereqs: ['recursion', 'hash-map'],
   tagline: 'Solve each small problem once; reuse the answer.',
   hook: {
@@ -538,7 +538,7 @@ export const dp2dConcept: Concept = {
   id: D2,
   kind: 'algorithm',
   title: 'Dynamic Programming (2D)',
-  tier: 3,
+  tier: 4,
   prereqs: ['dp-1d', 'matrix'],
   tagline: 'A grid of answers, each built from its neighbours.',
   hook: {
@@ -732,7 +732,7 @@ export const greedyConcept: Concept = {
   id: GR,
   kind: 'algorithm',
   title: 'Greedy Algorithms',
-  tier: 2,
+  tier: 3,
   prereqs: ['merge-sort'],
   tagline: 'Take the best-looking choice and never look back.',
   hook: {

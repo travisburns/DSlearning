@@ -260,7 +260,7 @@ export const treeDfsConcept: Concept = {
   id: TD,
   kind: 'algorithm',
   title: 'Tree Traversals',
-  tier: 4,
+  tier: 5,
   prereqs: ['binary-tree', 'recursion'],
   tagline: 'Visit every node: before, between or after the children.',
   hook: {
@@ -440,7 +440,7 @@ export const bfsConcept: Concept = {
   id: BF,
   kind: 'algorithm',
   title: 'Breadth-First Search',
-  tier: 6,
+  tier: 7,
   prereqs: ['graph', 'queue', 'adjacency-list'],
   tagline: 'Explore in rings: nearest first.',
   hook: {
@@ -608,7 +608,7 @@ export const dfsConcept: Concept = {
   id: DF,
   kind: 'algorithm',
   title: 'Depth-First Search',
-  tier: 6,
+  tier: 7,
   prereqs: ['graph', 'recursion', 'adjacency-list'],
   tagline: 'Go deep, back up, try the next way.',
   hook: {
@@ -793,7 +793,7 @@ export const topologicalSortConcept: Concept = {
   id: TS,
   kind: 'algorithm',
   title: 'Topological Sort',
-  tier: 6,
+  tier: 7,
   prereqs: ['bfs'],
   tagline: 'Do things in an order that respects dependencies.',
   hook: {
@@ -963,7 +963,7 @@ export const dijkstraConcept: Concept = {
   id: DJ,
   kind: 'algorithm',
   title: 'Dijkstra’s Shortest Paths',
-  tier: 6,
+  tier: 7,
   prereqs: ['bfs', 'binary-heap'],
   tagline: 'Always settle the closest place next.',
   hook: {
@@ -1133,7 +1133,7 @@ export const kruskalConcept: Concept = {
   id: KR,
   kind: 'algorithm',
   title: 'Kruskal’s MST',
-  tier: 6,
+  tier: 7,
   prereqs: ['union-find', 'edge-list', 'merge-sort'],
   tagline: 'Buy links cheapest first; skip ones that close a loop.',
   hook: {

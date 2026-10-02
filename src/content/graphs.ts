@@ -189,7 +189,7 @@ const gbExplain = explainGenerators({
 export const graphConcept: Concept = {
   id: GB,
   title: 'Graph Basics',
-  tier: 6,
+  tier: 7,
   prereqs: ['tree'],
   tagline: 'Dots and lines. No root, cycles allowed.',
   hook: {
@@ -329,7 +329,7 @@ const amExplain = explainGenerators({
 export const adjacencyMatrixConcept: Concept = {
   id: AM,
   title: 'Adjacency Matrix',
-  tier: 6,
+  tier: 7,
   prereqs: [GB, 'matrix'],
   tagline: 'An n × n grid of "is there an edge?"',
   hook: {
@@ -499,7 +499,7 @@ const alExplain = explainGenerators({
 export const adjacencyListConcept: Concept = {
   id: AL,
   title: 'Adjacency List',
-  tier: 6,
+  tier: 7,
   prereqs: [GB, 'dynamic-array'],
   tagline: 'Each node keeps its own list of neighbours.',
   hook: {
@@ -634,7 +634,7 @@ const elExplain = explainGenerators({
 export const edgeListConcept: Concept = {
   id: EL,
   title: 'Edge List',
-  tier: 6,
+  tier: 7,
   prereqs: [GB],
   tagline: 'Just a list of pairs.',
   hook: {
@@ -880,7 +880,7 @@ const ufOps: Concept['playground'] = {
 export const unionFindConcept: Concept = {
   id: UF,
   title: 'Union-Find (Disjoint Set)',
-  tier: 6,
+  tier: 7,
   prereqs: [GB, 'tree'],
   tagline: 'Groups that only merge. One parent array.',
   hook: {

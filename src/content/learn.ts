@@ -579,6 +579,7 @@ export const LEARN: Record<string, { what: string; how: string[] }> = {
 export const TIER_INTRO: string[] = [
   'What memory is and how data is stored at the lowest level. Everything else is built on this.',
   'Storing items in a row: side by side in memory (arrays) or linked by pointers (lists).',
+  'What the CPU physically does with those bits and addresses: gates, instructions, the call stack, caches.',
   'Lists with rules about where you add and remove: stacks, queues and friends.',
   'Finding things by name instantly, by turning keys into positions.',
   'Organising data in levels (trees) for fast searching and “smallest first”.',

@@ -113,7 +113,7 @@ export const packetsIpConcept: Concept = {
   id: IP,
   kind: 'systems',
   title: 'Packets & IP Routing',
-  tier: 13,
+  tier: 14,
   prereqs: ['bits', 'graph'],
   tagline: 'Envelopes with addresses, passed hop by hop.',
   hook: {
@@ -272,7 +272,7 @@ export const tcpConcept: Concept = {
   id: TC,
   kind: 'systems',
   title: 'TCP: Reliable Delivery',
-  tier: 13,
+  tier: 14,
   prereqs: ['packets-ip', 'circular-buffer'],
   tagline: 'Number every byte, acknowledge, resend.',
   hook: {
@@ -415,7 +415,7 @@ export const dnsConcept: Concept = {
   id: DN,
   kind: 'systems',
   title: 'DNS',
-  tier: 13,
+  tier: 14,
   prereqs: ['packets-ip', 'hash-map', 'tree'],
   tagline: 'The internet’s phone book, with a memory.',
   hook: {
@@ -578,7 +578,7 @@ export const httpConcept: Concept = {
   id: HT,
   kind: 'systems',
   title: 'HTTP & APIs',
-  tier: 13,
+  tier: 14,
   prereqs: ['tcp', 'dns'],
   tagline: 'Ask with a method and a path; answer with a status.',
   hook: {
@@ -727,7 +727,7 @@ export const latencyRetriesConcept: Concept = {
   id: LR,
   kind: 'systems',
   title: 'Latency, Timeouts & Retries',
-  tier: 13,
+  tier: 14,
   prereqs: ['tcp'],
   tagline: 'Don’t wait forever; don’t retry like a mob.',
   hook: {

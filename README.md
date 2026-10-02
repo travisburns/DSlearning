@@ -29,42 +29,44 @@ The map shows five skills per structure: **Mechanism** (Predict, Simulate, Rebui
 
 ## Coverage
 
-61 data structures in 11 tiers, unlocked in order (each builds on earlier ones):
+61 data structures in 11 tiers (plus a computer architecture tier after the linear structures), unlocked in order (each builds on earlier ones):
 
 | Tier | Structures |
 |---|---|
 | 0 Primitives | memory & addresses, pointers, bits & bytes |
 | 1 Linear | static array, 2D array, dynamic array, string, singly / doubly / circular linked list, bitset |
-| 2 Restricted | stack, queue, circular buffer, deque, monotonic stack/queue, priority queue |
-| 3 Hashing | hash function, chaining, open addressing, hash set/map, cuckoo hashing, consistent hashing |
-| 4 Core trees | tree basics, binary tree, BST, binary heap, d-ary heap, trie |
-| 5 Balanced & disk trees | AVL, red-black, splay, treap, B-tree, B+ tree |
-| 6 Graphs & groups | graph basics, adjacency matrix, adjacency list, edge list, union-find |
-| 7 Range & spatial | prefix sums, sparse table, segment tree, Fenwick tree, interval tree, k-d tree, quadtree |
-| 8 Strings | radix trie, suffix array, suffix tree, rope |
-| 9 Probabilistic | skip list, Bloom filter, count-min sketch, HyperLogLog |
-| 10 Composites | ordered map, LRU cache, LFU cache, sparse matrix, mergeable heaps, persistent structures |
+| 2 Computer architecture | logic gates & binary arithmetic, the CPU cycle, the call stack, caches, pipelining & branch prediction, SIMD (systems lessons, see below) |
+| 3 Restricted | stack, queue, circular buffer, deque, monotonic stack/queue, priority queue |
+| 4 Hashing | hash function, chaining, open addressing, hash set/map, cuckoo hashing, consistent hashing |
+| 5 Core trees | tree basics, binary tree, BST, binary heap, d-ary heap, trie |
+| 6 Balanced & disk trees | AVL, red-black, splay, treap, B-tree, B+ tree |
+| 7 Graphs & groups | graph basics, adjacency matrix, adjacency list, edge list, union-find |
+| 8 Range & spatial | prefix sums, sparse table, segment tree, Fenwick tree, interval tree, k-d tree, quadtree |
+| 9 Strings | radix trie, suffix array, suffix tree, rope |
+| 10 Probabilistic | skip list, Bloom filter, count-min sketch, HyperLogLog |
+| 11 Composites | ordered map, LRU cache, LFU cache, sparse matrix, mergeable heaps, persistent structures |
 
 Plus 23 algorithms woven into the same path. Each one unlocks only after the data structures it uses have been passed (shown as rounded, dashed boxes on the map):
 
 | Tier | Algorithms (needs) |
 |---|---|
 | 1 | binary search, two pointers, sliding window, insertion sort, counting sort (static array); fast & slow pointers (linked list); bit manipulation (bits) |
-| 2 | recursion (stack); merge sort, quicksort (array + recursion); backtracking (recursion); greedy (merge sort) |
-| 3 | counting with hash maps (hash map); string search (string + hash function); 1D DP (recursion + hash map); 2D DP (1D DP + 2D array) |
-| 4 | tree traversals (binary tree + recursion); heapsort (binary heap) |
-| 6 | BFS (graph + queue + adjacency list); DFS (graph + recursion + adjacency list); topological sort (BFS); Dijkstra (BFS + binary heap); Kruskal (union-find + edge list + merge sort) |
+| 3 | recursion (stack); merge sort, quicksort (array + recursion); backtracking (recursion); greedy (merge sort) |
+| 4 | counting with hash maps (hash map); string search (string + hash function); 1D DP (recursion + hash map); 2D DP (1D DP + 2D array) |
+| 5 | tree traversals (binary tree + recursion); heapsort (binary heap) |
+| 7 | BFS (graph + queue + adjacency list); DFS (graph + recursion + adjacency list); topological sort (BFS); Dijkstra (BFS + binary heap); Kruskal (union-find + edge list + merge sort) |
 
 Algorithms use the same lesson steps and card types; their "4 questions" are what it works on, the key idea, why it's fast, and what it costs.
 
-Then 23 systems lessons in four tracks, where the structures and algorithms show up inside real systems:
+Then 29 systems lessons in five tracks, where the structures and algorithms show up inside real systems:
 
 | Tier | Track | Lessons |
 |---|---|---|
-| 11 | Operating systems | processes & threads, CPU scheduling, locks, deadlock, virtual memory & paging, async I/O |
-| 12 | Databases | tables & SQL, indexes, joins, transactions, write-ahead log, isolation & MVCC |
-| 13 | Networking | packets & IP routing, TCP, DNS, HTTP & APIs, latency/timeouts/retries |
-| 14 | System design | caching layer, load balancing, sharding & replication, message queues, rate limiting |
+| 2 | Computer architecture | binary arithmetic & logic gates, fetch–decode–execute, machine code & the call stack, caches & the memory hierarchy, pipelining & branch prediction, SIMD |
+| 12 | Operating systems | processes & threads, CPU scheduling, locks, deadlock, virtual memory & paging, async I/O |
+| 13 | Databases | tables & SQL, indexes, joins, transactions, write-ahead log, isolation & MVCC |
+| 14 | Networking | packets & IP routing, TCP, DNS, HTTP & APIs, latency/timeouts/retries |
+| 15 | System design | caching layer, load balancing, sharding & replication, message queues, rate limiting |
 
 Systems lessons use the same steps; their "4 questions" are what it's made of, what it guarantees, what that makes possible, and what it costs.
 

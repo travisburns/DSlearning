@@ -139,7 +139,7 @@ const omExplain = explainGenerators({
 export const orderedMapConcept: Concept = {
   id: OM,
   title: 'Ordered Map (Tree Map)',
-  tier: 10,
+  tier: 11,
   prereqs: ['red-black-tree', 'hash-map'],
   tagline: 'A map that keeps keys sorted: floor, ceiling, ranges.',
   hook: {
@@ -301,7 +301,7 @@ const lruExplain = explainGenerators({
 export const lruConcept: Concept = {
   id: LRU,
   title: 'LRU Cache',
-  tier: 10,
+  tier: 11,
   prereqs: ['hash-map', 'doubly-linked-list'],
   tagline: 'Hash map + doubly linked list: evict the least recently used.',
   hook: {
@@ -440,7 +440,7 @@ const lfuExplain = explainGenerators({
 export const lfuConcept: Concept = {
   id: LFU,
   title: 'LFU Cache',
-  tier: 10,
+  tier: 11,
   prereqs: [LRU],
   tagline: 'Evict the least frequently used, in O(1).',
   hook: {
@@ -619,7 +619,7 @@ const spmExplain = explainGenerators({
 export const sparseMatrixConcept: Concept = {
   id: SPM,
   title: 'Sparse Matrix',
-  tier: 10,
+  tier: 11,
   prereqs: ['matrix', 'prefix-sum'],
   tagline: 'Store only what isn’t zero.',
   hook: {
@@ -765,7 +765,7 @@ const mhExplain = explainGenerators({
 export const mergeableHeapsConcept: Concept = {
   id: MH,
   title: 'Mergeable Heaps',
-  tier: 10,
+  tier: 11,
   prereqs: ['binary-heap', 'bits'],
   tagline: 'Binomial, pairing, Fibonacci: heaps that combine cheaply.',
   hook: {
@@ -921,7 +921,7 @@ const perExplain = explainGenerators({
 export const persistentConcept: Concept = {
   id: PER,
   title: 'Persistent Structures',
-  tier: 10,
+  tier: 11,
   prereqs: ['bst', 'linked-list'],
   tagline: 'Every version kept, sharing what didn’t change.',
   hook: {

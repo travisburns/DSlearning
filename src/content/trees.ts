@@ -212,7 +212,7 @@ const trExplain = explainGenerators({
 export const treeConcept: Concept = {
   id: TR,
   title: 'Tree Basics',
-  tier: 4,
+  tier: 5,
   prereqs: ['linked-list'],
   tagline: 'One root, and every node hangs from one parent.',
   hook: {
@@ -365,7 +365,7 @@ const btExplain = explainGenerators({
 export const binaryTreeConcept: Concept = {
   id: BT,
   title: 'Binary Tree',
-  tier: 4,
+  tier: 5,
   prereqs: [TR, 'queue'],
   tagline: 'At most two children. Levels double.',
   hook: {
@@ -705,7 +705,7 @@ const bstOps: Concept['playground'] = {
 export const bstConcept: Concept = {
   id: BST,
   title: 'Binary Search Tree',
-  tier: 4,
+  tier: 5,
   prereqs: [BT],
   tagline: 'Smaller left, bigger right. Every step halves the search.',
   hook: {
@@ -976,7 +976,7 @@ const heapOps: Concept['playground'] = {
 export const binaryHeapConcept: Concept = {
   id: HP,
   title: 'Binary Heap',
-  tier: 4,
+  tier: 5,
   prereqs: ['priority-queue', BT],
   tagline: 'A tree packed into an array; smallest on top.',
   hook: {
@@ -1142,7 +1142,7 @@ const dhExplain = explainGenerators({
 export const dAryHeapConcept: Concept = {
   id: DH,
   title: 'd-ary Heap',
-  tier: 4,
+  tier: 5,
   prereqs: [HP],
   tagline: 'Wider heap, shorter tree.',
   hook: {
@@ -1328,7 +1328,7 @@ const trieExplain = explainGenerators({
 export const trieConcept: Concept = {
   id: TRIE,
   title: 'Trie',
-  tier: 4,
+  tier: 5,
   prereqs: [TR, 'string'],
   tagline: 'A tree of letters. Paths spell words.',
   hook: {

@@ -97,7 +97,7 @@ export const cachingLayerConcept: Concept = {
   id: CL,
   kind: 'systems',
   title: 'Caching Layer',
-  tier: 14,
+  tier: 15,
   prereqs: ['lru-cache', 'http', 'db-indexes'],
   tagline: 'Remember expensive answers; forget them when they change.',
   hook: {
@@ -269,7 +269,7 @@ export const loadBalancingConcept: Concept = {
   id: LB,
   kind: 'systems',
   title: 'Load Balancing',
-  tier: 14,
+  tier: 15,
   prereqs: ['http', 'latency-retries', 'queue'],
   tagline: 'Many servers, one address, nobody overloaded.',
   hook: {
@@ -441,7 +441,7 @@ export const shardingReplicationConcept: Concept = {
   id: SR,
   kind: 'systems',
   title: 'Sharding & Replication',
-  tier: 14,
+  tier: 15,
   prereqs: ['consistent-hashing', 'write-ahead-log', 'transactions'],
   tagline: 'Split the data to grow; copy it to survive.',
   hook: {
@@ -593,7 +593,7 @@ export const messageQueuesConcept: Concept = {
   id: MQ,
   kind: 'systems',
   title: 'Message Queues',
-  tier: 14,
+  tier: 15,
   prereqs: ['queue', 'latency-retries', 'transactions'],
   tagline: 'Hand off work now; do it reliably later.',
   hook: {
@@ -756,7 +756,7 @@ export const rateLimitingConcept: Concept = {
   id: RL,
   kind: 'systems',
   title: 'Rate Limiting',
-  tier: 14,
+  tier: 15,
   prereqs: ['sliding-window', 'queue', 'http'],
   tagline: 'Fair share for everyone, 429 for the greedy.',
   hook: {

@@ -183,7 +183,7 @@ const monoExplain = explainGenerators({
 export const monotonicStackConcept: Concept = {
   id: MONO,
   title: 'Monotonic Stack / Queue',
-  tier: 2,
+  tier: 3,
   prereqs: ['stack', 'deque'],
   tagline: 'A stack kept in order: each item waits for its answer.',
   hook: {
@@ -375,7 +375,7 @@ const pqExplain = explainGenerators({
 export const priorityQueueConcept: Concept = {
   id: PQ,
   title: 'Priority Queue (interface)',
-  tier: 2,
+  tier: 3,
   prereqs: ['queue', 'dynamic-array'],
   tagline: 'Most urgent first. How cheap can we make it?',
   hook: {

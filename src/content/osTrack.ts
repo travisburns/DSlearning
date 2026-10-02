@@ -114,7 +114,7 @@ export const processesThreadsConcept: Concept = {
   id: PT,
   kind: 'systems',
   title: 'Processes & Threads',
-  tier: 11,
+  tier: 12,
   prereqs: ['memory', 'stack'],
   tagline: 'Private rooms, and workers who share one.',
   hook: {
@@ -300,7 +300,7 @@ export const schedulingConcept: Concept = {
   id: SC,
   kind: 'systems',
   title: 'CPU Scheduling',
-  tier: 11,
+  tier: 12,
   prereqs: ['processes-threads', 'queue', 'priority-queue'],
   tagline: 'Who runs next, and for how long.',
   hook: {
@@ -442,7 +442,7 @@ export const locksConcept: Concept = {
   id: LK,
   kind: 'systems',
   title: 'Race Conditions & Locks',
-  tier: 11,
+  tier: 12,
   prereqs: ['processes-threads'],
   tagline: 'One at a time through the critical section.',
   hook: {
@@ -603,7 +603,7 @@ export const deadlockConcept: Concept = {
   id: DL,
   kind: 'systems',
   title: 'Deadlock',
-  tier: 11,
+  tier: 12,
   prereqs: ['locks', 'graph'],
   tagline: 'Everyone waiting for everyone else.',
   hook: {
@@ -781,7 +781,7 @@ export const virtualMemoryConcept: Concept = {
   id: VM,
   kind: 'systems',
   title: 'Virtual Memory & Paging',
-  tier: 11,
+  tier: 12,
   prereqs: ['memory', 'hash-map', 'lru-cache'],
   tagline: 'Every program gets its own address book.',
   hook: {
@@ -930,7 +930,7 @@ export const asyncIoConcept: Concept = {
   id: AI,
   kind: 'systems',
   title: 'Async I/O & Event Loops',
-  tier: 11,
+  tier: 12,
   prereqs: ['processes-threads', 'queue'],
   tagline: 'Don’t hold a thread while you wait.',
   hook: {

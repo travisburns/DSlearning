@@ -125,7 +125,7 @@ export const relationalModelConcept: Concept = {
   id: RM,
   kind: 'systems',
   title: 'Tables, Keys & SQL',
-  tier: 12,
+  tier: 13,
   prereqs: ['hash-map', 'static-array'],
   tagline: 'Rows, columns, and rules about how they link.',
   hook: {
@@ -293,7 +293,7 @@ export const dbIndexesConcept: Concept = {
   id: IX,
   kind: 'systems',
   title: 'Database Indexes',
-  tier: 12,
+  tier: 13,
   prereqs: ['relational-model', 'b-plus-tree'],
   tagline: 'The index at the back of the book.',
   hook: {
@@ -454,7 +454,7 @@ export const joinsConcept: Concept = {
   id: JN,
   kind: 'systems',
   title: 'Joins',
-  tier: 12,
+  tier: 13,
   prereqs: ['relational-model', 'hash-map', 'merge-sort'],
   tagline: 'Match rows that belong together.',
   hook: {
@@ -615,7 +615,7 @@ export const transactionsConcept: Concept = {
   id: TX,
   kind: 'systems',
   title: 'Transactions & ACID',
-  tier: 12,
+  tier: 13,
   prereqs: ['relational-model', 'locks'],
   tagline: 'All of it, or none of it.',
   hook: {
@@ -771,7 +771,7 @@ export const writeAheadLogConcept: Concept = {
   id: WL,
   kind: 'systems',
   title: 'Write-Ahead Log & Recovery',
-  tier: 12,
+  tier: 13,
   prereqs: ['transactions'],
   tagline: 'Write it in the notebook first.',
   hook: {
@@ -924,7 +924,7 @@ export const isolationMvccConcept: Concept = {
   id: MV,
   kind: 'systems',
   title: 'Isolation & MVCC',
-  tier: 12,
+  tier: 13,
   prereqs: ['transactions', 'persistent-structures'],
   tagline: 'Everyone reads their own snapshot.',
   hook: {

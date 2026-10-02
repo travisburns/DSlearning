@@ -266,7 +266,7 @@ const avlOps: Concept['playground'] = {
 export const avlConcept: Concept = {
   id: AVL,
   title: 'AVL Tree',
-  tier: 5,
+  tier: 6,
   prereqs: ['bst'],
   tagline: 'A BST that rotates to stay short.',
   hook: {
@@ -486,7 +486,7 @@ const rbExplain = explainGenerators({
 export const redBlackConcept: Concept = {
   id: RB,
   title: 'Red-Black Tree',
-  tier: 5,
+  tier: 6,
   prereqs: [AVL],
   tagline: 'Looser balance, cheaper updates. Colour rules cap the height.',
   hook: {
@@ -629,7 +629,7 @@ const spExplain = explainGenerators({
 export const splayConcept: Concept = {
   id: SP,
   title: 'Splay Tree',
-  tier: 5,
+  tier: 6,
   prereqs: [AVL],
   tagline: 'Whatever you touch moves to the top.',
   hook: {
@@ -847,7 +847,7 @@ const tpExplain = explainGenerators({
 export const treapConcept: Concept = {
   id: TP,
   title: 'Treap',
-  tier: 5,
+  tier: 6,
   prereqs: ['bst', 'binary-heap'],
   tagline: 'A BST shuffled by random priorities.',
   hook: {
@@ -1070,7 +1070,7 @@ const bExplain = explainGenerators({
 export const bTreeConcept: Concept = {
   id: BTR,
   title: 'B-tree',
-  tier: 5,
+  tier: 6,
   prereqs: [AVL],
   tagline: 'Wide nodes, very short tree. Built for disks.',
   hook: {
@@ -1276,7 +1276,7 @@ const bpExplain = explainGenerators({
 export const bPlusTreeConcept: Concept = {
   id: BP,
   title: 'B+ Tree',
-  tier: 5,
+  tier: 6,
   prereqs: [BTR],
   tagline: 'Signposts on top, all data in linked leaves.',
   hook: {

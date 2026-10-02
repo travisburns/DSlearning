@@ -2,7 +2,7 @@
 
 One small, real feature per lesson: the kind of ticket you'd get at work. Each one only works well (or fast enough) if you use the structure or algorithm from that lesson in the right place.
 
-The systems lessons go a step further: you build a small working piece of the real thing (a thread-safe bounded queue, a crash-safe write-ahead log, MVCC snapshots, a TCP sender/receiver over a lossy link, a caching DNS resolver, an HTTP router, a circuit breaker, a load balancer, a message queue with dead letters).
+The systems lessons go a step further: you build a small working piece of the real thing (a CPU emulator, a cache simulator, a branch predictor, SIMD loops, a thread-safe bounded queue, a crash-safe write-ahead log, MVCC snapshots, a TCP sender/receiver over a lossy link, a caching DNS resolver, an HTTP router, a circuit breaker, a load balancer, a message queue with dead letters).
 
 ```
 challenges/

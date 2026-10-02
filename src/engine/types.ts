@@ -197,6 +197,7 @@ export interface Concept {
 export const TIERS: string[] = [
   'Primitives',
   'Linear',
+  'Computer architecture',
   'Restricted interfaces',
   'Hashing',
   'Core trees',

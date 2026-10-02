@@ -134,7 +134,7 @@ export const recursionConcept: Concept = {
   id: REC,
   kind: 'algorithm',
   title: 'Recursion',
-  tier: 2,
+  tier: 3,
   prereqs: ['stack'],
   tagline: 'Solve a problem using a smaller copy of itself.',
   hook: {
@@ -1052,7 +1052,7 @@ export const hashingPatternsConcept: Concept = {
   id: HP,
   kind: 'algorithm',
   title: 'Counting with Hash Maps',
-  tier: 3,
+  tier: 4,
   prereqs: ['hash-map'],
   tagline: '“Have I seen this?” in one step turns pairs into one pass.',
   hook: {
@@ -1425,7 +1425,7 @@ export const stringMatchingConcept: Concept = {
   id: SM,
   kind: 'algorithm',
   title: 'String Search',
-  tier: 3,
+  tier: 4,
   prereqs: ['string', 'hash-function'],
   tagline: 'Find a pattern in text, with rolling fingerprints.',
   hook: {

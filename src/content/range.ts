@@ -152,7 +152,7 @@ const rebuildPS = (): Card => {
 export const prefixSumConcept: Concept = {
   id: PS,
   title: 'Prefix-Sum Array',
-  tier: 7,
+  tier: 8,
   prereqs: ['static-array'],
   tagline: 'Running totals: any range sum in two reads.',
   hook: {
@@ -319,7 +319,7 @@ const stExplain = explainGenerators({
 export const sparseTableConcept: Concept = {
   id: ST,
   title: 'Sparse Table',
-  tier: 7,
+  tier: 8,
   prereqs: [PS],
   tagline: 'Power-of-two blocks. Range-min in O(1).',
   hook: {
@@ -503,7 +503,7 @@ const sgExplain = explainGenerators({
 export const segmentTreeConcept: Concept = {
   id: SG,
   title: 'Segment Tree',
-  tier: 7,
+  tier: 8,
   prereqs: [PS, 'binary-tree'],
   tagline: 'Totals of halves of halves. Query and update in O(log n).',
   hook: {
@@ -683,7 +683,7 @@ const fwExplain = explainGenerators({
 export const fenwickConcept: Concept = {
   id: FW,
   title: 'Fenwick Tree',
-  tier: 7,
+  tier: 8,
   prereqs: [PS, 'bits'],
   tagline: 'Prefix sums by bit tricks, in one array.',
   hook: {
@@ -885,7 +885,7 @@ const itExplain = explainGenerators({
 export const intervalTreeConcept: Concept = {
   id: IT,
   title: 'Interval Tree',
-  tier: 7,
+  tier: 8,
   prereqs: ['bst'],
   tagline: 'A BST of ranges that knows how far each branch reaches.',
   hook: {
@@ -1073,7 +1073,7 @@ const kdExplain = explainGenerators({
 export const kdTreeConcept: Concept = {
   id: KD,
   title: 'k-d Tree',
-  tier: 7,
+  tier: 8,
   prereqs: ['bst'],
   tagline: 'A BST for points: alternate x and y.',
   hook: {
@@ -1265,7 +1265,7 @@ const qtExplain = explainGenerators({
 export const quadtreeConcept: Concept = {
   id: QT,
   title: 'Quadtree',
-  tier: 7,
+  tier: 8,
   prereqs: ['tree'],
   tagline: 'Split space into four, only where it’s crowded.',
   hook: {

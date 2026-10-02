@@ -272,7 +272,7 @@ const stackOps: Concept['playground'] = {
 export const stackConcept: Concept = {
   id: ST,
   title: 'Stack',
-  tier: 2,
+  tier: 3,
   prereqs: ['dynamic-array'],
   tagline: 'Last in, first out. One end only.',
   hook: {
@@ -448,7 +448,7 @@ const rebuildQueue = (): Card => {
 export const queueConcept: Concept = {
   id: QU,
   title: 'Queue',
-  tier: 2,
+  tier: 3,
   prereqs: ['linked-list'],
   tagline: 'First in, first out. Fair lines.',
   hook: {
@@ -668,7 +668,7 @@ const ringOps: Concept['playground'] = {
 export const circularBufferConcept: Concept = {
   id: CB,
   title: 'Circular Buffer',
-  tier: 2,
+  tier: 3,
   prereqs: [QU, 'static-array'],
   tagline: 'A queue in a fixed array that wraps around.',
   hook: {
@@ -891,7 +891,7 @@ const rebuildDeque = (): Card => {
 export const dequeConcept: Concept = {
   id: DQ,
   title: 'Deque',
-  tier: 2,
+  tier: 3,
   prereqs: [ST, CB],
   tagline: 'Both ends open.',
   hook: {

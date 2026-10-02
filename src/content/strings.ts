@@ -189,7 +189,7 @@ const rxExplain = explainGenerators({
 export const radixTrieConcept: Concept = {
   id: RX,
   title: 'Radix Trie',
-  tier: 8,
+  tier: 9,
   prereqs: ['trie'],
   tagline: 'A trie with the boring chains squashed.',
   hook: {
@@ -369,7 +369,7 @@ const saExplain = explainGenerators({
 export const suffixArrayConcept: Concept = {
   id: SA,
   title: 'Suffix Array',
-  tier: 8,
+  tier: 9,
   prereqs: ['string', 'static-array'],
   tagline: 'Every suffix, alphabetised. Search like a dictionary.',
   hook: {
@@ -529,7 +529,7 @@ const sxExplain = explainGenerators({
 export const suffixTreeConcept: Concept = {
   id: SX,
   title: 'Suffix Tree',
-  tier: 8,
+  tier: 9,
   prereqs: [RX, SA],
   tagline: 'A radix trie of every suffix.',
   hook: {
@@ -704,7 +704,7 @@ const rpExplain = explainGenerators({
 export const ropeConcept: Concept = {
   id: RP,
   title: 'Rope',
-  tier: 8,
+  tier: 9,
   prereqs: ['binary-tree', 'string'],
   tagline: 'A long string as a tree of chunks.',
   hook: {

@@ -162,7 +162,7 @@ const skExplain = explainGenerators({
 export const skipListConcept: Concept = {
   id: SK,
   title: 'Skip List',
-  tier: 9,
+  tier: 10,
   prereqs: ['linked-list'],
   tagline: 'A sorted list with express lanes, built by coin flips.',
   hook: {
@@ -324,7 +324,7 @@ const bfExplain = explainGenerators({
 export const bloomFilterConcept: Concept = {
   id: BF,
   title: 'Bloom Filter',
-  tier: 9,
+  tier: 10,
   prereqs: ['bitset', 'hash-function'],
   tagline: '“Definitely not” or “maybe”, in a few bits per item.',
   hook: {
@@ -488,7 +488,7 @@ const cmExplain = explainGenerators({
 export const countMinConcept: Concept = {
   id: CM,
   title: 'Count-Min Sketch',
-  tier: 9,
+  tier: 10,
   prereqs: [BF],
   tagline: 'Approximate counts in fixed memory.',
   hook: {
@@ -652,7 +652,7 @@ const hlExplain = explainGenerators({
 export const hyperLogLogConcept: Concept = {
   id: HL,
   title: 'HyperLogLog',
-  tier: 9,
+  tier: 10,
   prereqs: ['bits', 'hash-function'],
   tagline: 'Count distinct items from the luckiest coin-flip streak.',
   hook: {
