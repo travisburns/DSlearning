@@ -57,6 +57,17 @@ Plus 23 algorithms woven into the same path. Each one unlocks only after the dat
 
 Algorithms use the same lesson steps and card types; their "4 questions" are what it works on, the key idea, why it's fast, and what it costs.
 
+Then 23 systems lessons in four tracks, where the structures and algorithms show up inside real systems:
+
+| Tier | Track | Lessons |
+|---|---|---|
+| 11 | Operating systems | processes & threads, CPU scheduling, locks, deadlock, virtual memory & paging, async I/O |
+| 12 | Databases | tables & SQL, indexes, joins, transactions, write-ahead log, isolation & MVCC |
+| 13 | Networking | packets & IP routing, TCP, DNS, HTTP & APIs, latency/timeouts/retries |
+| 14 | System design | caching layer, load balancing, sharding & replication, message queues, rate limiting |
+
+Systems lessons use the same steps; their "4 questions" are what it's made of, what it guarantees, what that makes possible, and what it costs.
+
 ## Animations
 
 Every lesson's **Try it** step opens with an animated walkthrough (`src/anim/`): values slide between slots, pointers re-aim, trees rotate and split, graphs light up as they are explored, with a caption at every step saying what is happening and why. Play, pause, step back and forward, change speed, or press **New example** to run it again on fresh random values. Each animation runs the real algorithm on those values, so every run is correct, not a canned recording.

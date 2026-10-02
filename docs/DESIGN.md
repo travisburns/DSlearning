@@ -4,7 +4,7 @@
 > but by understanding each structure from its primitives and being able to rebuild,
 > predict, break, explain, and apply it.
 >
-> Scope: all 61 data structures, plus 23 algorithms woven into the same path (each unlocks after the structures it uses).
+> Scope: all 61 data structures, plus 23 algorithms woven into the same path (each unlocks after the structures it uses), plus 23 systems lessons (operating systems, databases, networking, system design).
 
 ---
 
@@ -265,9 +265,9 @@ Built:
   (rebuild the final state value by value; click the node that breaks the rule).
 - Spaced, interleaved reviews with confidence rating; the map shows the five skills from section 5.
 - Stats page: calibration (confidence vs. accuracy), accuracy per card type, misconceptions.
-- An animated, captioned walkthrough for all 84 lessons (2D SVG, tweened between steps), generated from the real
+- An animated, captioned walkthrough for all 107 lessons (2D SVG, tweened between steps), generated from the real
   algorithm on random values, with play/pause/step/speed controls.
-- C# challenges: one work-style feature per lesson (84) in `challenges/`, graded by xUnit tests that check
+- C# challenges: one work-style feature per lesson (107) in `challenges/`, graded by xUnit tests that check
   behaviour and speed; reference solutions included.
 - C# practice: real LeetCode problems per lesson after passing it (graded by LeetCode's tests).
 
@@ -276,6 +276,10 @@ Built:
   greedy, 1D/2D DP, tree traversals, BFS, DFS, topological sort, Dijkstra, Kruskal. Each has prerequisites
   on the structures it uses, its tier is the highest tier of those, and it gets all nine card types.
   Generic cards compare algorithms with algorithms; the lens is read as setup / key idea / payoff / price.
+- 23 systems lessons (`kind: 'systems'`, tiers 11–14) in four tracks: operating systems, databases, networking,
+  system design. Same steps and card types; the lens is read as parts / guarantee / payoff / price. Each has a
+  C# challenge that builds a small working piece of that system (a scheduler, a WAL store, a TCP sender/receiver,
+  a load balancer, a message queue…).
 
 ---
 

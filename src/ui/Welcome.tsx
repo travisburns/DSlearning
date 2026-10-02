@@ -26,6 +26,11 @@ export function Welcome({ onStart }: { onStart: () => void }) {
           finding shortest routes. The course has {ALGO} of them, woven into the same path. Each algorithm opens only after
           you’ve passed the data structures it uses, so you always learn the tool before the technique.
         </p>
+        <p>
+          At the top of the path are {SYS} <b>systems</b> lessons in four tracks: operating systems, databases, networking
+          and system design. They show the same structures at work in the real systems you’ll build on: a database index is a
+          B+ tree, a cache is an LRU map, TCP’s window is a ring buffer, a rate limiter is a queue of timestamps.
+        </p>
 
         <h2>The idea behind the whole course</h2>
         <p>
