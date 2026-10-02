@@ -209,4 +209,5 @@ export const TIERS: string[] = [
   'Operating systems',
   'Databases',
   'Networking',
+  'System design',
 ];

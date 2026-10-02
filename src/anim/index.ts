@@ -12,6 +12,7 @@ import { TIER10_ANIMS } from './scripts/tier10';
 import { OS_ANIMS } from './scripts/os';
 import { DB_ANIMS } from './scripts/db';
 import { NET_ANIMS } from './scripts/net';
+import { SD_ANIMS } from './scripts/sd';
 
 /** One animation per lesson, keyed by concept id. */
 export const ANIMS: Record<string, AnimScript> = {
@@ -28,4 +29,5 @@ export const ANIMS: Record<string, AnimScript> = {
   ...OS_ANIMS,
   ...DB_ANIMS,
   ...NET_ANIMS,
+  ...SD_ANIMS,
 };

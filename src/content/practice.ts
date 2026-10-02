@@ -592,4 +592,26 @@ export const PRACTICE: Record<string, PracticeSet> = {
   'latency-retries': {
     problems: [p(933, 'number-of-recent-calls', 'Number of Recent Calls', 'Easy', 'Count calls in a time window, the core of a circuit breaker.')],
   },
+  'caching-layer': {
+    problems: [
+      p(146, 'lru-cache', 'LRU Cache', 'Medium', 'The eviction policy inside most caches.'),
+      p(460, 'lfu-cache', 'LFU Cache', 'Hard', 'Evict the least frequently used instead.'),
+    ],
+  },
+  'load-balancing': {
+    problems: [p(1606, 'find-servers-that-handled-most-number-of-requests', 'Find Servers That Handled Most Number of Requests', 'Hard', 'Assign requests to free servers in turn.')],
+  },
+  'sharding-replication': {
+    problems: [],
+    none: 'LeetCode has no graded problems for sharding or replication. The C# challenge builds a sharded, replicated store with failover.',
+  },
+  'message-queues': {
+    problems: [
+      p(641, 'design-circular-deque', 'Design Circular Deque', 'Medium'),
+      p(1797, 'design-authentication-manager', 'Design Authentication Manager', 'Medium', 'Things that expire after a timeout, like in-flight messages.'),
+    ],
+  },
+  'rate-limiting': {
+    problems: [p(933, 'number-of-recent-calls', 'Number of Recent Calls', 'Easy', 'A sliding window of timestamps: exactly a sliding-window rate limiter.')],
+  },
 };

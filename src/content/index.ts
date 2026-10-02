@@ -33,6 +33,7 @@ import { backtrackingConcept, dp1dConcept, dp2dConcept, greedyConcept } from './
 import { OS_CONCEPTS } from './osTrack';
 import { DB_CONCEPTS } from './dbTrack';
 import { NET_CONCEPTS } from './netTrack';
+import { SD_CONCEPTS } from './sdTrack';
 import { consistentHashingConcept, cuckooConcept, hashChainingConcept, hashFunctionConcept, hashMapConcept, hashOpenAddressingConcept } from './hashing';
 
 export const CONCEPTS: Concept[] = [
@@ -140,6 +141,7 @@ export const CONCEPTS: Concept[] = [
   ...OS_CONCEPTS,
   ...DB_CONCEPTS,
   ...NET_CONCEPTS,
+  ...SD_CONCEPTS,
 ];
 
 for (const c of CONCEPTS) {
