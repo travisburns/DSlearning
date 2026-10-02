@@ -30,7 +30,15 @@ function BoxShape({ b }: { b: ABox }) {
           ) : (
             <rect x={b.x} y={b.y} width={b.w} height={b.h} rx={b.shape === 'tag' ? b.h / 2 : 6} className={`an-box ${b.shape === 'slot' ? 'an-slot' : ''} ${b.shape === 'tag' ? 'an-tag' : ''} ${tone}`} />
           )}
-          {label && (
+          {label.includes('\n') ? (
+            <text x={b.x + 8} y={b.y + 16} className={`an-label lt-${b.tone ?? 'plain'} mono`} fontSize={11}>
+              {label.split('\n').map((ln, i) => (
+                <tspan key={i} x={b.x + 8} dy={i ? 14 : 0}>
+                  {ln || ' '}
+                </tspan>
+              ))}
+            </text>
+          ) : label && (
             <text x={cx} y={cy + fs * 0.35} textAnchor="middle" className={`an-label lt-${b.tone ?? 'plain'} ${b.mono !== false ? 'mono' : ''} ${b.shape === 'tag' ? 'an-tag-label' : ''} ${b.shape === 'slot' ? 'an-slot-label' : ''}`} fontSize={b.shape === 'tag' ? 12 : fs}>
               {label}
             </text>

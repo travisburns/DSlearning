@@ -568,4 +568,28 @@ export const PRACTICE: Record<string, PracticeSet> = {
   transactions: { problems: [], none: 'No graded transaction problems exist on LeetCode. The C# challenge (a key-value store with nested transactions) covers it.' },
   'write-ahead-log': { problems: [], none: 'No graded problems exist for crash recovery. The C# challenge builds a store that survives a simulated crash.' },
   'isolation-mvcc': { problems: [], none: 'No graded problems exist for MVCC. The C# challenge builds snapshot reads and write-conflict detection.' },
+  'packets-ip': {
+    problems: [
+      p(468, 'validate-ip-address', 'Validate IP Address', 'Medium', 'Parse IPv4 and IPv6 by the rules.'),
+      p(93, 'restore-ip-addresses', 'Restore IP Addresses', 'Medium', 'Every valid way to split digits into four 0–255 parts.'),
+    ],
+  },
+  tcp: {
+    problems: [
+      p(622, 'design-circular-queue', 'Design Circular Queue', 'Medium', 'The ring buffer behind TCP’s send and receive windows.'),
+      p(239, 'sliding-window-maximum', 'Sliding Window Maximum', 'Hard', 'Practice moving a window forward one step at a time.'),
+    ],
+  },
+  dns: {
+    problems: [p(811, 'subdomain-visit-count', 'Subdomain Visit Count', 'Medium', 'Split names into their zones: a.b.com → b.com → com.')],
+  },
+  http: {
+    problems: [
+      p(535, 'encode-and-decode-tinyurl', 'Encode and Decode TinyURL', 'Medium', 'A tiny URL service: the server side of a GET redirect.'),
+      p(71, 'simplify-path', 'Simplify Path', 'Medium', 'Normalise a URL-style path.'),
+    ],
+  },
+  'latency-retries': {
+    problems: [p(933, 'number-of-recent-calls', 'Number of Recent Calls', 'Easy', 'Count calls in a time window, the core of a circuit breaker.')],
+  },
 };

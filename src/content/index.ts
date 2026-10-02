@@ -32,6 +32,7 @@ import { bfsConcept, dfsConcept, dijkstraConcept, kruskalConcept, topologicalSor
 import { backtrackingConcept, dp1dConcept, dp2dConcept, greedyConcept } from './paradigms';
 import { OS_CONCEPTS } from './osTrack';
 import { DB_CONCEPTS } from './dbTrack';
+import { NET_CONCEPTS } from './netTrack';
 import { consistentHashingConcept, cuckooConcept, hashChainingConcept, hashFunctionConcept, hashMapConcept, hashOpenAddressingConcept } from './hashing';
 
 export const CONCEPTS: Concept[] = [
@@ -138,6 +139,7 @@ export const CONCEPTS: Concept[] = [
   // Tier 11+: systems tracks
   ...OS_CONCEPTS,
   ...DB_CONCEPTS,
+  ...NET_CONCEPTS,
 ];
 
 for (const c of CONCEPTS) {
